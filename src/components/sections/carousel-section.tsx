@@ -53,7 +53,7 @@ export default function CarouselSection() {
         {/* Heading */}
         <div className="pt-24 pb-10 px-8 md:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-	            <p className="font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-4">Réalisations · 2020 à 2024</p>
+	            <p className="font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-4">Réalisations · Nos projets livrés</p>
 	            <h2 className="font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
               Ce que nous avons livré.
             </h2>

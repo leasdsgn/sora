@@ -22,7 +22,7 @@ export default function ProjectSection() {
  return (
  <section ref={ref} id="projet" className="bg-bg-soft py-24 md:py-36 px-6">
   <div className="text-center max-w-3xl mx-auto mb-20">
-  <p className="pj-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-8">Le projet phare · Livraison 2024</p>
+  <p className="pj-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-8">Le projet phare · Canggu, Bali</p>
 	  <h2 className="pj-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
    Canggu Oasis,<br /><span className="">en plein cœur de l&apos;île.</span>
   </h2>

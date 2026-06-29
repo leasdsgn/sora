@@ -4,13 +4,11 @@ const SECTIONS = [
   { href: "#", label: "Accueil" },
   { href: "#projet", label: "Le Projet" },
   { href: "#fondateur", label: "Le Fondateur" },
-  { href: "#contact", label: "Masterclass" },
-  { href: "#contact", label: "Dossier d'investissement" },
+  { href: "/masterclass", label: "Masterclass" },
 ]
 
 const CONTACT = [
-  { href: "#contact", label: "Prendre rendez-vous" },
-  { href: "https://sora-immobilier.com", label: "Webinaire LyBox × SORA" },
+  { href: "/masterclass", label: "Prendre rendez-vous" },
   { href: "https://instagram.com/sora_immobilier", label: "Instagram" },
   { href: "https://linkedin.com/in/gabriel-lapierre", label: "LinkedIn" },
   { href: "mailto:contact@sora-immobilier.com", label: "contact@sora-immobilier.com" },
@@ -112,7 +110,7 @@ export default function Footer() {
           ↑ Retour en haut
         </button>
         <p className="hidden md:block font-mono text-[11px] tracking-[0.18em] text-bg/55 text-center">
-          © 2025 SORA Immobilier · SIRET 928 136 688
+          © 2026 SORA Immobilier · SIRET 928 136 688
         </p>
         <p className="font-mono text-[11px] tracking-[0.18em] text-bg/55 justify-self-end text-right">
           Design Omen Studio
