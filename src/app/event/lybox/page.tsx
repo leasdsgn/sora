@@ -73,7 +73,7 @@ export default function EventLyboxPage() {
           <div>
             <div className="ev-fade inline-flex items-center gap-2 bg-accent/15 border border-accent/30 rounded-full px-4 py-2 mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-accent">Places limitées</span>
+              <span className="tertiary text-accent">Places limitées</span>
             </div>
 
             <p className="ev-fade eyebrow mb-6">Webinaire · Lybox x Sora · 50 min</p>
@@ -94,7 +94,7 @@ export default function EventLyboxPage() {
               <div className="space-y-4">
                 {PROGRAMME.map((p) => (
                   <div key={p.time} className="flex gap-4">
-                    <span className="font-mono text-[11px] tracking-[0.1em] text-accent w-10 shrink-0 pt-0.5">{p.time}</span>
+                    <span className="metadata text-accent w-10 shrink-0 pt-0.5">{p.time}</span>
                     <div>
                       <p className="text-ink text-sm font-medium">{p.label}</p>
                       <p className="text-ink/50 text-sm">{p.desc}</p>
@@ -108,17 +108,17 @@ export default function EventLyboxPage() {
             <div className="ev-fade mt-10 grid grid-cols-2 gap-4">
               <div className="bg-bg-soft border border-line rounded-sm p-5">
                 <p className="font-serif font-medium text-ink text-base">Gabriel Lapierre</p>
-                <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 mt-1">Fondateur Sora · Ingénieur Arts et Métiers</p>
+                <p className="metadata text-ink/50 mt-1">Fondateur Sora · Ingénieur Arts et Métiers</p>
                 <p className="text-ink/60 text-sm mt-3">Résident à Bali, 3 projets livrés, 40 investisseurs accompagnés.</p>
               </div>
               <div className="bg-bg-soft border border-line rounded-sm p-5">
                 <p className="font-serif font-medium text-ink text-base">Thomas</p>
-                <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 mt-1">Fondateur Lybox · SaaS immo</p>
+                <p className="metadata text-ink/50 mt-1">Fondateur Lybox · SaaS immo</p>
                 <p className="text-ink/60 text-sm mt-3">Plateforme d&apos;analyse immobilière utilisée par 100k+ investisseurs.</p>
               </div>
             </div>
 
-            <p className="ev-fade mt-8 font-mono text-[10px] tracking-[0.2em] uppercase text-ink/40">
+            <p className="ev-fade mt-8 metadata text-ink/40">
               Replay envoyé uniquement aux inscrits · Google Meet
             </p>
           </div>
@@ -227,7 +227,7 @@ export default function EventLyboxPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === "loading" ? "Inscription en cours..." : "Confirmer ma place"}
                 </button>
@@ -238,7 +238,7 @@ export default function EventLyboxPage() {
                   </p>
                 )}
 
-                <p className="mt-6 font-mono text-[10px] tracking-[0.18em] text-ink/35 text-center">
+                <p className="mt-6 metadata text-ink/35 text-center">
                   Gratuit · Sans engagement · Replay envoyé après le live
                 </p>
               </form>

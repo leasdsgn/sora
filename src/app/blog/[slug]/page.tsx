@@ -69,7 +69,7 @@ const components: PortableTextComponents = {
               className="object-cover"
             />
           </div>
-          {value.alt && <figcaption className="mt-3 text-center font-mono text-[10px] tracking-[0.2em] uppercase text-ink/45">{value.alt}</figcaption>}
+          {value.alt && <figcaption className="mt-3 text-center metadata text-ink/45">{value.alt}</figcaption>}
         </figure>
       )
     },
@@ -84,12 +84,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <main className="bg-bg pt-32 md:pt-44 pb-24 px-6">
       <article className="max-w-3xl mx-auto">
-        <Link href="/blog" className="inline-block mb-12 font-mono text-[10px] tracking-[0.22em] uppercase text-ink/55 hover:text-accent transition-colors">
+        <Link href="/blog" className="inline-block mb-12 metadata text-ink/55 hover:text-accent transition-colors">
           ← Tous les articles
         </Link>
 
         {post.categories && post.categories.length > 0 && (
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink/45 mb-6">
+          <p className="metadata text-ink/45 mb-6">
             {post.categories.map((c) => c.title).join(" · ")}
           </p>
         )}

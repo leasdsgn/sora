@@ -90,7 +90,7 @@ export default function MasterclassPage() {
               </span>
             </li>
           </ul>
-          <p className="mc-fade mt-8 font-mono text-[10px] tracking-[0.2em] uppercase text-ink/40">
+          <p className="mc-fade mt-8 metadata text-ink/40">
             40 investisseurs accompagnés · 3 projets livrés · Depuis 2020
           </p>
 
@@ -201,7 +201,7 @@ export default function MasterclassPage() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === "loading" ? "Envoi en cours..." : "Recevoir la vidéo gratuitement"}
               </button>
@@ -212,7 +212,7 @@ export default function MasterclassPage() {
                 </p>
               )}
 
-              <p className="mt-6 font-mono text-[10px] tracking-[0.18em] text-ink/35 text-center">
+              <p className="mt-6 metadata text-ink/35 text-center">
                 Sans démarchage commercial · Désinscription en 1 clic
               </p>
             </form>

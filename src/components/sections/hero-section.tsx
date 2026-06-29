@@ -51,10 +51,10 @@ export default function HeroSection() {
 	   Sora sélectionne les projets, cadre la structure juridique et pilote l&apos;exploitation sur place. Vous avancez depuis l&apos;Europe avec une lecture claire des étapes, des risques et des scénarios de sortie.
 	  </p>
 	  <div className="hero-fade mt-12 flex flex-col sm:flex-row items-center gap-4">
-	   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
+	   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500">
 	   Réserver un appel offert
 	   </a>
-	   <a href="/seseh" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
+	   <a href="/seseh" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-accent transition-all duration-500">
 	   Voir Seseh Sunset
 	   </a>
 	  </div>

@@ -2,7 +2,6 @@
 
 const SECTIONS = [
   { href: "#", label: "Accueil" },
-  { href: "#projet", label: "Le Projet" },
   { href: "/seseh", label: "Seseh Sunset Villas" },
   { href: "#fondateur", label: "Le Fondateur" },
   { href: "/masterclass", label: "Masterclass" },
@@ -86,7 +85,7 @@ export default function Footer() {
           <p className="text-[12px] tracking-[0.25em] uppercase text-bg font-semibold mb-12">Localisation</p>
           <div className="space-y-12 text-bg/65">
             <div>
-              <p className="font-mono text-[12px] tracking-[0.18em] text-bg/55 mb-3">Bureau Bali</p>
+              <p className="tertiary text-bg/55 mb-3">Bureau Bali</p>
               <p className="text-lg leading-relaxed">
                 Canggu, Bali, Indonésie<br />
                 08°39&apos;22&quot;S 115°08&apos;00&quot;E
@@ -114,10 +113,10 @@ export default function Footer() {
         >
           ↑ Retour en haut
         </button>
-        <p className="hidden md:block font-mono text-[11px] tracking-[0.18em] text-bg/55 text-center">
+        <p className="hidden md:block metadata text-bg/55 text-center">
           © 2026 SORA Immobilier, SIRET 928 136 688
         </p>
-        <p className="font-mono text-[11px] tracking-[0.18em] text-bg/55 justify-self-end text-right">
+        <p className="metadata text-bg/55 justify-self-end text-right">
           Design Omen Studio
         </p>
       </div>

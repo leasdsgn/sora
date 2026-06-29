@@ -53,7 +53,7 @@ export default function CarouselSection() {
         {/* Heading */}
         <div className="pt-24 pb-10 px-8 md:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-	            <p className="font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-4">Opérations et visuels de projet</p>
+	            <p className="tertiary text-ink-muted mb-4">Opérations et visuels de projet</p>
 	            <h2 className="font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
               Des villas suivies de la conception à l&apos;exploitation.
             </h2>
@@ -82,7 +82,7 @@ export default function CarouselSection() {
                   <p className="font-serif text-2xl md:text-3xl mb-1">{r.title}</p>
                   <p className="text-sm text-ink/70">{r.caption}</p>
                 </div>
-                <span className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.2em] text-ink/65">
+                <span className="absolute top-4 right-4 metadata text-ink/65">
                   {String(i + 1).padStart(2, "0")} / {String(REALISATIONS.length).padStart(2, "0")}
                 </span>
               </div>

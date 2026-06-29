@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react"
 
 const MOBILE_LINKS = [
- { href: "#projet", label: "Projet" },
  { href: "/seseh", label: "Seseh" },
  { href: "#fondateur", label: "Fondateur" },
  { href: "/masterclass", label: "Masterclass" },
@@ -47,21 +46,20 @@ export default function Navbar() {
   </div>
   <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center text-ink">
   <div className="flex items-center gap-14 justify-end pr-14">
-   <a href="#projet" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Projet</a>
-   <a href="/seseh" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Seseh</a>
-   <a href="#fondateur" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Fondateur</a>
+   <a href="/seseh" className="nav-link">Seseh</a>
+   <a href="#fondateur" className="nav-link">Fondateur</a>
   </div>
   <div className="w-[140px] md:w-[180px]" aria-hidden="true" />
   <div className="flex items-center gap-14 justify-start pl-14">
-   <a href="/masterclass" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Masterclass</a>
-   <a href="/seseh#dossier" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Dossier</a>
+   <a href="/masterclass" className="nav-link">Masterclass</a>
+   <a href="/seseh#dossier" className="nav-link">Dossier</a>
   </div>
   </div>
    <div className="hidden md:flex justify-end">
     <a href="#contact" className={`font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-5 py-2.5 rounded-full transition-all duration-500 ${
      scrolled
-     ? "bg-accent text-ink hover:bg-accent-soft"
-     : "border border-ink/40 text-ink hover:bg-accent hover:border-accent hover:text-ink"
+     ? "bg-accent text-ink hover:bg-bg hover:text-ink"
+     : "border border-ink/40 text-ink hover:bg-bg hover:border-bg hover:text-ink"
     }`}>Prendre RDV</a>
    </div>
  </nav>
@@ -94,11 +92,11 @@ export default function Navbar() {
     <a
      href="#contact"
      onClick={() => setMenuOpen(false)}
-     className="inline-flex items-center justify-center bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full"
+     className="inline-flex items-center justify-center bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500"
     >
      Prendre RDV
     </a>
-    <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/40 text-center">Canggu, Bali, Indonésie</p>
+    <p className="metadata text-ink/40 text-center">Canggu, Bali, Indonésie</p>
    </div>
   </div>
  </div>

@@ -167,7 +167,7 @@ export default function SesehPage() {
           ].map((s) => (
             <div key={s.label} className="ss-fade">
               <p className="font-serif font-medium text-bg text-3xl md:text-5xl">{s.value}</p>
-              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-bg/55 mt-3">{s.label}</p>
+              <p className="metadata text-bg/55 mt-3">{s.label}</p>
             </div>
           ))}
         </div>
@@ -205,19 +205,19 @@ export default function SesehPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                   <div className="flex items-end justify-between gap-4">
                     <div>
-                      <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink/60 mb-2">{g.name}</p>
+                      <p className="tertiary text-ink/60 mb-2">{g.name}</p>
                       <p className="font-serif text-ink text-2xl md:text-3xl font-medium">{g.price}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-mono text-[10px] tracking-[0.18em] text-ink/55">{g.surface} · {g.chambres}</p>
-                      <p className="font-mono text-[10px] tracking-[0.18em] text-accent mt-1">{g.revenus}</p>
+                      <p className="metadata text-ink/55">{g.surface} · {g.chambres}</p>
+                      <p className="metadata text-accent mt-1">{g.revenus}</p>
                     </div>
                   </div>
                   <div className="mt-4 flex gap-3">
-                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-ink/50 bg-ink/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                    <span className="metadata text-ink/50 bg-ink/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
                       {g.piscine}
                     </span>
-                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-ink/50 bg-ink/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                    <span className="metadata text-ink/50 bg-ink/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
                       Clé en main
                     </span>
                   </div>
@@ -280,8 +280,8 @@ export default function SesehPage() {
                 }`}
               >
                 <p className="font-serif font-medium text-ink text-2xl md:text-3xl">{p.rendement}</p>
-                <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/50 mt-2">{p.ratio}</p>
-                <p className={`font-mono text-[11px] tracking-[0.1em] mt-4 ${
+                <p className="metadata text-ink/50 mt-2">{p.ratio}</p>
+                <p className={`metadata mt-4 ${
                   p.highlight ? "text-accent font-semibold" : "text-ink/60"
                 }`}>
                   {p.label}
@@ -293,15 +293,15 @@ export default function SesehPage() {
           <div className="ss-fade mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="bg-bg-soft border border-line rounded-sm p-6">
               <p className="font-serif font-medium text-ink text-xl">214 471€</p>
-              <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 mt-2">Total perçu sur 5 ans</p>
+              <p className="metadata text-ink/50 mt-2">Total perçu sur 5 ans</p>
             </div>
             <div className="bg-bg-soft border border-line rounded-sm p-6">
               <p className="font-serif font-medium text-ink text-xl">60-90%</p>
-              <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 mt-2">Taux d&apos;occupation</p>
+              <p className="metadata text-ink/50 mt-2">Taux d&apos;occupation</p>
             </div>
             <div className="bg-bg-soft border border-line rounded-sm p-6">
               <p className="font-serif font-medium text-ink text-xl">~70€/nuit</p>
-              <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 mt-2">Tarif moyen après taxe</p>
+              <p className="metadata text-ink/50 mt-2">Tarif moyen après taxe</p>
             </div>
           </div>
         </div>
@@ -326,7 +326,7 @@ export default function SesehPage() {
             ].map((d) => (
               <div key={d.label}>
                 <p className="font-serif font-medium text-bg text-2xl md:text-3xl">{d.value}</p>
-                <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-bg/45 mt-2">{d.label}</p>
+                <p className="metadata text-bg/45 mt-2">{d.label}</p>
               </div>
             ))}
           </div>
@@ -354,7 +354,7 @@ export default function SesehPage() {
               <div key={g.label} className="ss-fade bg-bg border border-line rounded-sm p-8">
                 <p className="font-serif font-medium text-accent text-2xl mb-2">{g.value}</p>
                 <p className="font-serif font-medium text-ink text-base mb-3">{g.label}</p>
-                <p className="font-mono text-[11px] text-ink/50 leading-relaxed">{g.desc}</p>
+                <p className="text-xs text-ink/50 leading-relaxed">{g.desc}</p>
               </div>
             ))}
           </div>
@@ -479,7 +479,7 @@ export default function SesehPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === "loading" ? "Envoi en cours..." : "Recevoir le dossier gratuitement"}
                 </button>
@@ -490,7 +490,7 @@ export default function SesehPage() {
                   </p>
                 )}
 
-                <p className="mt-6 font-mono text-[10px] tracking-[0.18em] text-ink/35 text-center">
+                <p className="mt-6 metadata text-ink/35 text-center">
                   Sans démarchage commercial · Désinscription en 1 clic
                 </p>
               </form>

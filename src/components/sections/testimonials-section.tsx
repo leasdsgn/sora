@@ -30,7 +30,7 @@ export default function TestimonialsSection() {
     <section ref={ref} className="bg-bg-soft py-24 md:py-36 px-6">
       <div className="container-page">
         <div className="text-center max-w-5xl mx-auto mb-16">
-          <p className="tm-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-6">Avant de demander le dossier</p>
+          <p className="tm-item tertiary text-ink-muted mb-6">Avant de demander le dossier</p>
 	          <h2 className="tm-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
             Les bons sujets doivent être cadrés avant d&apos;investir.
           </h2>
@@ -41,7 +41,7 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {DECISION_POINTS.map((point, i) => (
             <div key={i} className="tm-item bg-bg-mid p-8 md:p-10 rounded-sm flex flex-col">
-              <span className="font-mono text-[10px] tracking-[0.18em] text-ink/45 mb-8">{String(i + 1).padStart(2, "0")}</span>
+              <span className="metadata text-ink/45 mb-8">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="font-serif text-2xl text-ink leading-snug mb-5 flex-1">{point.title}</h3>
               <div className="border-t border-ink/15 pt-5">
                 <p className="text-sm text-ink/70 leading-relaxed">{point.body}</p>

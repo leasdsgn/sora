@@ -22,7 +22,7 @@ export default function ProjectSection() {
  return (
  <section ref={ref} id="projet" className="bg-bg-soft py-24 md:py-36 px-6">
   <div className="text-center max-w-5xl mx-auto mb-20">
-	  <p className="pj-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
+	  <p className="pj-item tertiary text-ink-muted mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
 		  <h2 className="pj-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
 	   Seseh Beachfront se situe à 300 m de la mer.
 	  </h2>
@@ -61,9 +61,9 @@ export default function ProjectSection() {
    <div className="absolute inset-0 bg-bg/10 group-hover:bg-bg/20 transition-colors duration-500 pointer-events-none" />
    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
 	    <div className="bg-ink/95 backdrop-blur-sm px-5 py-3.5 rounded-2xl whitespace-nowrap min-w-44">
-	    <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-bg/70 mb-1.5">{c.label}</p>
+	    <p className="tertiary text-bg/70 mb-1.5">{c.label}</p>
 	    <p className="font-serif text-bg text-base font-semibold leading-tight">{c.price}</p>
-    <p className="font-mono text-[9px] tracking-[0.14em] uppercase text-bg/55 mt-1.5">{c.metric}</p>
+    <p className="metadata text-bg/55 mt-1.5">{c.metric}</p>
     </div>
    </div>
    </div>
