@@ -3,7 +3,9 @@
 const SECTIONS = [
   { href: "#", label: "Accueil" },
   { href: "#projet", label: "Le Projet" },
+  { href: "/seseh", label: "Seseh Sunset Villas" },
   { href: "#fondateur", label: "Le Fondateur" },
+  { href: "/masterclass", label: "Masterclass" },
   { href: "#contact", label: "Appel offert" },
   { href: "#contact", label: "Dossier d'investissement" },
 ]

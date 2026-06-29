@@ -31,7 +31,7 @@ export default function CtaSection() {
 	  <a href="https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=homepage" className="inline-flex items-center justify-center bg-accent text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500">
 	   Réserver mon appel
 	  </a>
-	  <a href="https://sora-immobilier.com/canggu-oasis-villas-lofts-optin/" className="inline-flex items-center justify-center border border-ink/30 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:text-bg transition-all duration-500">
+	  <a href="/seseh#dossier" className="inline-flex items-center justify-center border border-ink/30 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:text-bg transition-all duration-500">
 	   Recevoir le dossier
 	  </a>
   </div>

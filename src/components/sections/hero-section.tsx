@@ -54,8 +54,8 @@ export default function HeroSection() {
 	   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
 	   Réserver un appel offert
 	   </a>
-	   <a href="#projet" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
-	   Voir les projets
+	   <a href="/seseh" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
+	   Voir Seseh Sunset
 	   </a>
 	  </div>
 	  <p className="hero-fade mt-6 max-w-xl text-sm md:text-base leading-relaxed text-ink/70">
