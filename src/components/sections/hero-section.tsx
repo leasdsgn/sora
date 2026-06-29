@@ -32,7 +32,7 @@ export default function HeroSection() {
    loop
    playsInline
 	   preload="metadata"
-	   poster="/canggu-render.webp"
+	   poster="/villa-exterior.webp"
    className="absolute inset-0 w-full h-full object-cover"
   >
    <source src="/hero.mp4" type="video/mp4" />
@@ -44,23 +44,23 @@ export default function HeroSection() {
   {/* Center title */}
   <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10 text-center">
 	  <h1 className="font-serif font-medium text-ink leading-[0.92]">
-   <span className="clip-word"><span className="hero-word block" style={{ fontSize: "clamp(40px,6vw,104px)" }}>Investir à Bali,</span></span>
-   <span className="clip-word"><span className="hero-word block" style={{ fontSize: "clamp(40px,6vw,104px)" }}>dès 10 000 €.</span></span>
-  </h1>
-  <p className="hero-fade font-serif text-ink/85 mt-8 max-w-2xl text-lg md:text-xl leading-relaxed">
-   Co-investissement dès 10 000 €. 13% net documenté. Structure juridique et gestion 100% déléguée par un ingénieur résident à Bali.
-  </p>
-  <div className="hero-fade mt-12 flex flex-col sm:flex-row items-center gap-4">
-   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
-   Recevoir la Masterclass
-   </a>
-   <a href="#projet" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
-   Découvrir Canggu Oasis
-   </a>
-  </div>
-  <p className="hero-fade mt-6 font-mono text-[11px] tracking-[0.2em] uppercase text-ink/55">
-   40 investisseurs accompagnés · 3 projets livrés · Depuis 2020
-  </p>
+	   <span className="clip-word"><span className="hero-word block" style={{ fontSize: "clamp(40px,6vw,104px)" }}>Investir à Bali,</span></span>
+	   <span className="clip-word"><span className="hero-word block" style={{ fontSize: "clamp(40px,6vw,104px)" }}>clé en main.</span></span>
+	  </h1>
+	  <p className="hero-fade text-ink/85 mt-8 max-w-2xl text-lg md:text-xl leading-relaxed">
+	   Sora sélectionne les projets, cadre la structure juridique et pilote l&apos;exploitation sur place. Vous avancez depuis l&apos;Europe avec une lecture claire des étapes, des risques et des scénarios de sortie.
+	  </p>
+	  <div className="hero-fade mt-12 flex flex-col sm:flex-row items-center gap-4">
+	   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
+	   Réserver un appel offert
+	   </a>
+	   <a href="#projet" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
+	   Voir les projets
+	   </a>
+	  </div>
+	  <p className="hero-fade mt-6 max-w-xl text-sm md:text-base leading-relaxed text-ink/70">
+	   Depuis 2023 à Bali, Gabriel suit les opérations sur place et a déjà accompagné plus de 50 investisseurs sur 28 villas construites.
+	  </p>
   </div>
 
   {/* Spinning badge bottom-right */}

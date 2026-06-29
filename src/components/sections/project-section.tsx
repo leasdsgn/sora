@@ -4,10 +4,10 @@ import Image from "next/image"
 import { gsap } from "gsap"
 
 const CARDS = [
-	 { label: "Villas privées",      img: "/villa-pool.webp",                price: "Dès 180 000 €",   metric: "11–13% net projeté" },
-	 { label: "Lofts Canggu",        img: "/villa-render-exterior.webp",     price: "Dès 45 000 €",    metric: "12–13% net projeté" },
-	 { label: "Co-investissement",   img: "/villa-living.webp",              price: "Dès 10 000 €",    metric: "~13% net projeté" },
-	 { label: "Gestion locative",    img: "/villa-kitchen.webp",             price: "Commission 18%",  metric: "Locatif géré · 7j/7" },
+		 { label: "Seseh Sunset",        img: "/villa-pool.webp",                price: "25 villas",       metric: "Bord d'océan" },
+		 { label: "Villas privées",      img: "/villa-render-exterior.webp",     price: "Dès 129 000 €",   metric: "300 m de la mer" },
+		 { label: "Co-investissement",   img: "/villa-living.webp",              price: "Dès 20 000 €",    metric: "Accès prioritaire" },
+		 { label: "Gestion locative",    img: "/villa-kitchen.webp",             price: "100% déléguée",   metric: "Suivi sur place" },
 ]
 
 export default function ProjectSection() {
@@ -21,20 +21,20 @@ export default function ProjectSection() {
 
  return (
  <section ref={ref} id="projet" className="bg-bg-soft py-24 md:py-36 px-6">
-  <div className="text-center max-w-3xl mx-auto mb-20">
-  <p className="pj-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-8">Le projet phare · Livraison 2024</p>
-	  <h2 className="pj-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
-   Canggu Oasis,<br /><span className="">en plein cœur de l&apos;île.</span>
-  </h2>
-  <p className="pj-item text-ink/60 max-w-xl mx-auto mt-8 leading-relaxed text-base">
-   Quatre typologies, un seul emplacement. Villas privées, lofts en co-investissement, gestion locative intégrée. Rendement projeté ~13% net par an.
-  </p>
+  <div className="text-center max-w-5xl mx-auto mb-20">
+	  <p className="pj-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
+		  <h2 className="pj-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
+	   Seseh Beachfront se situe à 300 m de la mer.
+	  </h2>
+	  <p className="pj-item text-ink/60 max-w-2xl mx-auto mt-8 leading-relaxed text-base">
+	   Le projet réunit 25 villas en bord d&apos;océan, dans une zone portée par les usages touristiques et résidentiels. Le format permet d&apos;envisager un usage personnel, une mise en location ou une détention patrimoniale.
+	  </p>
   </div>
 
   {/* Photo collage */}
 	  <div className="pj-item container-page grid grid-cols-12 gap-3 mb-24">
 	  <div className="col-span-7 relative rounded-sm overflow-hidden" style={{ aspectRatio: "5/3" }}>
-	   <Image src="/villa-exterior.webp" alt="Vue extérieure Canggu Oasis" fill quality={82} className="object-cover" sizes="(max-width:768px) 100vw, (max-width:1504px) 60vw, 880px" />
+		   <Image src="/villa-exterior.webp" alt="Villa à Seseh, Bali" fill quality={82} className="object-cover" sizes="(max-width:768px) 100vw, (max-width:1504px) 60vw, 880px" />
 	  </div>
 	  <div className="col-span-5 grid grid-rows-2 gap-3">
 	   <div className="relative rounded-sm overflow-hidden">

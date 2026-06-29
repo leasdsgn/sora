@@ -29,8 +29,8 @@ const mori = localFont({
   display: "swap",
 })
 
-const title = "SORA Immobilier | Investissez à Bali dès 10 000€"
-const description = "Accédez à l'immobilier balinais dès 10 000 €, avec un montage encadré, une gestion locale déléguée et des performances documentées."
+const title = "SORA Immobilier | Investir à Bali clé en main"
+const description = "Accédez à des projets immobiliers sélectionnés à Bali, avec structuration juridique, suivi terrain et gestion locative clé en main."
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
 const siteUrl = new URL(vercelHost ? `https://${vercelHost}` : "http://localhost:3000")
 const ogImageUrl = new URL("/og-image.jpg", siteUrl)
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1200,
         height: 675,
-        alt: "SORA Immobilier, investir à Bali dès 10 000€",
+        alt: "SORA Immobilier, investir à Bali clé en main",
       },
     ],
   },
@@ -84,9 +84,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fbq('init', '949873927292995');
           fbq('track', 'PageView');
         `}</Script>
-        <noscript>
-          <img height="1" width="1" style={{display:'none'}} src="https://www.facebook.com/tr?id=949873927292995&ev=PageView&noscript=1" alt="" />
-        </noscript>
         <SmoothScroll>
           <Navbar />
           <TopLanguette />

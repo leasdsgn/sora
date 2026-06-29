@@ -2,25 +2,18 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 
-// Placeholder testimonials, à remplacer par les vrais quotes investisseurs
-const TESTIMONIALS = [
+const DECISION_POINTS = [
   {
-    quote: "J'ai placé 25 000 € sur le premier lot Canggu. Suivi vidéo hebdomadaire pendant le chantier, livraison à l'heure, premier versement reçu six mois après. Aucun bullshit commercial.",
-    name: "Antoine M.",
-    role: "Gérant SAS · Trésorerie d'entreprise",
-    metric: "+12,8% net en 2024",
+    title: "Le cadre juridique doit être compris avant le ticket d'entrée.",
+    body: "L'appel sert à clarifier la structure prévue, les contrats, les droits d'usage et les points à valider avec les conseils locaux.",
   },
   {
-    quote: "Ce qui m'a convaincu c'est le fait que Gabriel est ingénieur, pas commercial. Les chiffres tiennent la route, le PT PMA est béton, l'avocat local répond en 24h.",
-    name: "Sophie R.",
-    role: "Directrice marketing · Family office",
-    metric: "+13,2% net sur 18 mois",
+    title: "Le rendement annoncé n'a de valeur que si les hypothèses sont lisibles.",
+    body: "Le dossier doit expliquer les charges, le mode d'exploitation, la saisonnalité et ce qui reste réellement à la charge de l'investisseur.",
   },
   {
-    quote: "Premier investissement étranger pour moi. Le ticket à 10 000 € m'a permis de tester sans risque démesuré. Aujourd'hui je suis sur le troisième projet avec un ticket plus élevé.",
-    name: "Karim B.",
-    role: "Freelance dev senior",
-    metric: "+11,9% net en 2023",
+    title: "La sortie doit être envisagée dès le départ.",
+    body: "Selon votre horizon, Gabriel détaille les scénarios de conservation, de cession ou de revente pour éviter de découvrir les contraintes trop tard.",
   },
 ]
 
@@ -35,23 +28,23 @@ export default function TestimonialsSection() {
 
   return (
     <section ref={ref} className="bg-bg-soft py-24 md:py-36 px-6">
-	      <div className="container-page">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="tm-item font-mono text-[10px] tracking-[0.3em] uppercase text-ink-muted mb-6">Témoignages · Investisseurs vérifiés</p>
+      <div className="container-page">
+        <div className="text-center max-w-5xl mx-auto mb-16">
+          <p className="tm-item font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-6">Avant de demander le dossier</p>
 	          <h2 className="tm-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
-            Ce qu&apos;ils en disent.
+            Les bons sujets doivent être cadrés avant d&apos;investir.
           </h2>
+          <p className="tm-item text-ink/65 max-w-xl mx-auto mt-6 leading-relaxed">
+            Le risque vient rarement d&apos;une seule mauvaise décision. Il apparaît quand le montage, le calendrier ou l&apos;exploitation restent flous au moment de signer.
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {TESTIMONIALS.map((t, i) => (
+          {DECISION_POINTS.map((point, i) => (
             <div key={i} className="tm-item bg-bg-mid p-8 md:p-10 rounded-sm flex flex-col">
-              <p className="font-serif text-xl md:text-2xl text-ink leading-snug mb-8 flex-1">
-                « {t.quote} »
-              </p>
+              <span className="font-mono text-[10px] tracking-[0.18em] text-ink/45 mb-8">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="font-serif text-2xl text-ink leading-snug mb-5 flex-1">{point.title}</h3>
               <div className="border-t border-ink/15 pt-5">
-                <p className="font-serif text-base text-ink font-semibold mb-1">{t.name}</p>
-                <p className="text-xs text-ink/55 mb-3">{t.role}</p>
-                <span className="inline-block font-mono text-[10px] tracking-[0.18em] uppercase text-accent border border-accent/40 px-2.5 py-1 rounded-full">{t.metric}</span>
+                <p className="text-sm text-ink/70 leading-relaxed">{point.body}</p>
               </div>
             </div>
           ))}

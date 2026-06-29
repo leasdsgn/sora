@@ -4,16 +4,17 @@ const SECTIONS = [
   { href: "#", label: "Accueil" },
   { href: "#projet", label: "Le Projet" },
   { href: "#fondateur", label: "Le Fondateur" },
-  { href: "#contact", label: "Masterclass" },
+  { href: "#contact", label: "Appel offert" },
   { href: "#contact", label: "Dossier d'investissement" },
 ]
 
 const CONTACT = [
   { href: "#contact", label: "Prendre rendez-vous" },
-  { href: "https://sora-immobilier.com", label: "Webinaire LyBox × SORA" },
-  { href: "https://instagram.com/sora_immobilier", label: "Instagram" },
-  { href: "https://linkedin.com/in/gabriel-lapierre", label: "LinkedIn" },
+  { href: "tel:+33633517746", label: "+33 6 33 51 77 46" },
   { href: "mailto:contact@sora-immobilier.com", label: "contact@sora-immobilier.com" },
+  { href: "https://www.instagram.com/gabriel_lapierre_/", label: "Instagram" },
+  { href: "https://linkedin.com/in/gabriel-lapierre", label: "LinkedIn" },
+  { href: "https://www.youtube.com/@GABRIEL_LAPIERRE", label: "YouTube" },
 ]
 
 export default function Footer() {
@@ -92,8 +93,8 @@ export default function Footer() {
             <div>
               <p className="text-[12px] tracking-[0.25em] uppercase text-bg font-semibold mb-3">Disponibilité</p>
               <p className="text-lg leading-relaxed">
-                Lundi – Vendredi<br />
-                9h – 19h (CET) · 7j/7 (WITA)
+                Lundi à vendredi<br />
+                9h à 19h (CET), 7j/7 (WITA)
               </p>
             </div>
           </div>
@@ -112,7 +113,7 @@ export default function Footer() {
           ↑ Retour en haut
         </button>
         <p className="hidden md:block font-mono text-[11px] tracking-[0.18em] text-bg/55 text-center">
-          © 2025 SORA Immobilier · SIRET 928 136 688
+          © 2026 SORA Immobilier, SIRET 928 136 688
         </p>
         <p className="font-mono text-[11px] tracking-[0.18em] text-bg/55 justify-self-end text-right">
           Design Omen Studio

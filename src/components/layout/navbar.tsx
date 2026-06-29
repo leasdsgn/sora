@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 const MOBILE_LINKS = [
  { href: "#projet", label: "Projet" },
  { href: "#fondateur", label: "Fondateur" },
- { href: "#contact", label: "Masterclass" },
- { href: "#contact", label: "Contact" },
+ { href: "#contact", label: "Appel offert" },
+ { href: "#contact", label: "Dossier" },
 ]
 
 export default function Navbar() {
@@ -51,8 +51,8 @@ export default function Navbar() {
   </div>
   <div className="w-[140px] md:w-[180px]" aria-hidden="true" />
   <div className="flex items-center gap-14 justify-start pl-14">
-   <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Masterclass</a>
-   <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Contact</a>
+   <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Appel offert</a>
+   <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Dossier</a>
   </div>
   </div>
    <div className="hidden md:flex justify-end">
@@ -96,7 +96,7 @@ export default function Navbar() {
     >
      Prendre RDV
     </a>
-    <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/40 text-center">Canggu · Bali · Indonésie</p>
+    <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/40 text-center">Canggu, Bali, Indonésie</p>
    </div>
   </div>
  </div>

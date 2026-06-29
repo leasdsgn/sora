@@ -3,30 +3,30 @@ import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 
 const FAQ = [
-  {
-    q: "Comment je récupère mon argent au bout de l'investissement ?",
-	    a: "Chaque opération a une durée de 18 à 24 mois. À la livraison, vous percevez un revenu locatif annuel (versement annuel ou trimestriel). À la revente du bien, si vous la souhaitez, vous récupérez votre part proportionnelle du prix de cession.",
-  },
-  {
-    q: "Le cadre légal indonésien, c'est solide pour un Français ?",
-    a: "Chaque investisseur entre via une structure PT PMA (Penanaman Modal Asing) avec un bail leasehold 30+10 ans, contrôlée par notre avocat local indépendant. Vos droits sont protégés par contrat indonésien et reconnus en droit français. Documentation complète remise avant tout engagement.",
-  },
-  {
-    q: "Que se passe-t-il si la villa ne se loue pas comme prévu ?",
-	    a: "Nos rendements documentés (13% net moyen) sont basés sur des taux d'occupation prudents (~75-80%). En cas de sous-performance, nous activons notre réseau de distribution (Booking, Airbnb, agences locales premium). Aucune garantie de rendement n'est promise, les chiffres réels sont publiés trimestriellement.",
-  },
-  {
-    q: "Quelle fiscalité française sur les revenus locatifs perçus ?",
-    a: "Les revenus distribués par votre PT PMA sont imposables en France (convention fiscale France-Indonésie de 1979 anti-double imposition). Selon votre situation, traitement en BIC, BNC ou via une holding. Le sujet est détaillé dans la masterclass et un comptable partenaire peut vous accompagner.",
-  },
-  {
-    q: "Le ticket à 10 000 €, c'est vraiment l'entrée minimum ?",
-    a: "Oui. Sur les opérations en co-investissement (type Canggu Oasis), nous fractionnons les villas pour permettre l'entrée à 10 000 € minimum. Pour une villa privée détenue à 100%, le ticket démarre à environ 180 000 €.",
-  },
-  {
-    q: "Pourquoi SORA plutôt qu'un concurrent francophone à Bali ?",
-	    a: "Gabriel Lapierre, le fondateur, est ingénieur Arts et Métiers résident à Canggu. Il pilote chaque chaîne : sélection du terrain, validation urbanistique, contrôle chantier, gestion locative. Aucun intermédiaire commercial. Les chiffres affichés sont ceux de ses propres opérations, vérifiables.",
-  },
+	  {
+	    q: "Une présence physique à Bali est-elle nécessaire ?",
+		    a: "Non. Sora assure le pilotage opérationnel et technique sur place, avec un suivi régulier pour les investisseurs basés en Europe.",
+	  },
+	  {
+	    q: "Comment se déroule le flux de capital ?",
+	    a: "Le processus se fait par étapes : réservation, acquisition ou construction, puis livraison. Les paiements sont liés à l'avancement réel du projet et aux validations prévues.",
+	  },
+	  {
+	    q: "Comment fonctionnent fiscalité et revenus ?",
+		    a: "Chaque montage dépend de votre situation, de la structure retenue et de vos objectifs patrimoniaux. Le sujet est analysé avant toute décision d'investissement.",
+	  },
+	  {
+	    q: "Que se passe-t-il si je veux sortir de l'investissement ?",
+	    a: "Vous restez propriétaire selon les modalités prévues dans la structure choisie. En cas d'arbitrage ou de cession, Sora peut accompagner les prochaines étapes.",
+	  },
+	  {
+	    q: "Co-investissement ou villa en pleine propriété ?",
+	    a: "Le co-investissement permet d'accéder à un projet avec un ticket plus bas. L'acquisition en pleine propriété convient à ceux qui veulent contrôler l'actif et son usage.",
+	  },
+	  {
+	    q: "Comment savoir si Bali correspond à mon profil ?",
+		    a: "Le plus simple est d'échanger sur votre situation, votre horizon de placement et vos contraintes. L'appel de 30 minutes sert précisément à clarifier ce point.",
+	  },
 ]
 
 export default function FaqSection() {
@@ -40,11 +40,11 @@ export default function FaqSection() {
 
   return (
     <section ref={ref} className="bg-bg py-24 md:py-36 px-6">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <p className="faq-item font-mono text-[10px] tracking-[0.3em] uppercase text-ink-muted mb-6">Questions fréquentes</p>
 	          <h2 className="faq-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
-            Ce que vous voulez savoir<br />avant d&apos;investir.
+            Ce que vous voulez savoir avant d&apos;investir.
           </h2>
         </div>
         <div>

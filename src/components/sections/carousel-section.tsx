@@ -4,8 +4,8 @@ import Image from "next/image"
 import { gsap } from "gsap"
 
 const REALISATIONS = [
-	  { img: "/villa-pool.webp",              title: "Villa Lotus",      caption: "Co-investissement · Canggu" },
-	  { img: "/villa-living.webp",            title: "Suite tropicale",  caption: "Salon principal · Loft" },
+	  { img: "/villa-pool.webp",              title: "Villa Lotus",      caption: "Co-investissement à Canggu" },
+	  { img: "/villa-living.webp",            title: "Suite tropicale",  caption: "Salon principal du loft" },
 	  { img: "/villa-bedroom.webp",           title: "Suite parentale",  caption: "Chambre maître" },
 	  { img: "/villa-bathroom.webp",          title: "Spa privé",        caption: "Détail salle de bain" },
 	  { img: "/villa-exterior.webp",          title: "Architecture",     caption: "Façade signature" },
@@ -53,12 +53,11 @@ export default function CarouselSection() {
         {/* Heading */}
         <div className="pt-24 pb-10 px-8 md:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-	            <p className="font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-4">Réalisations · 2020 à 2024</p>
+	            <p className="font-mono text-[10px] tracking-[0.3em] text-ink-muted mb-4">Opérations et visuels de projet</p>
 	            <h2 className="font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
-              Ce que nous avons livré.
+              Des villas suivies de la conception à l&apos;exploitation.
             </h2>
           </div>
-          <p className="font-mono text-[10px] tracking-[0.22em] text-ink/40 hidden md:block">scroll →</p>
         </div>
 
         {/* Carousel track, overflow scroll mobile, pin GSAP desktop */}

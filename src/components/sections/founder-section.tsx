@@ -4,10 +4,10 @@ import Image from "next/image"
 import { gsap } from "gsap"
 
 const ITEMS = [
- { title: "Accompagnement A → Z", desc: "Sélection du terrain, structures juridiques, construction et gestion locative." },
- { title: "Cadre légal sécurisé", desc: "PT PMA, baux leasehold 30 + 10 ans, contrats vérifiés par avocat local." },
- { title: "Rendement net 13%", desc: "Documenté sur les villas en gestion. Versement annuel ou trimestriel." },
- { title: "Équipe sur place", desc: "Présence permanente à Bali, suivi de chantier hebdomadaire en vidéo." },
+	 { title: "Sélection terrain", desc: "Analyse des emplacements, scénarios d'usage et potentiel locatif avant engagement." },
+	 { title: "Structuration juridique", desc: "Cadre PT PMA, leasehold et contrats vérifiés avec les partenaires locaux." },
+	 { title: "Suivi terrain", desc: "Pilotage des équipes, reporting chantier et validation des étapes clés sur place." },
+	 { title: "Gestion locative", desc: "Mise en exploitation, distribution, suivi des revenus et arbitrage des scénarios." },
 ]
 
 export default function FounderSection() {
@@ -21,13 +21,13 @@ export default function FounderSection() {
 
  return (
  <section ref={ref} id="fondateur" className="bg-bg-mid py-24 md:py-36 px-6">
-  <div className="text-center max-w-3xl mx-auto mb-20">
-  <p className="sage-item font-mono text-[10px] tracking-[0.3em] text-ink/70 mb-8">L&apos;accompagnement · 4 piliers</p>
+  <div className="text-center max-w-5xl mx-auto mb-20">
+	  <p className="sage-item font-mono text-[10px] tracking-[0.3em] text-ink/70 mb-8">Méthode avec présence locale à Bali</p>
 	  <h2 className="sage-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
-   Un seul interlocuteur,<br /><span className="">de A à Z.</span>
+	   Une équipe terrain pour rendre le montage lisible.
   </h2>
-  <p className="sage-item text-ink/70 max-w-xl mx-auto mt-8 leading-relaxed text-base">
-   Aucune sous-traitance commerciale entre vous et l&apos;opération. Tout passe par l&apos;équipe SORA, encadrée par Gabriel sur place.
+  <p className="sage-item text-ink/70 max-w-2xl mx-auto mt-8 leading-relaxed text-base">
+	   L&apos;objectif n&apos;est pas seulement de trouver un bien. Il s&apos;agit de structurer un projet clair, vérifiable et piloté localement.
   </p>
   </div>
 
@@ -53,10 +53,10 @@ export default function FounderSection() {
   <div className="md:col-span-8">
    <p className="font-mono text-[10px] tracking-[0.25em] text-ink/60 mb-3">Le fondateur</p>
    <h3 className="font-serif text-3xl md:text-4xl text-ink mb-3">Gabriel Lapierre</h3>
-   <p className="font-serif text-ink/90 text-lg mb-5">Arts et Métiers ParisTech · Ex-VINCI · Ex-OIKOS Immobilier · Résident à Canggu depuis 2023</p>
-   <p className="text-ink/85 leading-relaxed text-sm md:text-base mb-5 max-w-lg">
-   Six ans d&apos;investissement immobilier en France, Espagne, puis Bali. Chaque projet SORA passe par mes mains : choix du terrain, validation urbanistique, contrôle chantier hebdomadaire, livraison, gestion locative. Les chiffres que vous voyez ici sont ceux de mes propres villas.
-   </p>
+	   <p className="text-ink/90 text-lg mb-5">Ingénieur, investisseur immobilier depuis 2019, installé à Bali depuis 2023</p>
+	   <p className="text-ink/85 leading-relaxed text-sm md:text-base mb-5 max-w-lg">
+	   Après plusieurs investissements en France, Gabriel s&apos;installe à Bali et étudie le marché local, les règles d&apos;acquisition et les équipes capables d&apos;exécuter proprement. Sora naît de cette méthode : analyser, structurer, construire, puis exploiter avec une présence réelle sur place.
+	   </p>
 	   <p className="font-mono text-[10px] tracking-[0.2em] text-ink/60 ">Gabriel Lapierre, fondateur</p>
   </div>
   </div>
