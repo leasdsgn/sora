@@ -54,8 +54,8 @@ export default function HeroSection() {
    <a href="/masterclass" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
    Recevoir la Masterclass
    </a>
-   <a href="#projet" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
-   Découvrir Canggu Oasis
+   <a href="/seseh" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">
+   Découvrir Seseh Sunset Villas
    </a>
   </div>
   <p className="hero-fade mt-6 font-mono text-[11px] tracking-[0.2em] uppercase text-ink/55">

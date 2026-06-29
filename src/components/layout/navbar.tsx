@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 
 const MOBILE_LINKS = [
  { href: "#projet", label: "Projet" },
+ { href: "/seseh", label: "Seseh" },
  { href: "#fondateur", label: "Fondateur" },
  { href: "/masterclass", label: "Masterclass" },
  { href: "#contact", label: "Contact" },
@@ -47,6 +48,7 @@ export default function Navbar() {
   <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center text-ink">
   <div className="flex items-center gap-14 justify-end pr-14">
    <a href="#projet" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Projet</a>
+   <a href="/seseh" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Seseh</a>
    <a href="#fondateur" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Fondateur</a>
   </div>
   <div className="w-[140px] md:w-[180px]" aria-hidden="true" />
