@@ -51,7 +51,7 @@ export default function HeroSection() {
    Co-investissement dès 10 000 €. 13% net documenté. Structure juridique et gestion 100% déléguée par un ingénieur résident à Bali.
   </p>
   <div className="hero-fade mt-12 flex flex-col sm:flex-row items-center gap-4">
-   <a href="#contact" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
+   <a href="/masterclass" className="inline-flex items-center justify-center bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent hover:text-ink transition-colors duration-500">
    Recevoir la Masterclass
    </a>
    <a href="#projet" className="inline-flex items-center justify-center border border-ink/50 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:border-ink hover:text-bg transition-all duration-500">

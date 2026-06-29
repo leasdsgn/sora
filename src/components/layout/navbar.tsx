@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 const MOBILE_LINKS = [
  { href: "#projet", label: "Projet" },
  { href: "#fondateur", label: "Fondateur" },
- { href: "#contact", label: "Masterclass" },
+ { href: "/masterclass", label: "Masterclass" },
  { href: "#contact", label: "Contact" },
 ]
 
@@ -51,7 +51,7 @@ export default function Navbar() {
   </div>
   <div className="w-[140px] md:w-[180px]" aria-hidden="true" />
   <div className="flex items-center gap-14 justify-start pl-14">
-   <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Masterclass</a>
+   <a href="/masterclass" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Masterclass</a>
    <a href="#contact" className="font-serif font-semibold text-[11px] tracking-[0.22em] uppercase hover:text-accent transition-colors duration-300">Contact</a>
   </div>
   </div>

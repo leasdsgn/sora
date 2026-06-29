@@ -25,18 +25,15 @@ export default function CtaSection() {
   Une vidéo animée par Gabriel Lapierre, ingénieur résident à Bali. Pas de pitch commercial, des chiffres réels. Une analyse personnalisée de votre profil est offerte à chaque inscrit.
   </p>
   <ul className="cta-item mt-8 max-w-md mx-auto space-y-3 text-left text-ink/75 text-sm">
-   <li>· Le marché immobilier de Bali et ses opportunités 2025</li>
+   <li>· Le marché immobilier de Bali et ses opportunités 2026</li>
    <li>· Devenir propriétaire à Bali : leasehold, PT PMA</li>
 	   <li>· Investir en société vs en nom propre : le bon arbitrage</li>
    <li>· Fiscalité française et indonésienne sur vos revenus locatifs</li>
    <li>· <span className="text-accent font-semibold">Bonus :</span> analyse personnalisée de votre profil et de votre trésorerie</li>
   </ul>
   <div className="cta-item mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-  <a href="https://sora-immobilier.com/demarrer-investissement-immobilier-a-bali-optin-ce-2/" className="inline-flex items-center justify-center bg-accent text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500">
+  <a href="/masterclass" className="inline-flex items-center justify-center bg-accent text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent-soft transition-colors duration-500">
    Recevoir la Masterclass
-  </a>
-  <a href="https://sora-immobilier.com" className="inline-flex items-center justify-center border border-ink/30 text-ink font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-ink hover:text-bg transition-all duration-500">
-   Télécharger le dossier Canggu Oasis
   </a>
   </div>
   <p className="cta-item mt-6 font-mono text-[10px] tracking-[0.2em] text-ink/45">
