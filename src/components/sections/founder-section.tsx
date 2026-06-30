@@ -22,7 +22,7 @@ export default function FounderSection() {
  return (
  <section ref={ref} id="fondateur" className="bg-bg-mid py-24 md:py-36 px-6">
   <div className="text-center max-w-5xl mx-auto mb-20">
-	  <p className="sage-item tertiary text-ink/70 mb-8">Méthode avec présence locale à Bali</p>
+	  <p className="sage-item eyebrow text-ink/70 mb-8">Méthode avec présence locale à Bali</p>
 	  <h2 className="sage-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
 	   Une équipe terrain pour rendre le montage lisible.
   </h2>

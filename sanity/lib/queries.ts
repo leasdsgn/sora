@@ -13,6 +13,19 @@ export const ALL_POSTS_QUERY = defineQuery(`
   }
 `)
 
+export const LATEST_POSTS_QUERY = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc)[0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    excerpt,
+    mainImage,
+    publishedAt,
+    "author": author->{ name, "slug": slug.current, image },
+    "categories": categories[]->{ title, "slug": slug.current }
+  }
+`)
+
 export const POST_BY_SLUG_QUERY = defineQuery(`
   *[_type == "post" && slug.current == $slug][0] {
     _id,
@@ -30,4 +43,72 @@ export const POST_BY_SLUG_QUERY = defineQuery(`
 
 export const POST_SLUGS_QUERY = defineQuery(`
   *[_type == "post" && defined(slug.current)]{ "slug": slug.current }
+`)
+
+export const ALL_EVENTS_QUERY = defineQuery(`
+  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")] | order(startsAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    status,
+    eventType,
+    eyebrow,
+    summary,
+    mainImage,
+    startsAt,
+    endsAt,
+    timezone,
+    duration,
+    location,
+    registration,
+    featured
+  }
+`)
+
+export const FEATURED_EVENTS_QUERY = defineQuery(`
+  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")] | order(featured desc, startsAt asc)[0...6] {
+    _id,
+    title,
+    "slug": slug.current,
+    status,
+    eventType,
+    eyebrow,
+    summary,
+    mainImage,
+    startsAt,
+    endsAt,
+    timezone,
+    duration,
+    location,
+    registration,
+    featured
+  }
+`)
+
+export const EVENT_BY_SLUG_QUERY = defineQuery(`
+  *[_type == "event" && slug.current == $slug && (!defined(status) || status != "draft")][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    status,
+    eventType,
+    eyebrow,
+    summary,
+    mainImage,
+    startsAt,
+    endsAt,
+    timezone,
+    duration,
+    location,
+    registration,
+    speakers,
+    program,
+    body,
+    featured,
+    seo
+  }
+`)
+
+export const EVENT_SLUGS_QUERY = defineQuery(`
+  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")]{ "slug": slug.current }
 `)

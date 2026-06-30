@@ -53,7 +53,7 @@ export default function CarouselSection() {
         {/* Heading */}
         <div className="pt-24 pb-10 px-8 md:px-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-	            <p className="tertiary text-ink-muted mb-4">Opérations et visuels de projet</p>
+	            <p className="eyebrow text-ink-muted mb-4">Opérations et visuels de projet</p>
 	            <h2 className="font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
               Des villas suivies de la conception à l&apos;exploitation.
             </h2>

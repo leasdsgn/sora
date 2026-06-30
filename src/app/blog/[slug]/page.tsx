@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {post.categories && post.categories.length > 0 && (
           <p className="metadata text-ink/45 mb-6">
-            {post.categories.map((c) => c.title).join(" · ")}
+            {post.categories.map((c) => c.title).join(" / ")}
           </p>
         )}
 
@@ -100,7 +100,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         <div className="flex items-center gap-4 mb-12 text-ink/55 text-sm">
           {post.author?.name && <span>{post.author.name}</span>}
-          {post.author?.name && <span className="text-ink/25">·</span>}
+          {post.author?.name && <span className="text-ink/25">/</span>}
           <time dateTime={post.publishedAt}>
             {new Date(post.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
           </time>

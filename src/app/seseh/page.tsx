@@ -128,7 +128,7 @@ export default function SesehPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
         </div>
         <div className="relative z-10 px-6 md:px-16 pb-16 md:pb-24 max-w-4xl">
-          <p className="ss-fade eyebrow mb-6">Seseh, Bali · 26 villas · Livraison mars 2028</p>
+          <p className="ss-fade eyebrow mb-6">Seseh, Bali / 26 villas / Livraison mars 2028</p>
           <h1
             className="ss-fade font-serif font-medium text-ink leading-[0.92]"
             style={{ fontSize: "clamp(40px,6vw,96px)" }}
@@ -177,7 +177,7 @@ export default function SesehPage() {
       <section id="gammes" className="bg-bg-soft py-24 md:py-36 px-6">
         <div className="container-page">
           <div className="text-center mb-16 md:mb-24">
-            <p className="ss-fade eyebrow mb-6">4 gammes · 1 emplacement</p>
+            <p className="ss-fade eyebrow mx-auto mb-6">4 gammes / 1 emplacement</p>
             <h2
               className="ss-fade font-serif font-medium text-ink leading-[1.0]"
               style={{ fontSize: "clamp(36px,5vw,72px)" }}
@@ -209,7 +209,7 @@ export default function SesehPage() {
                       <p className="font-serif text-ink text-2xl md:text-3xl font-medium">{g.price}</p>
                     </div>
                     <div className="text-right">
-                      <p className="metadata text-ink/55">{g.surface} · {g.chambres}</p>
+                      <p className="metadata text-ink/55">{g.surface} / {g.chambres}</p>
                       <p className="metadata text-accent mt-1">{g.revenus}</p>
                     </div>
                   </div>
@@ -257,7 +257,7 @@ export default function SesehPage() {
       <section className="bg-bg py-24 md:py-36 px-6">
         <div className="container-page max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <p className="ss-fade eyebrow mb-6">Projection · Gamme Élégance 149 000€</p>
+            <p className="ss-fade eyebrow mx-auto mb-6">Projection / Gamme Élégance 149 000€</p>
             <h2
               className="ss-fade font-serif font-medium text-ink leading-[1.0]"
               style={{ fontSize: "clamp(32px,4vw,60px)" }}
@@ -310,7 +310,7 @@ export default function SesehPage() {
       {/* Localisation */}
       <section className="bg-ink py-24 md:py-36 px-6">
         <div className="container-page max-w-4xl mx-auto text-center">
-          <p className="ss-fade eyebrow text-bg/50 mb-6">Localisation · Seseh, Bali</p>
+          <p className="ss-fade eyebrow mx-auto mb-6 text-bg/50">Localisation / Seseh, Bali</p>
           <h2
             className="ss-fade font-serif font-medium text-bg leading-[1.0]"
             style={{ fontSize: "clamp(32px,4vw,60px)" }}
@@ -337,7 +337,7 @@ export default function SesehPage() {
       <section className="bg-bg-soft py-24 md:py-36 px-6">
         <div className="container-page max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <p className="ss-fade eyebrow mb-6">Garanties</p>
+            <p className="ss-fade eyebrow mx-auto mb-6">Garanties</p>
             <h2
               className="ss-fade font-serif font-medium text-ink leading-[1.0]"
               style={{ fontSize: "clamp(32px,4vw,60px)" }}
@@ -365,7 +365,7 @@ export default function SesehPage() {
       <section id="dossier" className="bg-bg py-24 md:py-36 px-6">
         <div className="container-page max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div>
-            <p className="ss-fade eyebrow mb-6">Dossier complet · Gratuit</p>
+            <p className="ss-fade eyebrow mb-6">Dossier complet / Gratuit</p>
             <h2
               className="ss-fade font-serif font-medium text-ink leading-[1.0]"
               style={{ fontSize: "clamp(32px,4vw,60px)" }}
@@ -425,7 +425,7 @@ export default function SesehPage() {
                 <div className="space-y-5">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="firstName" className="block eyebrow mb-2">Prénom</label>
+                      <label htmlFor="firstName" className="form-label mb-2">Prénom</label>
                       <input
                         id="firstName"
                         type="text"
@@ -437,7 +437,7 @@ export default function SesehPage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block eyebrow mb-2">Nom</label>
+                      <label htmlFor="lastName" className="form-label mb-2">Nom</label>
                       <input
                         id="lastName"
                         type="text"
@@ -451,7 +451,7 @@ export default function SesehPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block eyebrow mb-2">Email</label>
+                    <label htmlFor="email" className="form-label mb-2">Email</label>
                     <input
                       id="email"
                       type="email"
@@ -464,7 +464,7 @@ export default function SesehPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block eyebrow mb-2">Téléphone</label>
+                    <label htmlFor="phone" className="form-label mb-2">Téléphone</label>
                     <input
                       id="phone"
                       type="tel"
@@ -491,7 +491,7 @@ export default function SesehPage() {
                 )}
 
                 <p className="mt-6 metadata text-ink/35 text-center">
-                  Sans démarchage commercial · Désinscription en 1 clic
+                  Sans démarchage commercial / Désinscription en 1 clic
                 </p>
               </form>
             )}

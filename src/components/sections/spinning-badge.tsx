@@ -1,7 +1,7 @@
 "use client"
 
 export default function SpinningBadge({ className = "" }: { className?: string }) {
-  const text = "CANGGU · BALI · INDONÉSIE · SORA IMMOBILIER · "
+  const text = "CANGGU / BALI / INDONÉSIE / SORA IMMOBILIER / "
   const perimeter = 2 * Math.PI * 62 // circle radius = 62
   return (
     <div className={`relative w-[128px] h-[128px] pointer-events-none ${className}`}>

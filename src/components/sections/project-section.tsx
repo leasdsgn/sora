@@ -22,7 +22,7 @@ export default function ProjectSection() {
  return (
  <section ref={ref} id="projet" className="bg-bg-soft py-24 md:py-36 px-6">
   <div className="text-center max-w-5xl mx-auto mb-20">
-	  <p className="pj-item tertiary text-ink-muted mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
+	  <p className="pj-item eyebrow text-ink-muted mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
 		  <h2 className="pj-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
 	   Seseh Beachfront se situe à 300 m de la mer.
 	  </h2>

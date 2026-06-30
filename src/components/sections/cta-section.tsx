@@ -17,7 +17,7 @@ export default function CtaSection() {
   <div className="cta-item max-w-md mx-auto relative aspect-square rounded-full overflow-hidden mb-12">
 	  <Image src="/villa-render-bedroom.webp" alt="Vue sur l'océan depuis une villa Canggu" fill quality={82} className="object-cover" sizes="(max-width:768px) 80vw, 500px" />
   </div>
-	  <p className="cta-item tertiary text-ink-muted mb-8">Appel offert de 30 minutes</p>
+	  <p className="cta-item eyebrow text-ink-muted mb-8">Appel offert de 30 minutes</p>
 		  <h2 className="cta-item font-serif font-medium text-ink leading-[1.0] max-w-5xl mx-auto" style={{ fontSize: "clamp(40px,6vw,96px)" }}>
 	  Validez si Bali a du sens pour votre profil.
 	  </h2>

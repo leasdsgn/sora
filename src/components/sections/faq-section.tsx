@@ -42,7 +42,7 @@ export default function FaqSection() {
     <section ref={ref} className="bg-bg py-24 md:py-36 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <p className="faq-item tertiary text-ink-muted mb-6">Questions fréquentes</p>
+          <p className="faq-item eyebrow text-ink-muted mb-6">Questions fréquentes</p>
 	          <h2 className="faq-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
             Ce que vous voulez savoir avant d&apos;investir.
           </h2>

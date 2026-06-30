@@ -14,7 +14,7 @@ export default function StatsSection() {
  return (
  <section ref={ref} className="relative bg-ink py-32 md:py-44 px-6 text-center overflow-hidden">
   <div className="relative z-10">
-	  <p className="st-item tertiary text-bg/50 mb-8">Lecture du marché</p>
+	  <p className="st-item eyebrow text-bg/60 mb-8">Lecture du marché</p>
 		  <h2 className="st-item font-serif font-medium text-bg leading-[1.0] max-w-5xl mx-auto" style={{ fontSize: "clamp(38px,5.5vw,84px)" }}>
 	   Investir à Bali demande plus qu&apos;un beau rendu de villa.
 	  </h2>

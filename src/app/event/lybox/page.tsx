@@ -76,7 +76,7 @@ export default function EventLyboxPage() {
               <span className="tertiary text-accent">Places limitées</span>
             </div>
 
-            <p className="ev-fade eyebrow mb-6">Webinaire · Lybox x Sora · 50 min</p>
+            <p className="ev-fade eyebrow mb-6">Webinaire / Lybox x Sora / 50 min</p>
             <h1
               className="ev-fade font-serif font-medium text-ink leading-[0.95]"
               style={{ fontSize: "clamp(36px,5vw,72px)" }}
@@ -108,18 +108,18 @@ export default function EventLyboxPage() {
             <div className="ev-fade mt-10 grid grid-cols-2 gap-4">
               <div className="bg-bg-soft border border-line rounded-sm p-5">
                 <p className="font-serif font-medium text-ink text-base">Gabriel Lapierre</p>
-                <p className="metadata text-ink/50 mt-1">Fondateur Sora · Ingénieur Arts et Métiers</p>
+                <p className="metadata text-ink/50 mt-1">Fondateur Sora / Ingénieur Arts et Métiers</p>
                 <p className="text-ink/60 text-sm mt-3">Résident à Bali, 3 projets livrés, 40 investisseurs accompagnés.</p>
               </div>
               <div className="bg-bg-soft border border-line rounded-sm p-5">
                 <p className="font-serif font-medium text-ink text-base">Thomas</p>
-                <p className="metadata text-ink/50 mt-1">Fondateur Lybox · SaaS immo</p>
+                <p className="metadata text-ink/50 mt-1">Fondateur Lybox / SaaS immo</p>
                 <p className="text-ink/60 text-sm mt-3">Plateforme d&apos;analyse immobilière utilisée par 100k+ investisseurs.</p>
               </div>
             </div>
 
             <p className="ev-fade mt-8 metadata text-ink/40">
-              Replay envoyé uniquement aux inscrits · Google Meet
+              Replay envoyé uniquement aux inscrits / Google Meet
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export default function EventLyboxPage() {
                 <div className="space-y-5">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="firstName" className="block eyebrow mb-2">Prénom</label>
+                      <label htmlFor="firstName" className="form-label mb-2">Prénom</label>
                       <input
                         id="firstName"
                         type="text"
@@ -167,7 +167,7 @@ export default function EventLyboxPage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block eyebrow mb-2">Nom</label>
+                      <label htmlFor="lastName" className="form-label mb-2">Nom</label>
                       <input
                         id="lastName"
                         type="text"
@@ -181,7 +181,7 @@ export default function EventLyboxPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block eyebrow mb-2">Email</label>
+                    <label htmlFor="email" className="form-label mb-2">Email</label>
                     <input
                       id="email"
                       type="email"
@@ -194,7 +194,7 @@ export default function EventLyboxPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block eyebrow mb-2">Téléphone</label>
+                    <label htmlFor="phone" className="form-label mb-2">Téléphone</label>
                     <input
                       id="phone"
                       type="tel"
@@ -206,7 +206,7 @@ export default function EventLyboxPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="investExperience" className="block eyebrow mb-2">
+                    <label htmlFor="investExperience" className="form-label mb-2">
                       Avez-vous déjà investi à l&apos;étranger ?
                     </label>
                     <select
@@ -239,7 +239,7 @@ export default function EventLyboxPage() {
                 )}
 
                 <p className="mt-6 metadata text-ink/35 text-center">
-                  Gratuit · Sans engagement · Replay envoyé après le live
+                  Gratuit / Sans engagement / Replay envoyé après le live
                 </p>
               </form>
             )}

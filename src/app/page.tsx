@@ -4,6 +4,8 @@ import StatsSection from "@/components/sections/stats-section"
 import ProjectSection from "@/components/sections/project-section"
 import CarouselSection from "@/components/sections/carousel-section"
 import TestimonialsSection from "@/components/sections/testimonials-section"
+import EventsSection from "@/components/sections/events-section"
+import BlogSection from "@/components/sections/blog-section"
 import FounderSection from "@/components/sections/founder-section"
 import FaqSection from "@/components/sections/faq-section"
 import CtaSection from "@/components/sections/cta-section"
@@ -18,6 +20,8 @@ export default function Home() {
       <ProjectSection />
       <CarouselSection />
       <TestimonialsSection />
+      <EventsSection />
+      <BlogSection />
       <FounderSection />
       <FaqSection />
       <CtaSection />

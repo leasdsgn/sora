@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Agentation } from "agentation"
 import localFont from "next/font/local"
 import Script from "next/script"
 import SmoothScroll from "@/components/smooth-scroll"
@@ -31,8 +32,7 @@ const mori = localFont({
 
 const title = "SORA Immobilier | Investir à Bali clé en main"
 const description = "Accédez à des projets immobiliers sélectionnés à Bali, avec structuration juridique, suivi terrain et gestion locative clé en main."
-const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
-const siteUrl = new URL(vercelHost ? `https://${vercelHost}` : "http://localhost:3000")
+const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sora-five-sigma.vercel.app")
 const ogImageUrl = new URL("/og-image.jpg", siteUrl)
 const faviconUrl = new URL("/favicon.ico", siteUrl)
 
@@ -88,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <TopLanguette />
           {children}
+          {process.env.NODE_ENV === "development" && <Agentation />}
         </SmoothScroll>
       </body>
     </html>

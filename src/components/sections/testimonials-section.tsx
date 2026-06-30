@@ -30,7 +30,7 @@ export default function TestimonialsSection() {
     <section ref={ref} className="bg-bg-soft py-24 md:py-36 px-6">
       <div className="container-page">
         <div className="text-center max-w-5xl mx-auto mb-16">
-          <p className="tm-item tertiary text-ink-muted mb-6">Avant de demander le dossier</p>
+          <p className="tm-item eyebrow text-ink-muted mb-6">Avant de demander le dossier</p>
 	          <h2 className="tm-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
             Les bons sujets doivent être cadrés avant d&apos;investir.
           </h2>

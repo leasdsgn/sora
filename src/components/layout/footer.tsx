@@ -1,16 +1,19 @@
 "use client"
+import Link from "next/link"
+import type { MouseEvent } from "react"
 
 const SECTIONS = [
-  { href: "#", label: "Accueil" },
+  { href: "/", label: "Accueil" },
   { href: "/seseh", label: "Seseh Sunset Villas" },
-  { href: "#fondateur", label: "Le Fondateur" },
+  { href: "/events", label: "Évènements" },
+  { href: "/#fondateur", label: "Le Fondateur", anchorId: "fondateur" },
   { href: "/masterclass", label: "Masterclass" },
-  { href: "#contact", label: "Appel offert" },
-  { href: "#contact", label: "Dossier d'investissement" },
+  { href: "/#contact", label: "Appel offert", anchorId: "contact" },
+  { href: "/seseh#dossier", label: "Dossier d'investissement" },
 ]
 
 const CONTACT = [
-  { href: "#contact", label: "Prendre rendez-vous" },
+  { href: "/#contact", label: "Prendre rendez-vous", anchorId: "contact" },
   { href: "tel:+33633517746", label: "+33 6 33 51 77 46" },
   { href: "mailto:contact@sora-immobilier.com", label: "contact@sora-immobilier.com" },
   { href: "https://www.instagram.com/gabriel_lapierre_/", label: "Instagram" },
@@ -21,6 +24,19 @@ const CONTACT = [
 export default function Footer() {
   const scrollTop = () => {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const goToHomeAnchor = (id: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+
+    const href = `/#${id}`
+    if (window.location.pathname !== "/") {
+      window.location.assign(href)
+      return
+    }
+
+    window.history.pushState(null, "", href)
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   return (
@@ -43,12 +59,13 @@ export default function Footer() {
           }}
           aria-label="SORA Immobilier"
         />
-        <a
-          href="#contact"
+        <Link
+          href="/#contact"
+          onClick={goToHomeAnchor("contact")}
           className="bg-bg text-ink text-[12px] tracking-[0.22em] uppercase px-7 md:px-9 py-4 md:py-5 rounded-full hover:bg-accent transition-colors duration-500"
         >
           Contactez-nous
-        </a>
+        </Link>
       </div>
 
       {/* Top separator */}
@@ -62,7 +79,7 @@ export default function Footer() {
           <ul className="space-y-7 text-bg/65">
             {SECTIONS.map((s) => (
               <li key={s.label}>
-                <a href={s.href} className="text-lg hover:text-bg transition-colors duration-300">{s.label}</a>
+                <Link href={s.href} onClick={s.anchorId ? goToHomeAnchor(s.anchorId) : undefined} className="text-lg hover:text-bg transition-colors duration-300">{s.label}</Link>
               </li>
             ))}
           </ul>
@@ -74,7 +91,11 @@ export default function Footer() {
           <ul className="space-y-7 text-bg/65">
             {CONTACT.map((c) => (
               <li key={c.label}>
-                <a href={c.href} className="text-lg hover:text-bg transition-colors duration-300">{c.label}</a>
+                {c.href.startsWith("/") ? (
+                  <Link href={c.href} onClick={c.anchorId ? goToHomeAnchor(c.anchorId) : undefined} className="text-lg hover:text-bg transition-colors duration-300">{c.label}</Link>
+                ) : (
+                  <a href={c.href} className="text-lg hover:text-bg transition-colors duration-300">{c.label}</a>
+                )}
               </li>
             ))}
           </ul>

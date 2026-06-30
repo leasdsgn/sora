@@ -28,7 +28,7 @@ export default async function BlogIndexPage() {
     <main className="bg-bg min-h-screen pt-32 md:pt-44 pb-24 px-6 md:px-12">
       <div className="max-w-[1504px] mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <p className="tertiary text-ink-muted mb-6">Journal</p>
+          <p className="eyebrow text-ink-muted mb-6">Journal</p>
           <h1 className="font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(40px,6vw,96px)" }}>
             Notes du terrain.
           </h1>
@@ -58,7 +58,7 @@ export default async function BlogIndexPage() {
                 )}
                 {p.categories && p.categories.length > 0 && (
                   <p className="metadata text-ink/45 mb-3">
-                    {p.categories.map((c) => c.title).join(" · ")}
+                    {p.categories.map((c) => c.title).join(" / ")}
                   </p>
                 )}
                 <h2 className="font-serif text-2xl md:text-3xl text-ink group-hover:text-accent transition-colors duration-300 mb-3">
@@ -67,7 +67,7 @@ export default async function BlogIndexPage() {
                 {p.excerpt && <p className="text-ink/65 text-sm leading-relaxed mb-4">{p.excerpt}</p>}
                 <p className="mt-auto metadata text-ink/40">
                   {new Date(p.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
-                  {p.author?.name ? ` · ${p.author.name}` : ""}
+                  {p.author?.name ? ` / ${p.author.name}` : ""}
                 </p>
               </Link>
             ))}

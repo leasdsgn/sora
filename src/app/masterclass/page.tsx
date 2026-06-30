@@ -52,10 +52,10 @@ export default function MasterclassPage() {
 
   return (
     <section ref={ref} className="min-h-screen bg-bg px-6 py-24 md:py-36">
-      <div className="container-page max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div className="container-page max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start">
         {/* Left: content */}
         <div>
-          <p className="mc-fade eyebrow mb-6">Masterclass · 45 minutes · Gratuit</p>
+          <p className="mc-fade eyebrow mb-6">Masterclass / 45 minutes / Gratuit</p>
           <h1
             className="mc-fade font-serif font-medium text-ink leading-[0.95]"
             style={{ fontSize: "clamp(36px,5vw,72px)" }}
@@ -91,7 +91,7 @@ export default function MasterclassPage() {
             </li>
           </ul>
           <p className="mc-fade mt-8 metadata text-ink/40">
-            40 investisseurs accompagnés · 3 projets livrés · Depuis 2020
+            40 investisseurs accompagnés / 3 projets livrés / Depuis 2020
           </p>
 
           {/* Image visible only on desktop */}
@@ -108,7 +108,7 @@ export default function MasterclassPage() {
         </div>
 
         {/* Right: form */}
-        <div className="mc-fade">
+        <div className="mc-fade md:sticky md:top-28">
           {status === "success" ? (
             <div className="bg-bg-soft border border-line rounded-sm p-10 md:p-12 text-center">
               <div className="w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center mx-auto mb-6">
@@ -139,7 +139,7 @@ export default function MasterclassPage() {
               <div className="space-y-5">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="firstName" className="block eyebrow mb-2">
+                    <label htmlFor="firstName" className="form-label mb-2">
                       Prénom
                     </label>
                     <input
@@ -153,7 +153,7 @@ export default function MasterclassPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="lastName" className="block eyebrow mb-2">
+                    <label htmlFor="lastName" className="form-label mb-2">
                       Nom
                     </label>
                     <input
@@ -169,7 +169,7 @@ export default function MasterclassPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block eyebrow mb-2">
+                  <label htmlFor="email" className="form-label mb-2">
                     Email
                   </label>
                   <input
@@ -184,7 +184,7 @@ export default function MasterclassPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block eyebrow mb-2">
+                  <label htmlFor="phone" className="form-label mb-2">
                     Téléphone
                   </label>
                   <input
@@ -213,7 +213,7 @@ export default function MasterclassPage() {
               )}
 
               <p className="mt-6 metadata text-ink/35 text-center">
-                Sans démarchage commercial · Désinscription en 1 clic
+                Sans démarchage commercial / Désinscription en 1 clic
               </p>
             </form>
           )}

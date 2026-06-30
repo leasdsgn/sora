@@ -1,9 +1,10 @@
 "use client"
-import { useState, useEffect } from "react"
+import Link from "next/link"
+import { useState, useEffect, type MouseEvent } from "react"
 
 const MOBILE_LINKS = [
  { href: "/seseh", label: "Seseh" },
- { href: "#fondateur", label: "Fondateur" },
+ { href: "/#fondateur", label: "Fondateur", anchorId: "fondateur" },
  { href: "/masterclass", label: "Masterclass" },
  { href: "/seseh#dossier", label: "Dossier" },
 ]
@@ -24,8 +25,22 @@ export default function Navbar() {
   } else {
    document.body.style.overflow = ""
   }
-  return () => { document.body.style.overflow = "" }
+ return () => { document.body.style.overflow = "" }
  }, [menuOpen])
+
+ const goToHomeAnchor = (id: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+  event.preventDefault()
+  setMenuOpen(false)
+
+  const href = `/#${id}`
+  if (window.location.pathname !== "/") {
+   window.location.assign(href)
+   return
+  }
+
+  window.history.pushState(null, "", href)
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+ }
 
  return (
  <>
@@ -46,21 +61,21 @@ export default function Navbar() {
   </div>
   <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center text-ink">
   <div className="flex items-center gap-14 justify-end pr-14">
-   <a href="/seseh" className="nav-link">Seseh</a>
-   <a href="#fondateur" className="nav-link">Fondateur</a>
+   <Link href="/seseh" className="nav-link">Seseh</Link>
+   <Link href="/#fondateur" onClick={goToHomeAnchor("fondateur")} className="nav-link">Fondateur</Link>
   </div>
   <div className="w-[140px] md:w-[180px]" aria-hidden="true" />
   <div className="flex items-center gap-14 justify-start pl-14">
-   <a href="/masterclass" className="nav-link">Masterclass</a>
-   <a href="/seseh#dossier" className="nav-link">Dossier</a>
+   <Link href="/masterclass" className="nav-link">Masterclass</Link>
+   <Link href="/seseh#dossier" className="nav-link">Dossier</Link>
   </div>
   </div>
    <div className="hidden md:flex justify-end">
-    <a href="#contact" className={`font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-5 py-2.5 rounded-full transition-all duration-500 ${
+   <Link href="/#contact" onClick={goToHomeAnchor("contact")} className={`font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-5 py-2.5 rounded-full transition-all duration-500 ${
      scrolled
      ? "bg-accent text-ink hover:bg-bg hover:text-ink"
      : "border border-ink/40 text-ink hover:bg-bg hover:border-bg hover:text-ink"
-    }`}>Prendre RDV</a>
+    }`}>Prendre RDV</Link>
    </div>
  </nav>
 
@@ -73,10 +88,10 @@ export default function Navbar() {
   <div className="h-full flex flex-col justify-between pt-28 pb-12 px-8">
    <nav className="flex flex-col gap-8">
     {MOBILE_LINKS.map((link, i) => (
-     <a
+     <Link
       key={link.label + i}
       href={link.href}
-      onClick={() => setMenuOpen(false)}
+      onClick={link.anchorId ? goToHomeAnchor(link.anchorId) : () => setMenuOpen(false)}
       className="font-serif font-semibold text-3xl text-ink hover:text-accent transition-colors duration-300"
       style={{
        transform: menuOpen ? "translateY(0)" : "translateY(20px)",
@@ -85,17 +100,17 @@ export default function Navbar() {
       }}
      >
       {link.label}
-     </a>
+     </Link>
     ))}
    </nav>
    <div className="flex flex-col gap-6">
-    <a
-     href="#contact"
-     onClick={() => setMenuOpen(false)}
+    <Link
+     href="/#contact"
+     onClick={goToHomeAnchor("contact")}
      className="inline-flex items-center justify-center bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500"
     >
      Prendre RDV
-    </a>
+    </Link>
     <p className="metadata text-ink/40 text-center">Canggu, Bali, Indonésie</p>
    </div>
   </div>
