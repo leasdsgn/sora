@@ -47,7 +47,7 @@ export default function Footer() {
           className="w-[120px] md:w-[160px]"
           style={{
             aspectRatio: "1751 / 548",
-            backgroundColor: "#071C0A",
+            backgroundColor: "#F9F8F4",
             WebkitMaskImage: "url(/sora-logo.svg)",
             maskImage: "url(/sora-logo.svg)",
             WebkitMaskRepeat: "no-repeat",

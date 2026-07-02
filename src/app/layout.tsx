@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Agentation } from "agentation"
+import { Hanken_Grotesk } from "next/font/google"
 import localFont from "next/font/local"
 import Script from "next/script"
 import SmoothScroll from "@/components/smooth-scroll"
@@ -7,26 +8,24 @@ import Navbar from "@/components/layout/navbar"
 import TopLanguette from "@/components/layout/top-languette"
 import "./globals.css"
 
-const nohemi = localFont({
+const eightly = localFont({
   src: [
-    { path: "../../public/fonts/Nohemi-Light.otf", weight: "300", style: "normal" },
-    { path: "../../public/fonts/Nohemi-Regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/Nohemi-Medium.otf", weight: "500", style: "normal" },
-    { path: "../../public/fonts/Nohemi-SemiBold.otf", weight: "600", style: "normal" },
+    { path: "../../public/fonts/eightlyteenage-light.otf", weight: "300", style: "normal" },
+    { path: "../../public/fonts/eightlyteenage-lightitalic.otf", weight: "300", style: "italic" },
+    { path: "../../public/fonts/eightlyteenage-regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/eightlyteenage-italic.otf", weight: "400", style: "italic" },
+    { path: "../../public/fonts/eightlyteenage-medium.otf", weight: "500", style: "normal" },
+    { path: "../../public/fonts/eightlyteenage-mediumitalic.otf", weight: "500", style: "italic" },
+    { path: "../../public/fonts/eightlyteenage-semibold.otf", weight: "600", style: "normal" },
+    { path: "../../public/fonts/eightlyteenage-bold.otf", weight: "700", style: "normal" },
   ],
-  variable: "--font-nohemi",
+  variable: "--font-eightly",
   display: "swap",
 })
 
-const mori = localFont({
-  src: [
-    { path: "../../public/fonts/PPMori-Book.otf", weight: "350", style: "normal" },
-    { path: "../../public/fonts/PPMori-BookItalic.otf", weight: "350", style: "italic" },
-    { path: "../../public/fonts/PPMori-Regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/PPMori-Italic.ttf", weight: "400", style: "italic" },
-    { path: "../../public/fonts/PPMori-Semibold.otf", weight: "600", style: "normal" },
-  ],
-  variable: "--font-mori",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
   display: "swap",
 })
 
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${nohemi.variable} ${mori.variable}`}>
+    <html lang="fr" className={`${eightly.variable} ${hanken.variable}`}>
       <body>
         <Script id="meta-pixel" strategy="afterInteractive">{`
           !function(f,b,e,v,n,t,s)

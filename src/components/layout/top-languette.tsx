@@ -54,7 +54,7 @@ export default function TopLanguette() {
           style={{
             width: "108px",
             aspectRatio: "1751 / 548",
-            backgroundColor: "#EDE8DD",
+            backgroundColor: "#262626",
             WebkitMaskImage: "url(/sora-logo.svg)",
             maskImage: "url(/sora-logo.svg)",
             WebkitMaskRepeat: "no-repeat",

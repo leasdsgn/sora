@@ -10,7 +10,11 @@ export async function sanityFetch<T>({
   params?: QueryParams
   tags?: string[]
 }): Promise<T> {
-  return client.fetch<T>(query, params, {
-    next: { revalidate: 60, tags },
-  })
+  try {
+    return await client.fetch<T>(query, params, {
+      next: { revalidate: 60, tags },
+    })
+  } catch {
+    return [] as unknown as T
+  }
 }
