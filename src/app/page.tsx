@@ -1,5 +1,4 @@
 import HeroSection from "@/components/sections/hero-section"
-import BatikBanner from "@/components/sections/batik-banner"
 import StatsSection from "@/components/sections/stats-section"
 import ProjectSection from "@/components/sections/project-section"
 import CarouselSection from "@/components/sections/carousel-section"
@@ -15,7 +14,6 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
-      <BatikBanner />
       <StatsSection />
       <ProjectSection />
       <CarouselSection />
@@ -25,7 +23,6 @@ export default function Home() {
       <FounderSection />
       <FaqSection />
       <CtaSection />
-      <BatikBanner />
       <Footer />
     </main>
   )

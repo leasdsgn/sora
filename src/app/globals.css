@@ -1,36 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette — DA GAMME validée ----------------------------- */
+  /* Legacy Sora tokens (encore utilisés dans certaines classes utilities) */
   --color-bg: #F9F8F4;
   --color-bg-soft: #FFFFFF;
   --color-bg-mid: #DEDACF;
-  --color-accent: #A3968D;
   --color-accent-soft: #C4B9B0;
   --color-ink: #262626;
   --color-ink-muted: #4A4545;
   --color-line: #DEDACF;
 
-  /* Typography -------------------------------------------- */
+  /* shadcn semantic tokens — valeurs finales pour générer bg-primary, bg-background, etc. */
+  --color-background: #F9F8F4;
+  --color-foreground: #262626;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #262626;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #262626;
+  --color-primary: #262626;
+  --color-primary-foreground: #F9F8F4;
+  --color-secondary: #DEDACF;
+  --color-secondary-foreground: #262626;
+  --color-muted: #DEDACF;
+  --color-muted-foreground: #A3968D;
+  --color-accent: #A3968D;
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #DEDACF;
+  --color-input: #DEDACF;
+  --color-ring: #A3968D;
+
+  /* Typography */
   --font-sans: var(--font-hanken), system-ui, sans-serif;
   --font-serif: var(--font-eightly), Georgia, serif;
   --font-mono: var(--font-hanken), system-ui, sans-serif;
 
-  /* Easings ----------------------------------------------- */
+  /* Easings */
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* Radii ------------------------------------------------- */
+  /* Radii */
   --radius-card: 2px;
   --radius-pill: 9999px;
   --radius-tab: 14px;
 
-  /* Container width --------------------------------------- */
+  /* Container width */
   --container-page: 1504px;
 
-  /* Animations -------------------------------------------- */
+  /* Animations */
   --animate-scroll-line: scroll-line 2s ease-in-out infinite;
   --animate-spin-slow: spin-slow 22s linear infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 @keyframes scroll-line {
@@ -43,19 +65,32 @@
 }
 
 @layer base {
+  :root {
+    --radius: 0.25rem;
+
+    /* Sidebar tokens (utilisés uniquement par le composant Sidebar) */
+    --sidebar: #FFFFFF;
+    --sidebar-foreground: #262626;
+    --sidebar-primary: #262626;
+    --sidebar-primary-foreground: #F9F8F4;
+    --sidebar-accent: #DEDACF;
+    --sidebar-accent-foreground: #262626;
+    --sidebar-border: #DEDACF;
+    --sidebar-ring: #A3968D;
+  }
+
   html { overflow-x: hidden; }
   body {
     font-family: var(--font-hanken), system-ui, sans-serif;
     background-color: #F9F8F4;
     color: #262626;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
     overflow-x: hidden;
     isolation: isolate;
     letter-spacing: 0;
   }
   h1, h2, h3, h4 { text-wrap: balance; letter-spacing: 0; }
-  img { outline: 1px solid rgba(237, 232, 221, 0.05); outline-offset: -1px; }
   ::selection { background: #A3968D; color: #F9F8F4; }
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: #F9F8F4; }
@@ -99,7 +134,30 @@
     line-height: 1.25;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-ink);
+    color: currentColor;
+  }
+  .eyebrow-dark {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgb(249 248 244 / 0.28);
+    border-radius: var(--radius-pill);
+    background: rgb(249 248 244 / 0.06);
+    box-shadow:
+      inset 0 1px 0 rgb(249 248 244 / 0.14),
+      0 10px 32px rgb(0 0 0 / 0.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    backdrop-filter: blur(18px) saturate(1.35);
+    font-family: var(--font-hanken), system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(249 248 244 / 0.85);
   }
   .form-label {
     display: block;
@@ -142,10 +200,10 @@
     position: relative;
     display: inline-flex;
     padding-block: 0.35rem;
-    font-family: var(--font-eightly), Georgia, serif;
+    font-family: var(--font-hanken), system-ui, sans-serif;
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     transition: color 300ms var(--ease-soft);
   }
@@ -226,4 +284,25 @@
   @media (min-width: 768px) { .section-pad { padding-block: 9rem; } }
   .section-pad-lg { padding-block: 8rem; }
   @media (min-width: 768px) { .section-pad-lg { padding-block: 11rem; } }
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
 }

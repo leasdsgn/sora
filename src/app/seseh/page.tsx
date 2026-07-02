@@ -120,7 +120,7 @@ export default function SesehPage() {
             src="/villa-render-exterior.webp"
             alt="Seseh Sunset Villas"
             fill
-            quality={82}
+            quality={95}
             priority
             className="object-cover"
             sizes="100vw"
@@ -197,7 +197,7 @@ export default function SesehPage() {
                   src={g.img}
                   alt={`Villa ${g.name}`}
                   fill
-                  quality={82}
+                  quality={95}
                   className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                   sizes="(max-width:768px) 100vw, 50vw"
                 />
@@ -244,7 +244,7 @@ export default function SesehPage() {
                 src="/villa-bedroom.webp"
                 alt="Intérieur villa Seseh"
                 fill
-                quality={82}
+                quality={95}
                 className="object-cover"
                 sizes="(max-width:768px) 100vw, 50vw"
               />
@@ -388,7 +388,7 @@ export default function SesehPage() {
                 src="/villa-exterior.webp"
                 alt="Villa Seseh extérieur"
                 fill
-                quality={82}
+                quality={95}
                 className="object-cover"
                 sizes="500px"
               />

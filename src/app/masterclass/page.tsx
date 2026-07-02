@@ -100,7 +100,7 @@ export default function MasterclassPage() {
               src="/villa-render-bedroom.webp"
               alt="Villa Seseh Sunset"
               fill
-              quality={82}
+              quality={95}
               className="object-cover"
               sizes="500px"
             />

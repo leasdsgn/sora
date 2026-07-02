@@ -1,19 +1,20 @@
 "use client"
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { gsap } from "gsap"
 
-const DECISION_POINTS = [
+const TESTIMONIALS = [
   {
-    title: "Le cadre juridique doit être compris avant le ticket d'entrée.",
-    body: "L'appel sert à clarifier la structure prévue, les contrats, les droits d'usage et les points à valider avec les conseils locaux.",
+    quote: "J'étais en Europe pendant tout le projet, et tout a été géré sur place avec beaucoup de clarté et de sérieux.",
+    image: "/villa-bedroom.webp",
   },
   {
-    title: "Le rendement annoncé n'a de valeur que si les hypothèses sont lisibles.",
-    body: "Le dossier doit expliquer les charges, le mode d'exploitation, la saisonnalité et ce qui reste réellement à la charge de l'investisseur.",
+    quote: "Ce qui m'a rassuré, c'est de ne pas avoir à gérer seul la complexité du projet. Tout était structuré et suivi.",
+    image: "/villa-bathroom.webp",
   },
   {
-    title: "La sortie doit être envisagée dès le départ.",
-    body: "Selon votre horizon, Gabriel détaille les scénarios de conservation, de cession ou de revente pour éviter de découvrir les contraintes trop tard.",
+    quote: "Sora nous a permis d'investir à Bali dans un cadre simple, accompagné et beaucoup plus lisible.",
+    image: "/villa-living.webp",
   },
 ]
 
@@ -27,24 +28,37 @@ export default function TestimonialsSection() {
   }, [])
 
   return (
-    <section ref={ref} className="bg-bg-soft py-24 md:py-36 px-6">
+    <section ref={ref} className="bg-accent py-24 md:py-36 px-6">
       <div className="container-page">
         <div className="text-center max-w-5xl mx-auto mb-16">
-          <p className="tm-item eyebrow text-ink-muted mb-6">Avant de demander le dossier</p>
-	          <h2 className="tm-item font-serif font-medium text-ink leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
-            Les bons sujets doivent être cadrés avant d&apos;investir.
+          <p className="tm-item eyebrow-dark mb-6">Témoignages</p>
+          <h2 className="tm-item font-serif font-medium text-background leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,72px)" }}>
+            Ce que disent ceux qui ont investi.
           </h2>
-          <p className="tm-item text-ink/65 max-w-xl mx-auto mt-6 leading-relaxed">
-            Le risque vient rarement d&apos;une seule mauvaise décision. Il apparaît quand le montage, le calendrier ou l&apos;exploitation restent flous au moment de signer.
+          <p className="tm-item text-background/75 max-w-xl mx-auto mt-6 leading-relaxed">
+            Des investisseurs français qui ont franchi le pas, avec Sora comme partenaire terrain.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {DECISION_POINTS.map((point, i) => (
-            <div key={i} className="tm-item bg-bg-mid p-8 md:p-10 rounded-sm flex flex-col">
-              <span className="metadata text-ink/45 mb-8">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="font-serif text-2xl text-ink leading-snug mb-5 flex-1">{point.title}</h3>
-              <div className="border-t border-ink/15 pt-5">
-                <p className="text-sm text-ink/70 leading-relaxed">{point.body}</p>
+          {TESTIMONIALS.map((t, i) => (
+            <div
+              key={i}
+              className="tm-item relative overflow-hidden rounded-sm min-h-[260px] md:min-h-[320px] flex items-end"
+            >
+              <Image
+                src={t.image}
+                alt=""
+                fill
+                quality={95}
+                sizes="(max-width:768px) 100vw, 33vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/55 backdrop-blur-[2px]" />
+              <div className="relative p-8 md:p-10">
+                <span className="font-serif text-5xl md:text-6xl leading-none text-accent block mb-4" aria-hidden="true">&ldquo;</span>
+                <p className="font-serif italic text-background text-lg md:text-xl leading-snug">
+                  {t.quote}
+                </p>
               </div>
             </div>
           ))}

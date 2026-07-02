@@ -5,7 +5,6 @@ import localFont from "next/font/local"
 import Script from "next/script"
 import SmoothScroll from "@/components/smooth-scroll"
 import Navbar from "@/components/layout/navbar"
-import TopLanguette from "@/components/layout/top-languette"
 import "./globals.css"
 
 const eightly = localFont({
@@ -26,6 +25,7 @@ const eightly = localFont({
 const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
 
@@ -85,7 +85,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
         <SmoothScroll>
           <Navbar />
-          <TopLanguette />
           {children}
           {process.env.NODE_ENV === "development" && <Agentation />}
         </SmoothScroll>
