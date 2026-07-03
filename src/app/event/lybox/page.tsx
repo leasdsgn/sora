@@ -76,7 +76,8 @@ export default function EventLyboxPage() {
               <span className="tertiary text-accent">Places limitées</span>
             </div>
 
-            <p className="ev-fade eyebrow mb-6">Webinaire / Lybox x Sora / 50 min</p>
+            <p className="ev-fade eyebrow mb-3">Webinaire / Lybox x Sora / 50 min</p>
+            <p className="ev-fade text-ink/60 text-sm font-medium mb-6">Lundi 21 juillet 2025 · 12h30 (heure de Paris)</p>
             <h1
               className="ev-fade font-serif font-medium text-ink leading-[0.95]"
               style={{ fontSize: "clamp(36px,5vw,72px)" }}
