@@ -1,7 +1,13 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { gsap } from "gsap"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 declare global {
   interface Window {
@@ -9,202 +15,190 @@ declare global {
   }
 }
 
-export default function VSLPartenairesPage() {
+const CALENDLY_URL = "https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=partenaires"
+
+const FAQ = [
+  { q: "Quel est le taux de commission exact ?", a: "Le taux est discuté lors du premier échange en fonction de votre profil et volume potentiel. Ordre de grandeur : ~2,5% du prix de vente, soit 3 700€ à 11 700€ par villa." },
+  { q: "Dois-je gérer la vente moi-même ?", a: "Non. Vous présentez le projet et qualifiez l'intérêt. Gabriel et l'équipe Sora prennent le relais pour le closing, le juridique et la signature." },
+  { q: "Comment sont versées les commissions ?", a: "Par virement, dès la signature du contrat de réservation par l'investisseur." },
+  { q: "Quels outils de vente sont fournis ?", a: "Brochure personnalisable, projections financières détaillées (5 ans, flat tax incluse), support juridique PT PMA, rendus 3D et plans architecte." },
+  { q: "Y a-t-il une exclusivité géographique ?", a: "Pas d'exclusivité imposée. Vous recommandez à votre réseau sans contrainte de zone." },
+  { q: "Le projet est-il sécurisé juridiquement ?", a: "Oui. Investissement via PT PMA (société indonésienne à capitaux étrangers), leasehold 30+30 ans, garantie structure 10 ans. Le cadre complet est détaillé dans le dossier partenaire." },
+]
+
+function CtaButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
+      className={`inline-block bg-accent text-background font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-10 py-4 rounded-full hover:bg-foreground hover:text-background transition-colors duration-500 ${className}`}>
+      {children}
+    </a>
+  )
+}
+
+export default function PartenairesPage() {
   const ref = useRef<HTMLElement>(null)
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", company: "", role: "" })
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [showExitPopup, setShowExitPopup] = useState(false)
+  const [videoPlaying, setVideoPlaying] = useState(false)
+  const [showVideoCta, setShowVideoCta] = useState(false)
+  const exitShownRef = useRef(false)
+
+  const handleVideoClick = useCallback(() => {
+    const v = videoRef.current
+    if (!v) return
+    if (v.paused) {
+      v.muted = false
+      v.play()
+      setVideoPlaying(true)
+    } else {
+      v.pause()
+      setVideoPlaying(false)
+    }
+  }, [])
 
   useEffect(() => {
     window.fbq?.("track", "ViewContent", { content_name: "seseh-partenaires" })
-
     const ctx = gsap.context(() => {
-      gsap.from(".vsl-fade", {
-        opacity: 0,
-        y: 20,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "expo.out",
-        delay: 0.2,
-      })
+      gsap.from(".vsl-fade", { opacity: 0, y: 20, duration: 0.9, stagger: 0.08, ease: "expo.out", delay: 0.2 })
     }, ref)
-    return () => ctx.revert()
-  }, [])
 
-  const scrollToForm = () => document.getElementById("rdv")?.scrollIntoView({ behavior: "smooth" })
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus("loading")
-    try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          phone: form.phone,
-          source: "seseh-partenaire",
-        }),
-      })
-      if (res.ok) {
-        setStatus("success")
-        window.fbq?.("track", "Lead", { content_name: "partenaire" })
-      } else {
-        setStatus("error")
-      }
-    } catch {
-      setStatus("error")
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY > 5 || exitShownRef.current) return
+      if (sessionStorage.getItem("part-exit-shown")) return
+      exitShownRef.current = true
+      sessionStorage.setItem("part-exit-shown", "1")
+      setShowExitPopup(true)
     }
-  }
+    document.addEventListener("mouseleave", handleMouseLeave)
+
+    const v = videoRef.current
+    const handleTimeUpdate = () => {
+      if (v && v.currentTime / v.duration >= 0.2 && !showVideoCta) {
+        setShowVideoCta(true)
+      }
+    }
+    v?.addEventListener("timeupdate", handleTimeUpdate)
+
+    return () => {
+      ctx.revert()
+      document.removeEventListener("mouseleave", handleMouseLeave)
+      v?.removeEventListener("timeupdate", handleTimeUpdate)
+    }
+  }, [showVideoCta])
 
   return (
-    <main ref={ref} className="bg-bg min-h-screen">
-      {/* Nav minimal */}
-      <nav className="fixed top-0 inset-x-0 z-50 bg-bg/80 backdrop-blur-md border-b border-line/30">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="/seseh" className="font-serif font-medium text-ink text-lg tracking-wide">
-            Seseh Sunset Villas
-          </a>
-          <button onClick={scrollToForm} className="cta-primary font-serif font-semibold text-[10px]">
-            Devenir partenaire
-          </button>
-        </div>
-      </nav>
+    <main ref={ref} className="bg-background min-h-screen">
 
-      {/* Hero avec image */}
-      <section className="relative pt-20 min-h-[65vh] flex items-end overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src="/villa-pool.webp" alt="Villa Seseh avec piscine" fill quality={95} priority className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-bg/20" />
-        </div>
-        <div className="relative z-10 px-6 pb-16 md:pb-24 max-w-3xl mx-auto text-center">
-          <p className="vsl-fade eyebrow mx-auto mb-6">Programme partenaires / Sora Immobilier</p>
-          <h1
-            className="vsl-fade font-serif font-medium text-ink leading-[0.95]"
-            style={{ fontSize: "clamp(30px,4.5vw,60px)" }}
-          >
-            Proposez Bali à vos clients.
-            <br />
-            <span className="text-accent">Gagnez sur chaque vente.</span>
-          </h1>
-          <p className="vsl-fade text-ink/70 mt-6 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-            Vous êtes CGP, agent immobilier, family office ou influenceur ?
-            Touchez une commission sur chaque villa vendue via votre réseau.
-            De 3 700€ à 11 700€ par vente.
-          </p>
-          <div className="vsl-fade mt-8">
-            <button onClick={scrollToForm} className="cta-primary font-serif font-semibold">
-              Prendre rendez-vous
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Video */}
-      <section className="px-6 py-16 md:py-24">
+      {/* ─── HERO : Headline + Video + CTA ─── */}
+      <section className="px-6 pt-12 md:pt-20 pb-16 md:pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="vsl-fade relative aspect-video bg-ink/5 border border-line overflow-hidden rounded-sm">
-            <Image src="/video-thumb.webp" alt="Présentation programme partenaires" fill className="object-cover" sizes="(max-width:768px) 100vw, 900px" />
-            <div className="absolute inset-0 bg-ink/30 flex flex-col items-center justify-center gap-4">
-              <div className="w-20 h-20 rounded-full bg-bg/90 flex items-center justify-center">
-                <svg className="w-8 h-8 text-accent ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+          <a href="/" className="vsl-fade font-serif font-medium text-foreground/40 text-sm tracking-wide">Sora Immobilier</a>
+
+          <h1 className="vsl-fade font-serif font-medium text-foreground leading-[0.95] mt-8 md:mt-12 max-w-4xl" style={{ fontSize: "clamp(32px,5vw,68px)" }}>
+            Proposez Bali à vos clients. 3 700€ à 11 700€ par vente.
+          </h1>
+          <p className="vsl-fade text-foreground/60 mt-6 text-lg md:text-xl max-w-2xl leading-relaxed">
+            Vous êtes CGP, agent immobilier, family office ou influenceur ? Sora vous fournit un produit clé en main
+            qui se vend, un support complet, et une commission sur chaque villa.
+          </p>
+
+          {/* Video */}
+          <div className="vsl-fade relative aspect-video bg-muted border border-border overflow-hidden rounded-sm mt-10 cursor-pointer" onClick={handleVideoClick}>
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              poster="/video-thumb.webp"
+              playsInline
+              muted
+              preload="metadata"
+            >
+              <source src="/vsl-partenaires.mp4" type="video/mp4" />
+            </video>
+            {!videoPlaying && (
+              <div className="absolute inset-0 bg-foreground/25 flex flex-col items-center justify-center gap-3">
+                <div className="w-20 h-20 rounded-full bg-background/90 flex items-center justify-center shadow-lg">
+                  <svg className="w-8 h-8 text-accent ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                </div>
+                <p className="metadata text-background/80">Présentation du programme partenaires</p>
               </div>
-              <p className="metadata text-bg/80">Présentation du programme partenaires</p>
+            )}
+            {showVideoCta && videoPlaying && (
+              <div className="absolute bottom-4 inset-x-4 flex justify-center" onClick={(e) => e.stopPropagation()}>
+                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
+                  className="bg-accent text-background font-serif font-semibold text-[10px] tracking-[0.2em] uppercase px-8 py-3 rounded-full shadow-lg hover:bg-foreground transition-colors animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  Devenir partenaire
+                </a>
+              </div>
+            )}
+          </div>
+
+          {/* CTA #1 */}
+          <div className="vsl-fade mt-8 text-center">
+            <CtaButton>Échanger avec Gabriel, fondateur</CtaButton>
+            <p className="metadata text-muted-foreground/50 mt-4">20 min, sans engagement. Il vous présente le programme.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SOCIAL PROOF BAR ─── */}
+      <section className="bg-card border-y border-border py-6 px-6">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 md:gap-16 text-center">
+          {[
+            { value: "100+", label: "investisseurs accompagnés" },
+            { value: "~2,5%", label: "commission par vente" },
+            { value: "13", label: "villas encore disponibles" },
+          ].map((s) => (
+            <div key={s.label} className="flex items-center gap-3">
+              <span className="font-serif font-medium text-accent text-xl">{s.value}</span>
+              <span className="metadata text-muted-foreground">{s.label}</span>
             </div>
-            {/*
-              Remplacer par :
-              <iframe src="VIDEO_URL" className="absolute inset-0 w-full h-full" allow="autoplay; fullscreen" />
-            */}
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Chiffres clés du projet */}
-      <section className="px-6 pb-16 md:pb-24">
+      {/* ─── POURQUOI DEVENIR PARTENAIRE ─── */}
+      <section className="px-6 py-24 md:py-36">
         <div className="max-w-3xl mx-auto">
-          <p className="vsl-fade text-ink/60 text-center text-sm mb-8">Un produit concret que vos clients comprennent en 5 minutes.</p>
-          <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { value: "149k-469k€", label: "Ticket d'entrée" },
-              { value: "13,8%", label: "Rendement net projeté" },
-              { value: "13", label: "Villas restantes" },
-              { value: "Mars 2028", label: "Livraison" },
-            ].map((s) => (
-              <div key={s.label} className="text-center p-5 bg-bg-soft border border-line rounded-sm">
-                <p className="font-serif font-medium text-accent text-lg md:text-xl">{s.value}</p>
-                <p className="metadata text-ink/55 mt-2">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pourquoi devenir partenaire */}
-      <section className="px-6 pb-16 md:pb-24">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="vsl-fade font-serif font-medium text-ink text-center leading-[1.05] mb-12" style={{ fontSize: "clamp(26px,3.5vw,48px)" }}>
-            Pourquoi rejoindre le programme ?
+          <p className="vsl-fade eyebrow text-muted-foreground mb-6">Le programme</p>
+          <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+            Un produit qui se vend. Un support qui vous équipe.
           </h2>
-          <div className="vsl-fade grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="vsl-fade mt-10 space-y-6">
             {[
-              {
-                title: "Commission ~2,5% par vente",
-                desc: "Sur des villas de 149k à 469k€, chaque recommandation génère entre 3 700€ et 11 700€ de commission.",
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Produit qui se vend",
-                desc: "Rendement projeté jusqu'à 13,8% net, leasehold 30+30 ans, gestion locative intégrée. Vos clients comprennent vite.",
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Support complet",
-                desc: "Brochure co-brandée, projections financières, support juridique PT PMA. On gère la vente, vous présentez.",
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                  </svg>
-                ),
-              },
+              { title: "Commission de 3 700€ à 11 700€ par vente", desc: "~2,5% sur des villas de 149k à 469k€. Versée dès la signature du contrat de réservation." },
+              { title: "Produit clé en main, 10% de rendement", desc: "Vos clients comprennent en 5 minutes. Rendement projeté jusqu'à 13,8% net, gestion locative intégrée, leasehold 30+30 ans." },
+              { title: "Sora gère le closing", desc: "Vous présentez le projet et qualifiez l'intérêt. Gabriel prend le relais pour la vente, le juridique et la signature." },
+              { title: "Support complet fourni", desc: "Brochure co-brandée, projections financières détaillées, argumentaire adapté à votre audience, support juridique PT PMA." },
             ].map((item) => (
-              <div key={item.title} className="bg-bg-soft border border-line rounded-sm p-6 md:p-8">
-                <div className="text-accent mb-4">{item.icon}</div>
-                <p className="font-serif font-medium text-ink text-base mb-3">{item.title}</p>
-                <p className="text-ink/55 text-sm leading-relaxed">{item.desc}</p>
+              <div key={item.title} className="flex gap-4 items-start">
+                <span className="text-accent/60 text-xl mt-0.5 shrink-0">+</span>
+                <div>
+                  <p className="font-serif font-medium text-foreground text-base">{item.title}</p>
+                  <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Simulation revenus */}
-      <section className="bg-bg-soft py-16 md:py-24 px-6">
+      {/* ─── SIMULATION REVENUS ─── */}
+      <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="vsl-fade eyebrow mx-auto mb-6">Simulation</p>
-            <h2 className="vsl-fade font-serif font-medium text-ink leading-[1.05]" style={{ fontSize: "clamp(24px,3vw,40px)" }}>
+          <div className="text-center mb-12">
+            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Simulation</p>
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
               Combien pouvez-vous gagner ?
             </h2>
           </div>
           <div className="vsl-fade overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-line">
-                  <th className="metadata text-ink/50 text-left py-3 pr-4">Gamme</th>
-                  <th className="metadata text-ink/50 text-right py-3 px-4">Prix villa</th>
-                  <th className="metadata text-ink/50 text-right py-3 px-4">Commission ~2,5%</th>
-                  <th className="metadata text-ink/50 text-right py-3 pl-4">3 ventes</th>
+                <tr className="border-b border-border">
+                  <th className="metadata text-muted-foreground text-left py-3 pr-4">Gamme</th>
+                  <th className="metadata text-muted-foreground text-right py-3 px-4">Prix villa</th>
+                  <th className="metadata text-muted-foreground text-right py-3 px-4">Commission</th>
+                  <th className="metadata text-muted-foreground text-right py-3 pl-4">3 ventes</th>
                 </tr>
               </thead>
               <tbody>
@@ -214,9 +208,9 @@ export default function VSLPartenairesPage() {
                   { gamme: "Signature", prix: "369 000€", comm: "9 225€", trois: "27 675€" },
                   { gamme: "Exception", prix: "469 000€", comm: "11 725€", trois: "35 175€" },
                 ].map((r) => (
-                  <tr key={r.gamme} className="border-b border-line/50">
-                    <td className="py-3 pr-4 font-serif font-medium text-ink">{r.gamme}</td>
-                    <td className="py-3 px-4 text-ink/60 text-right">{r.prix}</td>
+                  <tr key={r.gamme} className="border-b border-border/50">
+                    <td className="py-3 pr-4 font-serif font-medium text-foreground">{r.gamme}</td>
+                    <td className="py-3 px-4 text-muted-foreground text-right">{r.prix}</td>
                     <td className="py-3 px-4 text-accent font-medium text-right">{r.comm}</td>
                     <td className="py-3 pl-4 text-accent font-semibold text-right">{r.trois}</td>
                   </tr>
@@ -224,97 +218,128 @@ export default function VSLPartenairesPage() {
               </tbody>
             </table>
           </div>
-          <p className="vsl-fade metadata text-ink/40 mt-4 text-center">Commission indicative. Taux exact discuté lors du RDV partenaire.</p>
+          <p className="vsl-fade metadata text-muted-foreground/40 mt-4 text-center">Commission indicative ~2,5%. Taux exact discuté lors de l&apos;échange.</p>
         </div>
       </section>
 
-      {/* Le produit en images */}
-      <section className="bg-bg py-16 md:py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="vsl-fade font-serif font-medium text-ink text-center leading-[1.05] mb-10" style={{ fontSize: "clamp(24px,3vw,40px)" }}>
-            Le produit que vous recommandez
+      {/* ─── CTA #2 ─── */}
+      <section className="bg-accent/10 py-12 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="vsl-fade font-serif font-medium text-foreground text-lg md:text-xl mb-6">
+            20 minutes pour découvrir le programme et vos conditions.
+          </p>
+          <CtaButton>Réserver un appel (20 min)</CtaButton>
+        </div>
+      </section>
+
+      {/* ─── QUI EST GABRIEL ─── */}
+      <section className="px-6 py-24 md:py-36">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Votre interlocuteur</p>
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.05]" style={{ fontSize: "clamp(24px,3.5vw,44px)" }}>
+              Gabriel Lapierre, ingénieur et promoteur.
+            </h2>
+            <p className="vsl-fade text-muted-foreground mt-6 leading-relaxed">
+              Ingénieur diplômé des Arts et Métiers, passé par Vinci. Il a acheté 10+ biens en France
+              puis accompagné des centaines d&apos;investisseurs en dirigeant une agence d&apos;investissement clé en main.
+              Face aux limites du marché européen, il a créé Sora pour importer la rigueur technique française à Bali.
+            </p>
+            <p className="vsl-fade text-muted-foreground mt-4 leading-relaxed">
+              C&apos;est lui qui prend le relais avec vos clients pour le closing,
+              et c&apos;est lui que vous aurez au téléphone pour structurer le partenariat.
+            </p>
+          </div>
+          <div className="vsl-fade relative aspect-[4/3] rounded-sm overflow-hidden">
+            <Image src="/gabriel-lapierre.webp" alt="Gabriel Lapierre, fondateur Sora" fill className="object-cover" sizes="(max-width:768px) 100vw, 500px" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/70 to-transparent p-6">
+              <p className="font-serif font-medium text-background text-base">Gabriel Lapierre</p>
+              <p className="metadata text-background/70 mt-1">Fondateur Sora. Ingénieur Arts et Métiers, ex-Vinci.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── COMMENT ÇA MARCHE ─── */}
+      <section className="bg-foreground py-24 md:py-36 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="vsl-fade font-serif font-medium text-background text-center leading-[1.0] mb-16" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+            Comment ça fonctionne.
           </h2>
-          <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             {[
-              { name: "Élégance", img: "/villa-render-exterior.webp", detail: "1ch · 51m² · 149k€" },
-              { name: "Prestige", img: "/villa-pool.webp", detail: "2ch · 80m² · 239k€" },
-              { name: "Signature", img: "/villa-living.webp", detail: "2ch · 153m² · 369k€" },
-              { name: "Exception", img: "/villa-kitchen.webp", detail: "3ch · 197m² · 469k€" },
+              { step: "01", title: "Prenez RDV", desc: "20 min avec Gabriel pour valider le fit et vos conditions." },
+              { step: "02", title: "On vous équipe", desc: "Brochure co-brandée, projections, argumentaire adapté." },
+              { step: "03", title: "Vous recommandez", desc: "Présentez le projet. On prend le relais sur la vente." },
+              { step: "04", title: "Commission versée", desc: "Dès la signature du contrat de réservation." },
+            ].map((s) => (
+              <div key={s.step} className="vsl-fade text-center md:text-left">
+                <p className="font-serif font-medium text-accent text-2xl mb-3">{s.step}</p>
+                <p className="font-serif font-medium text-background text-base mb-2">{s.title}</p>
+                <p className="text-background/45 text-sm leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── LE PRODUIT ─── */}
+      <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Le produit que vous recommandez</p>
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+              4 gammes, à partir de 149 000€.
+            </h2>
+          </div>
+          <div className="vsl-fade grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { name: "Élégance", price: "149 000€", surface: "51 m²", chambres: "1 chambre", revenus: "20 611€/an", rendement: "13,8%", img: "/villa-render-exterior.webp" },
+              { name: "Prestige", price: "239 000€", surface: "80 m²", chambres: "2 chambres", revenus: "27 972€/an", rendement: "11,7%", img: "/villa-pool.webp" },
+              { name: "Signature", price: "369 000€", surface: "153 m²", chambres: "2 chambres premium", revenus: "Sur demande", rendement: "", img: "/villa-living.webp" },
+              { name: "Exception", price: "469 000€", surface: "197 m²", chambres: "3 chambres", revenus: "Sur demande", rendement: "", img: "/villa-kitchen.webp" },
             ].map((g) => (
-              <div key={g.name} className="group relative rounded-sm overflow-hidden" style={{ aspectRatio: "3/4" }}>
-                <Image src={g.img} alt={`Villa ${g.name}`} fill quality={85} className="object-cover group-hover:scale-105 transition-transform duration-1000" sizes="(max-width:768px) 50vw, 25vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="font-serif font-medium text-ink text-sm">{g.name}</p>
-                  <p className="metadata text-ink/55 mt-0.5">{g.detail}</p>
+              <div key={g.name} className="group relative rounded-sm overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                <Image src={g.img} alt={`Villa ${g.name}`} fill quality={90} className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" sizes="(max-width:768px) 100vw, 50vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="flex items-end justify-between gap-4">
+                    <div>
+                      <p className="tertiary text-background/60 mb-1">{g.name}</p>
+                      <p className="font-serif text-background text-2xl font-medium">{g.price}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="metadata text-background/55">{g.surface} / {g.chambres}</p>
+                      <p className="metadata text-accent mt-1">{g.revenus}</p>
+                    </div>
+                  </div>
+                  {g.rendement && (
+                    <div className="mt-3">
+                      <span className="metadata text-accent bg-accent/10 backdrop-blur-sm px-3 py-1 rounded-full">{g.rendement} net</span>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Galerie intérieurs */}
-          <div className="vsl-fade mt-6 grid grid-cols-4 md:grid-cols-8 gap-2">
-            {[
-              "/seseh/signature/living.jpg",
-              "/seseh/exception/kitchen.jpg",
-              "/seseh/prestige/bedroom1.jpg",
-              "/seseh/signature/terrace.jpg",
-              "/seseh/exception/bath1.jpg",
-              "/seseh/elegance/living.jpg",
-              "/seseh/prestige/terrace.jpg",
-              "/seseh/signature/dining.jpg",
-            ].map((src) => (
-              <div key={src} className="relative aspect-square rounded-sm overflow-hidden">
-                <Image src={src} alt="" fill quality={70} className="object-cover" sizes="(max-width:768px) 25vw, 12.5vw" />
-              </div>
-            ))}
-          </div>
-          <p className="metadata text-ink/40 mt-3 text-center">Intérieurs livrés meublés, finitions haut de gamme</p>
-        </div>
-      </section>
-
-      {/* CTA mid-page */}
-      <section className="bg-accent/10 py-12 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="vsl-fade font-serif font-medium text-ink text-lg md:text-xl mb-4">
-            20 minutes pour tout comprendre.
-          </p>
-          <p className="vsl-fade text-ink/55 text-sm mb-6">Échange sans engagement avec Gabriel, fondateur de Sora.</p>
-          <button onClick={scrollToForm} className="vsl-fade cta-primary font-serif font-semibold">
-            Prendre rendez-vous
-          </button>
-        </div>
-      </section>
-
-      {/* Comment ça marche */}
-      <section className="bg-ink py-16 md:py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="vsl-fade font-serif font-medium text-bg text-center leading-[1.05] mb-12" style={{ fontSize: "clamp(26px,3.5vw,48px)" }}>
-            Comment ça fonctionne
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Prenez RDV", desc: "Un échange de 20 min pour valider le fit et vos attentes." },
-              { step: "02", title: "On vous équipe", desc: "Brochure co-brandée, projections, argumentaire adapté à votre audience." },
-              { step: "03", title: "Vous recommandez", desc: "Présentez le projet à vos clients. On prend le relais sur la vente." },
-              { step: "04", title: "Commission versée", desc: "Dès la signature du contrat de réservation." },
-            ].map((s) => (
-              <div key={s.step} className="vsl-fade text-center md:text-left">
-                <p className="font-serif font-medium text-accent text-2xl mb-3">{s.step}</p>
-                <p className="font-serif font-medium text-bg text-base mb-2">{s.title}</p>
-                <p className="text-bg/50 text-sm leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
+          {/* Urgence */}
+          <div className="vsl-fade mt-8 bg-accent/10 border border-accent/20 rounded-sm p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <p className="font-serif font-medium text-foreground text-lg">13 villas déjà réservées sur 26.</p>
+              <p className="text-muted-foreground text-sm mt-1">Les premiers partenaires ont l&apos;avantage du stock restant.</p>
+            </div>
+            <CtaButton className="shrink-0">Rejoindre le programme</CtaButton>
           </div>
         </div>
       </section>
 
-      {/* Ce que vos clients obtiennent */}
-      <section className="bg-bg py-16 md:py-24 px-6">
+      {/* ─── CE QUE VOS CLIENTS OBTIENNENT ─── */}
+      <section className="px-6 py-24 md:py-36">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="vsl-fade font-serif font-medium text-ink leading-[1.05]" style={{ fontSize: "clamp(24px,3vw,40px)" }}>
-              Ce que vos clients obtiennent
+          <div className="text-center mb-12">
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+              Ce que vos clients obtiennent.
             </h2>
           </div>
           <div className="vsl-fade grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -328,42 +353,37 @@ export default function VSLPartenairesPage() {
               "Rendement net projeté jusqu'à 13,8%",
               "300m de la plage de Seseh",
             ].map((item) => (
-              <div key={item} className="flex gap-3 items-start bg-bg-soft border border-line rounded-sm p-4">
+              <div key={item} className="flex gap-3 items-start bg-card border border-border rounded-sm p-4">
                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
                   <svg className="w-3 h-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </span>
-                <p className="text-ink/70 text-sm">{item}</p>
+                <p className="text-foreground/70 text-sm">{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Fondateur */}
-      <section className="bg-bg-soft py-16 md:py-24 px-6">
-        <div className="max-w-2xl mx-auto flex flex-col md:flex-row gap-8 items-center">
-          <div className="vsl-fade flex-shrink-0 w-28 h-28 relative rounded-full overflow-hidden">
-            <Image src="/gabriel-lapierre.webp" alt="Gabriel Lapierre" fill className="object-cover" sizes="112px" />
-          </div>
-          <div className="vsl-fade text-center md:text-left">
-            <p className="font-serif font-medium text-ink text-lg">Gabriel Lapierre</p>
-            <p className="metadata text-accent mt-1">Fondateur, Sora Immobilier</p>
-            <p className="text-ink/60 text-sm leading-relaxed mt-3">
-              Basé à Bali, Gabriel a déjà livré plusieurs projets immobiliers (Canggu, Pererenan).
-              Il accompagne personnellement chaque partenaire et prend le relais pour le closing
-              une fois le contact qualifié. C&apos;est lui que vous aurez au téléphone.
-            </p>
-          </div>
+      {/* ─── CTA #3 ─── */}
+      <section className="py-16 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="vsl-fade font-serif font-medium text-foreground text-lg md:text-xl mb-2">
+            Apportez cette opportunité à votre réseau.
+          </p>
+          <p className="vsl-fade text-muted-foreground mb-6">
+            Gabriel vous explique le modèle et vos conditions en 20 minutes.
+          </p>
+          <CtaButton>Découvrir mes conditions</CtaButton>
         </div>
       </section>
 
-      {/* Profils recherchés */}
-      <section className="bg-bg py-16 md:py-24 px-6">
+      {/* ─── PROFILS RECHERCHÉS ─── */}
+      <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="vsl-fade font-serif font-medium text-ink leading-[1.05] mb-10" style={{ fontSize: "clamp(26px,3.5vw,48px)" }}>
-            Profils recherchés
+          <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0] mb-12" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+            Profils recherchés.
           </h2>
           <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -372,143 +392,122 @@ export default function VSLPartenairesPage() {
               "Family offices",
               "Influenceurs finance / immobilier",
             ].map((p) => (
-              <div key={p} className="bg-bg-soft border border-line rounded-sm p-5 flex items-center justify-center">
-                <p className="metadata text-ink/70 text-center">{p}</p>
+              <div key={p} className="bg-background border border-border rounded-sm p-6 flex items-center justify-center">
+                <p className="metadata text-foreground/70 text-center">{p}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Urgence */}
-      <section className="bg-bg py-8 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="vsl-fade metadata text-accent mb-3">Stock limité</p>
-          <p className="vsl-fade font-serif font-medium text-ink text-lg">
-            13 villas déjà réservées sur 26. Les premiers partenaires ont l&apos;avantage du stock restant.
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ partenaires */}
-      <section className="bg-bg-soft py-16 md:py-24 px-6">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="vsl-fade font-serif font-medium text-ink text-center leading-[1.05] mb-10" style={{ fontSize: "clamp(24px,3vw,40px)" }}>
-            Questions fréquentes
-          </h2>
-          <div className="vsl-fade space-y-6">
+      {/* ─── INTÉRIEURS ─── */}
+      <section className="bg-background py-24 md:py-36 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Finitions haut de gamme</p>
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,52px)" }}>
+              Un produit que vos clients voient et comprennent.
+            </h2>
+          </div>
+          <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
-              { q: "Quel est le taux de commission exact ?", a: "Le taux est discuté lors du premier RDV en fonction de votre profil et volume potentiel. Ordre de grandeur : ~2,5% du prix de vente, soit 3 700€ à 11 700€ par villa." },
-              { q: "Dois-je gérer la vente moi-même ?", a: "Non. Vous présentez le projet et qualifiez l'intérêt. Gabriel et l'équipe Sora prennent le relais pour le closing, le juridique et la signature." },
-              { q: "Comment sont versées les commissions ?", a: "Par virement, dès la signature du contrat de réservation par l'investisseur." },
-              { q: "Quels outils de vente sont fournis ?", a: "Brochure personnalisable, projections financières détaillées (5 ans, flat tax incluse), support juridique PT PMA, rendus 3D et plans architecte." },
-              { q: "Y a-t-il une exclusivité géographique ?", a: "Pas d'exclusivité imposée. Vous recommandez à votre réseau sans contrainte de zone." },
-              { q: "Le projet est-il sécurisé juridiquement ?", a: "Oui. Investissement via PT PMA (société indonésienne à capitaux étrangers), leasehold 30+30 ans, garantie structure 10 ans. Le cadre complet est détaillé dans le dossier partenaire." },
-            ].map((faq) => (
-              <div key={faq.q} className="border-b border-line pb-6">
-                <p className="font-serif font-medium text-ink text-base mb-2">{faq.q}</p>
-                <p className="text-ink/60 text-sm leading-relaxed">{faq.a}</p>
+              { src: "/seseh/signature/living.jpg", alt: "Living Signature" },
+              { src: "/seseh/exception/kitchen.jpg", alt: "Cuisine Exception" },
+              { src: "/seseh/prestige/bedroom1.jpg", alt: "Chambre Prestige" },
+              { src: "/seseh/signature/terrace.jpg", alt: "Terrasse Signature" },
+              { src: "/seseh/exception/bath1.jpg", alt: "Salle de bain Exception" },
+              { src: "/seseh/elegance/living.jpg", alt: "Living Élégance" },
+              { src: "/seseh/prestige/terrace.jpg", alt: "Terrasse Prestige" },
+              { src: "/seseh/signature/dining.jpg", alt: "Dining Signature" },
+            ].map((photo) => (
+              <div key={photo.src} className="relative aspect-square rounded-sm overflow-hidden">
+                <Image src={photo.src} alt={photo.alt} fill quality={80} className="object-cover hover:scale-105 transition-transform duration-700" sizes="(max-width:768px) 50vw, 25vw" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Formulaire RDV */}
-      <section id="rdv" className="bg-bg py-20 md:py-32 px-6">
-        <div className="max-w-lg mx-auto">
-          {status === "success" ? (
-            <div className="bg-bg-soft border border-line rounded-sm p-10 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h2 className="font-serif font-medium text-ink text-2xl mb-4">Demande envoyée.</h2>
-              <p className="text-ink/65 leading-relaxed">
-                Gabriel vous recontacte sous 24h pour planifier votre appel.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="bg-bg-soft border border-line rounded-sm p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="font-serif font-medium text-ink text-xl md:text-2xl mb-2">
-                  Prendre rendez-vous
-                </h2>
-                <p className="text-ink/50 text-sm">
-                  Échange de 20 minutes avec Gabriel pour découvrir le programme.
-                </p>
-              </div>
-
-              <div className="space-y-5">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="p-fn" className="form-label mb-2">Prénom</label>
-                    <input id="p-fn" type="text" required value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                      className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors" />
-                  </div>
-                  <div>
-                    <label htmlFor="p-ln" className="form-label mb-2">Nom</label>
-                    <input id="p-ln" type="text" required value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                      className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors" />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="p-email" className="form-label mb-2">Email professionnel</label>
-                  <input id="p-email" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors" />
-                </div>
-                <div>
-                  <label htmlFor="p-phone" className="form-label mb-2">Téléphone</label>
-                  <input id="p-phone" type="tel" required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="p-company" className="form-label mb-2">Société</label>
-                    <input id="p-company" type="text" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors" />
-                  </div>
-                  <div>
-                    <label htmlFor="p-role" className="form-label mb-2">Votre rôle</label>
-                    <select id="p-role" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}
-                      className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors">
-                      <option value="">Sélectionner</option>
-                      <option value="cgp">CGP</option>
-                      <option value="agent">Agent immobilier</option>
-                      <option value="family-office">Family office</option>
-                      <option value="influenceur">Influenceur</option>
-                      <option value="autre">Autre</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <button type="submit" disabled={status === "loading"}
-                className="w-full mt-8 bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-accent transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed">
-                {status === "loading" ? "Envoi en cours..." : "Réserver mon créneau"}
-              </button>
-
-              {status === "error" && (
-                <p className="mt-4 text-red-400 text-sm text-center">Une erreur est survenue. Réessayez.</p>
-              )}
-              <p className="mt-5 metadata text-ink/35 text-center">Échange sans engagement / 20 minutes</p>
-            </form>
-          )}
+      {/* ─── FAQ ─── */}
+      <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+              Questions fréquentes.
+            </h2>
+          </div>
+          <Accordion type="single" collapsible className="vsl-fade w-full">
+            {FAQ.map((item, i) => (
+              <AccordionItem key={i} value={`item-${i}`}>
+                <AccordionTrigger className="py-6 font-serif text-lg md:text-xl text-foreground font-medium hover:no-underline hover:text-muted-foreground text-left">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-6 pt-0 text-base font-sans text-foreground/70 leading-relaxed max-w-2xl">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
-      {/* Sticky CTA mobile */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-bg/95 backdrop-blur-md border-t border-line/30 p-4">
-        <button onClick={scrollToForm} className="w-full bg-ink text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase py-4 rounded-full">
-          Devenir partenaire
-        </button>
+      {/* ─── CTA FINAL ─── */}
+      <section className="bg-background px-6 py-24 md:py-36 border-t border-border">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,52px)" }}>
+            Prêt à rejoindre le programme ?
+          </h2>
+          <p className="vsl-fade text-muted-foreground mt-6 leading-relaxed">
+            Réservez 20 minutes avec Gabriel. Il vous présente le modèle, vos conditions,
+            et les outils de vente mis à votre disposition.
+          </p>
+          <div className="vsl-fade mt-8">
+            <CtaButton>Réserver mon appel avec Gabriel</CtaButton>
+          </div>
+          <p className="vsl-fade metadata text-muted-foreground/40 mt-6">Sans engagement. Échange confidentiel.</p>
+        </div>
+      </section>
+
+      {/* ─── MICRO-FOOTER ─── */}
+      <div className="bg-background border-t border-border py-8 px-6">
+        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-serif text-foreground/30 text-sm">Sora Immobilier</p>
+          <p className="metadata text-muted-foreground/30">contact@sora-immobilier.com</p>
+        </div>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-line/30 py-8 px-6 pb-24 md:pb-8 text-center">
-        <p className="metadata text-ink/35">&copy; 2026 Sora Immobilier</p>
-      </footer>
+      {/* Sticky CTA mobile */}
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-background/95 backdrop-blur-md border-t border-border/30 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
+          className="block w-full text-center bg-accent text-background font-serif font-semibold text-[11px] tracking-[0.22em] uppercase py-4 rounded-full">
+          Devenir partenaire
+        </a>
+      </div>
+
+      {/* Exit intent popup */}
+      {showExitPopup && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-6">
+          <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={() => setShowExitPopup(false)} />
+          <div className="relative bg-background border border-border rounded-sm max-w-md w-full p-10 text-center shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+            <button onClick={() => setShowExitPopup(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <p className="font-serif font-medium text-foreground text-xl md:text-2xl leading-tight">
+              Vous avez un réseau de cadres ou dirigeants ?
+            </p>
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              Découvrez combien vous pouvez générer avec le programme partenaire Sora. 20 minutes avec Gabriel suffisent.
+            </p>
+            <div className="mt-8">
+              <CtaButton>Découvrir le programme</CtaButton>
+            </div>
+            <button onClick={() => setShowExitPopup(false)} className="mt-4 metadata text-muted-foreground/40 hover:text-muted-foreground transition-colors">
+              Non merci
+            </button>
+          </div>
+        </div>
+      )}
+
     </main>
   )
 }
