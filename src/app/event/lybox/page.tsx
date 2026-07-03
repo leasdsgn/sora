@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import Image from "next/image"
 import Footer from "@/components/layout/footer"
 
 declare global {
@@ -10,10 +11,19 @@ declare global {
 }
 
 const PROGRAMME = [
-  { time: "0:00", label: "Intro Thomas (Lybox)", desc: "Contexte Lybox, pourquoi Bali" },
-  { time: "0:05", label: "Présentation Gabriel", desc: "Marché Bali 2026, Seseh Sunset Villas, chiffres réels" },
-  { time: "0:30", label: "Q&A modéré", desc: "Thomas lit les questions du chat, Gabriel répond" },
-  { time: "0:45", label: "CTA + closing", desc: "Dossier complet + RDV personnalisé avec Gabriel" },
+  { time: "0:00", label: "Thomas introduit le sujet", desc: "Le marché immobilier à Bali vu par un analyste data" },
+  { time: "0:05", label: "Gabriel : observer avant d'investir", desc: "Ce que les chiffres révèlent sur le marché balinais en 2025" },
+  { time: "0:15", label: "La vague Bali", desc: "Vacanciers, expatriés, investisseurs : pourquoi cette île change de dimension" },
+  { time: "0:25", label: "Seseh Sunset Villas", desc: "26 villas, 4 gammes, projections financières réelles" },
+  { time: "0:35", label: "Cadre juridique et fiscal", desc: "PT PMA, leasehold 30+30, sécurisation de l'investissement" },
+  { time: "0:45", label: "Q&A en direct", desc: "Thomas modère, Gabriel répond" },
+]
+
+const PHOTOS = [
+  { src: "/seseh/exception/living.jpg", alt: "Salon villa Exception" },
+  { src: "/seseh/signature/terrace.jpg", alt: "Terrasse villa Signature" },
+  { src: "/seseh/prestige/living.jpg", alt: "Salon villa Prestige" },
+  { src: "/seseh/exception/terrace.jpg", alt: "Terrasse villa Exception" },
 ]
 
 export default function EventLyboxPage() {
@@ -67,30 +77,103 @@ export default function EventLyboxPage() {
 
   return (
     <main ref={ref}>
-      <section className="min-h-screen bg-bg px-6 py-24 md:py-36">
+      {/* Hero */}
+      <section className="relative min-h-[70vh] flex items-end bg-ink overflow-hidden">
+        <Image
+          src="/villa-pool.webp"
+          alt="Villa Seseh Sunset"
+          fill
+          className="object-cover opacity-40"
+          priority
+        />
+        <div className="relative z-10 container-page max-w-5xl mx-auto px-6 pb-16 pt-32 md:pb-24">
+          <div className="ev-fade inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="tertiary text-white/90">Places limitées</span>
+          </div>
+          <p className="ev-fade eyebrow text-white/60 mb-3">Webinaire gratuit / Lybox x Sora / 50 min</p>
+          <p className="ev-fade text-accent text-sm font-medium mb-6">Lundi 21 juillet 2025 · 12h30 (heure de Paris)</p>
+          <h1
+            className="ev-fade font-serif font-medium text-white leading-[0.95]"
+            style={{ fontSize: "clamp(32px,5vw,64px)" }}
+          >
+            Il a analysé des centaines de marchés.
+            <br />
+            Bali est le seul qui l&apos;a convaincu.
+          </h1>
+        </div>
+      </section>
+
+      {/* Story intro */}
+      <section className="bg-bg px-6 py-20 md:py-28">
+        <div className="container-page max-w-3xl mx-auto">
+          <p className="ev-fade text-ink/80 text-lg md:text-xl leading-relaxed">
+            Thomas, fondateur de Lybox, est analyste data de formation. Il a passé des années à décortiquer les marchés immobiliers
+            avec des chiffres, des ratios, des modèles. Son réflexe, c&apos;est de chercher la faille dans chaque opportunité.
+          </p>
+          <p className="ev-fade text-ink/80 text-lg md:text-xl leading-relaxed mt-6">
+            Et puis il y a eu Bali.
+          </p>
+          <p className="ev-fade text-ink/65 text-base leading-relaxed mt-6">
+            Comme beaucoup, il est venu une première fois en vacances. L&apos;île, le cadre de vie, l&apos;énergie du lieu.
+            Il y est retourné. Puis il a commencé à regarder les chiffres. Et les chiffres racontaient une histoire
+            que peu de marchés européens peuvent raconter : une demande en accélération portée par une vague de fond.
+            Des expatriés qui s&apos;installent, des digital nomads qui restent, des familles qui investissent pour un cadre de vie
+            qu&apos;on ne trouve plus en Europe à ce prix.
+          </p>
+          <p className="ev-fade text-ink/65 text-base leading-relaxed mt-6">
+            Gabriel Lapierre, ingénieur Arts et Métiers devenu promoteur immobilier à Bali, observe cette transformation
+            depuis le terrain. 3 projets livrés, 40 investisseurs accompagnés. Il ne vend pas un rêve.
+            Il construit des villas pour des investisseurs qui, comme Thomas, y réfléchissent à deux fois avant de placer leur argent.
+          </p>
+        </div>
+      </section>
+
+      {/* Photo strip */}
+      <section className="bg-bg px-6 pb-8">
+        <div className="container-page max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+          {PHOTOS.map((p) => (
+            <div key={p.src} className="ev-fade relative aspect-[4/3] rounded-sm overflow-hidden">
+              <Image src={p.src} alt={p.alt} fill className="object-cover" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Ce que vous allez découvrir + form */}
+      <section id="form-section" className="bg-bg px-6 py-20 md:py-28">
         <div className="container-page max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          {/* Left: content */}
           <div>
-            <div className="ev-fade inline-flex items-center gap-2 bg-accent/15 border border-accent/30 rounded-full px-4 py-2 mb-8">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="tertiary text-accent">Places limitées</span>
+            <p className="ev-fade eyebrow mb-6">Ce que vous allez découvrir</p>
+            <div className="space-y-6">
+              <div className="ev-fade">
+                <p className="text-ink font-medium">Pourquoi Bali attire autant d&apos;investisseurs analytiques</p>
+                <p className="text-ink/55 text-sm mt-1">
+                  Les données derrière la vague : taux d&apos;occupation, croissance du tourisme, prix au m², rendement locatif comparé.
+                </p>
+              </div>
+              <div className="ev-fade">
+                <p className="text-ink font-medium">La mécanique d&apos;un investissement villa à Bali</p>
+                <p className="text-ink/55 text-sm mt-1">
+                  Structure juridique (PT PMA), leasehold 30+30, fiscalité. Ce qu&apos;un investisseur français doit savoir avant de signer.
+                </p>
+              </div>
+              <div className="ev-fade">
+                <p className="text-ink font-medium">Le projet Seseh Sunset Villas, chiffres ouverts</p>
+                <p className="text-ink/55 text-sm mt-1">
+                  26 villas, 4 gammes de 149 000 à 469 000€. Rendement net projeté jusqu&apos;à 13,8%. Pas de promesse, des projections documentées.
+                </p>
+              </div>
+              <div className="ev-fade">
+                <p className="text-ink font-medium">Les questions que vous n&apos;osez pas poser</p>
+                <p className="text-ink/55 text-sm mt-1">
+                  Risques réels, liquidité, gestion locative à distance, que se passe-t-il si le marché se retourne. Gabriel répond sans filtre.
+                </p>
+              </div>
             </div>
 
-            <p className="ev-fade eyebrow mb-3">Webinaire / Lybox x Sora / 50 min</p>
-            <p className="ev-fade text-ink/60 text-sm font-medium mb-6">Lundi 21 juillet 2025 · 12h30 (heure de Paris)</p>
-            <h1
-              className="ev-fade font-serif font-medium text-ink leading-[0.95]"
-              style={{ fontSize: "clamp(36px,5vw,72px)" }}
-            >
-              Investir à Bali en 2026 : les chiffres réels.
-            </h1>
-            <p className="ev-fade text-ink/75 mt-8 leading-relaxed text-lg">
-              Un webinaire co-animé par Gabriel Lapierre (ingénieur résident à Bali, fondateur Sora)
-              et Thomas (fondateur Lybox). Pas de pitch, des données terrain.
-            </p>
-
             {/* Programme */}
-            <div className="ev-fade mt-10">
+            <div className="ev-fade mt-14">
               <p className="eyebrow mb-6">Programme</p>
               <div className="space-y-4">
                 {PROGRAMME.map((p) => (
@@ -104,27 +187,9 @@ export default function EventLyboxPage() {
                 ))}
               </div>
             </div>
-
-            {/* Intervenants */}
-            <div className="ev-fade mt-10 grid grid-cols-2 gap-4">
-              <div className="bg-bg-soft border border-line rounded-sm p-5">
-                <p className="font-serif font-medium text-ink text-base">Gabriel Lapierre</p>
-                <p className="metadata text-ink/50 mt-1">Fondateur Sora / Ingénieur Arts et Métiers</p>
-                <p className="text-ink/60 text-sm mt-3">Résident à Bali, 3 projets livrés, 40 investisseurs accompagnés.</p>
-              </div>
-              <div className="bg-bg-soft border border-line rounded-sm p-5">
-                <p className="font-serif font-medium text-ink text-base">Thomas</p>
-                <p className="metadata text-ink/50 mt-1">Fondateur Lybox / SaaS immo</p>
-                <p className="text-ink/60 text-sm mt-3">Plateforme d&apos;analyse immobilière utilisée par 100k+ investisseurs.</p>
-              </div>
-            </div>
-
-            <p className="ev-fade mt-8 metadata text-ink/40">
-              Replay envoyé uniquement aux inscrits / Google Meet
-            </p>
           </div>
 
-          {/* Right: form */}
+          {/* Form */}
           <div className="ev-fade">
             {status === "success" ? (
               <div className="bg-bg-soft border border-line rounded-sm p-10 md:p-12 text-center sticky top-24">
@@ -146,11 +211,12 @@ export default function EventLyboxPage() {
                 onSubmit={handleSubmit}
                 className="bg-bg-soft border border-line rounded-sm p-8 md:p-12 sticky top-24"
               >
+                <p className="text-accent text-sm font-medium mb-2">Lundi 21 juillet · 12h30</p>
                 <h2 className="font-serif font-medium text-ink text-xl md:text-2xl mb-2">
                   Réserver ma place
                 </h2>
                 <p className="text-ink/50 text-sm mb-8">
-                  50 places maximum. Replay réservé aux inscrits.
+                  Places limitées. Replay réservé aux inscrits.
                 </p>
 
                 <div className="space-y-5">
@@ -190,7 +256,7 @@ export default function EventLyboxPage() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full bg-bg border border-line rounded-sm px-4 py-3 text-ink text-sm focus:border-accent focus:outline-none transition-colors"
-                      placeholder="gabriel@exemple.com"
+                      placeholder="vous@exemple.com"
                     />
                   </div>
 
@@ -240,11 +306,90 @@ export default function EventLyboxPage() {
                 )}
 
                 <p className="mt-6 metadata text-ink/35 text-center">
-                  Gratuit / Sans engagement / Replay envoyé après le live
+                  Gratuit / Sans engagement / Google Meet
                 </p>
               </form>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* Intervenants */}
+      <section className="bg-bg-soft px-6 py-20 md:py-28 border-t border-line">
+        <div className="container-page max-w-5xl mx-auto">
+          <p className="ev-fade eyebrow mb-10 text-center">Vos intervenants</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="ev-fade flex gap-6 items-start">
+              <div className="relative w-20 h-20 rounded-full overflow-hidden shrink-0">
+                <Image src="/gabriel-lapierre.webp" alt="Gabriel Lapierre" fill className="object-cover" />
+              </div>
+              <div>
+                <p className="font-serif font-medium text-ink text-lg">Gabriel Lapierre</p>
+                <p className="metadata text-accent mt-1">Fondateur, Sora Immobilier</p>
+                <p className="text-ink/60 text-sm mt-3 leading-relaxed">
+                  Ingénieur Arts et Métiers. Résident à Bali depuis plusieurs années.
+                  3 projets livrés, 40 investisseurs accompagnés. Il est venu en vacances, il a vu les chiffres, il est resté.
+                </p>
+              </div>
+            </div>
+            <div className="ev-fade flex gap-6 items-start">
+              <div className="w-20 h-20 rounded-full bg-line/50 shrink-0 flex items-center justify-center">
+                <span className="font-serif text-ink/30 text-2xl">T</span>
+              </div>
+              <div>
+                <p className="font-serif font-medium text-ink text-lg">Thomas</p>
+                <p className="metadata text-accent mt-1">Fondateur, Lybox</p>
+                <p className="text-ink/60 text-sm mt-3 leading-relaxed">
+                  Analyste data et finance de formation. A créé Lybox, plateforme SaaS utilisée par 100 000+ investisseurs immobiliers en France.
+                  Son audience aime les chiffres, la précision, et les opportunités vérifiables.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo band */}
+      <section className="bg-bg">
+        <div className="grid grid-cols-3 gap-0">
+          <div className="relative aspect-[16/9]">
+            <Image src="/seseh/signature/living.jpg" alt="Salon Signature" fill className="object-cover" />
+          </div>
+          <div className="relative aspect-[16/9]">
+            <Image src="/seseh/exception/kitchen.jpg" alt="Cuisine Exception" fill className="object-cover" />
+          </div>
+          <div className="relative aspect-[16/9]">
+            <Image src="/seseh/prestige/terrace.jpg" alt="Terrasse Prestige" fill className="object-cover" />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA bottom */}
+      <section className="bg-bg px-6 py-20 md:py-28">
+        <div className="container-page max-w-2xl mx-auto text-center">
+          <p className="ev-fade eyebrow mb-4">Lundi 21 juillet · 12h30</p>
+          <h2
+            className="ev-fade font-serif font-medium text-ink leading-tight"
+            style={{ fontSize: "clamp(24px,4vw,48px)" }}
+          >
+            50 minutes pour comprendre pourquoi les analystes regardent Bali.
+          </h2>
+          <p className="ev-fade text-ink/55 mt-6 leading-relaxed">
+            Pas de pitch commercial. Deux profils data-driven qui décortiquent un marché. Des chiffres, des projections, des réponses directes.
+          </p>
+          <a
+            href="#form-section"
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById("form-section")?.scrollIntoView({ behavior: "smooth" })
+            }}
+            className="ev-fade inline-block mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-10 py-4 rounded-full hover:bg-ink transition-colors duration-500"
+          >
+            Réserver ma place
+          </a>
+          <p className="ev-fade mt-6 metadata text-ink/35">
+            Replay envoyé uniquement aux inscrits
+          </p>
         </div>
       </section>
 
