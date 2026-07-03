@@ -13,9 +13,20 @@ type Props = {
   eventTitle: string
   ctaLabel?: string
   finePrint?: string
+  crmSource?: string
+  freshsalesTag?: string
+  acTagId?: string
 }
 
-export default function EventForm({ slug, eventTitle, ctaLabel, finePrint }: Props) {
+export default function EventForm({
+  slug,
+  eventTitle,
+  ctaLabel,
+  finePrint,
+  crmSource,
+  freshsalesTag,
+  acTagId,
+}: Props) {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "" })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -27,7 +38,13 @@ export default function EventForm({ slug, eventTitle, ctaLabel, finePrint }: Pro
       const res = await fetch("/api/event", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, eventSlug: slug }),
+        body: JSON.stringify({
+          ...form,
+          eventSlug: slug,
+          crmSource,
+          freshsalesTag,
+          acTagId,
+        }),
       })
 
       if (res.ok) {

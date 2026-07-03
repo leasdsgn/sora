@@ -37,6 +37,7 @@ type EventDetail = {
   }>
   program?: Array<{ time?: string; title: string; description?: string }>
   body?: unknown
+  crm?: { source?: string; freshsalesTag?: string; acTagId?: string }
   seo?: { metaTitle?: string; metaDescription?: string; ogImage?: { asset?: { _ref: string } } }
 }
 
@@ -296,6 +297,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               eventTitle={event.title}
               ctaLabel={event.registration?.ctaLabel}
               finePrint={event.registration?.finePrint}
+              crmSource={event.crm?.source}
+              freshsalesTag={event.crm?.freshsalesTag}
+              acTagId={event.crm?.acTagId}
             />
           </section>
         )}

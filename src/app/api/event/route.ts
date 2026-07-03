@@ -27,13 +27,29 @@ async function getEventCrm(eventSlug?: string): Promise<EventCrm> {
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { firstName, lastName, email, phone, investExperience, eventSlug } = body
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    investExperience,
+    eventSlug,
+    crmSource,
+    freshsalesTag: freshsalesTagFromClient,
+    acTagId: acTagIdFromClient,
+  } = body
 
   if (!email || !firstName) {
     return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 })
   }
 
-  const crm = await getEventCrm(eventSlug)
+  const needsLookup = !crmSource && !freshsalesTagFromClient && !acTagIdFromClient
+  const crmFallback = needsLookup ? await getEventCrm(eventSlug) : {}
+  const crm: EventCrm = {
+    source: crmSource || crmFallback.source,
+    freshsalesTag: freshsalesTagFromClient || crmFallback.freshsalesTag,
+    acTagId: acTagIdFromClient || crmFallback.acTagId,
+  }
   const results: { freshsales?: string; activecampaign?: string } = {}
 
   try {
