@@ -219,11 +219,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <div className="absolute inset-0 bg-gradient-to-t from-bg/45 via-transparent to-transparent" />
         </div>
 
-        {event.body && (
+        {event.body ? (
           <div className="max-w-3xl mb-16">
             <PortableText value={event.body as never} components={components} />
           </div>
-        )}
+        ) : null}
 
         {(event.program?.length || event.speakers?.length) && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
