@@ -47,17 +47,38 @@ const STATUS_LABELS: Record<string, string> = {
   termine: "Terminé",
 }
 
-function formatEventDate(date?: string) {
-  if (!date) return "Date à venir"
+function capitalize(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
 
-  return new Intl.DateTimeFormat("fr-FR", {
+function formatEventDate(date?: string, timeZone?: string) {
+  if (!date) return "Date à venir"
+  const formatted = new Intl.DateTimeFormat("fr-FR", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: timeZone || undefined,
+  }).format(new Date(date))
+  return capitalize(formatted)
+}
+
+function formatEventTime(date?: string, timeZone?: string) {
+  if (!date) return null
+  return new Intl.DateTimeFormat("fr-FR", {
     hour: "2-digit",
     minute: "2-digit",
-  }).format(new Date(date))
+    hourCycle: "h23",
+    timeZone: timeZone || undefined,
+  }).format(new Date(date)).replace(":", "h")
+}
+
+function timezoneHint(timeZone?: string) {
+  if (!timeZone) return null
+  if (timeZone === "Europe/Paris") return "heure de Paris"
+  const parts = timeZone.split("/")
+  const city = parts[parts.length - 1]?.replace(/_/g, " ")
+  return city ? `heure de ${city}` : null
 }
 
 function isInternalHref(href: string) {
@@ -159,8 +180,21 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             <dl className="space-y-5">
               <div>
                 <dt className="metadata text-ink/45 mb-1">Date</dt>
-                <dd className="text-ink leading-relaxed">{formatEventDate(event.startsAt)}</dd>
+                <dd className="text-ink leading-relaxed">{formatEventDate(event.startsAt, event.timezone)}</dd>
               </div>
+              {formatEventTime(event.startsAt, event.timezone) && (
+                <div>
+                  <dt className="metadata text-ink/45 mb-1">Heure</dt>
+                  <dd className="text-ink">
+                    {formatEventTime(event.startsAt, event.timezone)}
+                    {timezoneHint(event.timezone) && (
+                      <span className="text-ink/50 text-sm ml-2">
+                        ({timezoneHint(event.timezone)})
+                      </span>
+                    )}
+                  </dd>
+                </div>
+              )}
               {event.duration && (
                 <div>
                   <dt className="metadata text-ink/45 mb-1">Durée</dt>
