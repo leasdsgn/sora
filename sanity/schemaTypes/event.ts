@@ -19,15 +19,13 @@ export const event = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Brouillon", value: "draft" },
-          { title: "Ouvert", value: "open" },
-          { title: "Complet", value: "full" },
-          { title: "Terminé", value: "past" },
-          { title: "Replay", value: "replay" },
+          { title: "En cours", value: "en-cours" },
+          { title: "Prochainement", value: "prochainement" },
+          { title: "Terminé", value: "termine" },
         ],
         layout: "radio",
       },
-      initialValue: "open",
+      initialValue: "prochainement",
       validation: (r) => r.required(),
     }),
     defineField({
@@ -40,6 +38,7 @@ export const event = defineType({
           { title: "Masterclass", value: "masterclass" },
           { title: "Atelier", value: "workshop" },
           { title: "Live", value: "live" },
+          { title: "Présentiel", value: "presentiel" },
           { title: "Autre", value: "other" },
         ],
       },
@@ -176,6 +175,33 @@ export const event = defineType({
       title: "Mis en avant",
       type: "boolean",
       initialValue: false,
+    }),
+    defineField({
+      name: "crm",
+      title: "CRM & tagging",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      description: "Configure les tags qui seront appliqués aux inscrits dans Freshsales et ActiveCampaign.",
+      fields: [
+        {
+          name: "source",
+          title: "Source",
+          type: "string",
+          description: "Valeur écrite dans cf_source (Freshsales). Ex : lybox-event",
+        },
+        {
+          name: "freshsalesTag",
+          title: "Tag Freshsales",
+          type: "string",
+          description: "Ex : EVENT-LYBOX-INVITE-2026",
+        },
+        {
+          name: "acTagId",
+          title: "Tag ID ActiveCampaign",
+          type: "string",
+          description: "ID numérique du tag AC (visible dans l'URL du tag). Ex : 59",
+        },
+      ],
     }),
     defineField({
       name: "seo",

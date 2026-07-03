@@ -51,7 +51,7 @@ export default function EventLyboxPage() {
       const res = await fetch("/api/event", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, eventSlug: "lybox-bali-juillet-2025" }),
       })
 
       if (res.ok) {

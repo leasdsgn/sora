@@ -5,6 +5,7 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import { sanityFetch } from "../../../../sanity/lib/fetch"
 import { EVENT_BY_SLUG_QUERY, EVENT_SLUGS_QUERY } from "../../../../sanity/lib/queries"
 import { urlForImage } from "../../../../sanity/lib/image"
+import EventForm from "@/components/sections/event/event-form"
 import type { Metadata } from "next"
 
 type EventDetail = {
@@ -40,10 +41,9 @@ type EventDetail = {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  open: "Ouvert",
-  full: "Complet",
-  past: "Terminé",
-  replay: "Replay",
+  "en-cours": "En cours",
+  prochainement: "Prochainement",
+  termine: "Terminé",
 }
 
 function formatEventDate(date?: string) {
@@ -132,8 +132,10 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const event = await sanityFetch<EventDetail | null>({ query: EVENT_BY_SLUG_QUERY, params: { slug }, tags: [`event:${slug}`] })
   if (!event) notFound()
 
-  const registrationHref = event.registration?.registrationUrl || "/#contact"
+  const externalRegistration = event.registration?.registrationUrl
+  const registrationHref = externalRegistration || "#inscription"
   const registrationLabel = event.registration?.ctaLabel || "Réserver ma place"
+  const showEmbeddedForm = !externalRegistration
 
   return (
     <main className="bg-bg pt-32 md:pt-44 pb-24 px-6">
@@ -194,7 +196,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           </aside>
         </header>
 
-        <div className="relative aspect-[16/9] rounded-sm overflow-hidden mb-16 bg-bg-mid">
+        <div className="relative w-full h-[420px] md:h-[560px] rounded-sm overflow-hidden mb-16 bg-bg-mid">
           {event.mainImage?.asset ? (
             <Image
               src={urlForImage(event.mainImage).width(1800).url()}
@@ -217,12 +219,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <div className="absolute inset-0 bg-gradient-to-t from-bg/45 via-transparent to-transparent" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          <div className="lg:col-span-7 max-w-3xl">
-            {event.body ? <PortableText value={event.body as never} components={components} /> : null}
+        {event.body && (
+          <div className="max-w-3xl mb-16">
+            <PortableText value={event.body as never} components={components} />
           </div>
+        )}
 
-          <aside className="lg:col-span-5 space-y-10">
+        {(event.program?.length || event.speakers?.length) && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
             {event.program && event.program.length > 0 && (
               <section className="bg-bg-soft border border-line rounded-sm p-6 md:p-8">
                 <p className="eyebrow text-ink-muted mb-6">Programme</p>
@@ -267,8 +271,34 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 </div>
               </section>
             )}
-          </aside>
-        </div>
+          </div>
+        )}
+
+        {showEmbeddedForm && (
+          <section id="inscription" className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start bg-bg-soft border border-line rounded-sm p-8 md:p-12">
+            <div className="max-w-md">
+              <p className="eyebrow text-ink-muted mb-6">Inscription</p>
+              <h2 className="font-serif font-medium text-ink leading-[1.05] text-3xl md:text-5xl">
+                {registrationLabel}.
+              </h2>
+              <p className="text-ink/65 leading-relaxed mt-6">
+                Renseignez vos coordonnées, vous recevez immédiatement les détails de connexion et un rappel la veille.
+              </p>
+              {event.duration && (
+                <p className="metadata text-ink/45 mt-6">Durée · {event.duration}</p>
+              )}
+              {event.location?.platform && (
+                <p className="metadata text-ink/45 mt-2">Lieu · {event.location.platform}</p>
+              )}
+            </div>
+            <EventForm
+              slug={event.slug}
+              eventTitle={event.title}
+              ctaLabel={event.registration?.ctaLabel}
+              finePrint={event.registration?.finePrint}
+            />
+          </section>
+        )}
       </article>
     </main>
   )

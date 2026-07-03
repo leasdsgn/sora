@@ -46,7 +46,7 @@ export const POST_SLUGS_QUERY = defineQuery(`
 `)
 
 export const ALL_EVENTS_QUERY = defineQuery(`
-  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")] | order(startsAt desc) {
+  *[_type == "event" && defined(slug.current)] | order(startsAt desc) {
     _id,
     title,
     "slug": slug.current,
@@ -66,7 +66,7 @@ export const ALL_EVENTS_QUERY = defineQuery(`
 `)
 
 export const FEATURED_EVENTS_QUERY = defineQuery(`
-  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")] | order(featured desc, startsAt asc)[0...6] {
+  *[_type == "event" && defined(slug.current)] | order(featured desc, startsAt asc)[0...6] {
     _id,
     title,
     "slug": slug.current,
@@ -86,7 +86,7 @@ export const FEATURED_EVENTS_QUERY = defineQuery(`
 `)
 
 export const EVENT_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "event" && slug.current == $slug && (!defined(status) || status != "draft")][0] {
+  *[_type == "event" && slug.current == $slug][0] {
     _id,
     title,
     "slug": slug.current,
@@ -110,7 +110,7 @@ export const EVENT_BY_SLUG_QUERY = defineQuery(`
 `)
 
 export const EVENT_SLUGS_QUERY = defineQuery(`
-  *[_type == "event" && defined(slug.current) && (!defined(status) || status != "draft")]{ "slug": slug.current }
+  *[_type == "event" && defined(slug.current)]{ "slug": slug.current }
 `)
 
 export const ALL_REALISATIONS_QUERY = defineQuery(`

@@ -25,10 +25,9 @@ type EventItem = {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  open: "Ouvert",
-  full: "Complet",
-  past: "Terminé",
-  replay: "Replay",
+  "en-cours": "En cours",
+  prochainement: "Prochainement",
+  termine: "Terminé",
 }
 
 function formatEventDate(date?: string) {

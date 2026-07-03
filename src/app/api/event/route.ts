@@ -1,21 +1,41 @@
 import { NextRequest, NextResponse } from "next/server"
+import { client } from "../../../../sanity/lib/client"
 
 const FS_DOMAIN = "sora-team.myfreshworks.com"
 const FS_TOKEN = process.env.FRESHSALES_API_KEY!
 const AC_URL = process.env.AC_API_URL!
 const AC_KEY = process.env.AC_API_KEY!
 
+type EventCrm = {
+  source?: string
+  freshsalesTag?: string
+  acTagId?: string
+}
+
+async function getEventCrm(eventSlug?: string): Promise<EventCrm> {
+  if (!eventSlug) return {}
+  try {
+    const result = await client.fetch<EventCrm | null>(
+      `*[_type == "event" && slug.current == $slug][0]{ "source": crm.source, "freshsalesTag": crm.freshsalesTag, "acTagId": crm.acTagId }`,
+      { slug: eventSlug },
+    )
+    return result || {}
+  } catch {
+    return {}
+  }
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { firstName, lastName, email, phone, investExperience } = body
+  const { firstName, lastName, email, phone, investExperience, eventSlug } = body
 
   if (!email || !firstName) {
     return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 })
   }
 
+  const crm = await getEventCrm(eventSlug)
   const results: { freshsales?: string; activecampaign?: string } = {}
 
-  // Freshsales: upsert contact + tag EVENT-LYBOX-INVITE-2026
   try {
     const fsRes = await fetch(
       `https://${FS_DOMAIN}/crm/sales/api/contacts/upsert`,
@@ -33,7 +53,7 @@ export async function POST(req: NextRequest) {
             mobile_number: phone || "",
             custom_field: {
               cf_invest_experience: investExperience || "",
-              cf_source: "lybox-event",
+              cf_source: crm.source || eventSlug || "",
             },
           },
           unique_identifier: { emails: email },
@@ -45,8 +65,7 @@ export async function POST(req: NextRequest) {
       const fsData = await fsRes.json()
       const contactId = fsData.contact?.id
 
-      // Add tag EVENT-LYBOX-INVITE-2026
-      if (contactId) {
+      if (contactId && crm.freshsalesTag) {
         await fetch(
           `https://${FS_DOMAIN}/crm/sales/api/contacts/${contactId}`,
           {
@@ -56,7 +75,7 @@ export async function POST(req: NextRequest) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              contact: { tags: ["EVENT-LYBOX-INVITE-2026"] },
+              contact: { tags: [crm.freshsalesTag] },
             }),
           }
         )
@@ -69,7 +88,6 @@ export async function POST(req: NextRequest) {
     results.freshsales = "error"
   }
 
-  // ActiveCampaign: sync contact (for reminder sequences J-1, H-1)
   try {
     const acRes = await fetch(`${AC_URL}/api/3/contact/sync`, {
       method: "POST",
@@ -91,22 +109,17 @@ export async function POST(req: NextRequest) {
       const acData = await acRes.json()
       const contactId = acData.contact?.id
 
-      if (contactId) {
-        // Tag webi-lybox2 (ID 59)
-        const tagId = "59"
-
-        if (tagId) {
-          await fetch(`${AC_URL}/api/3/contactTags`, {
-            method: "POST",
-            headers: {
-              "Api-Token": AC_KEY,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              contactTag: { contact: contactId, tag: tagId },
-            }),
-          })
-        }
+      if (contactId && crm.acTagId) {
+        await fetch(`${AC_URL}/api/3/contactTags`, {
+          method: "POST",
+          headers: {
+            "Api-Token": AC_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contactTag: { contact: contactId, tag: crm.acTagId },
+          }),
+        })
       }
       results.activecampaign = "ok"
     } else {
