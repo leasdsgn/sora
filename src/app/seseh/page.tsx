@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { gsap } from "gsap"
 import Footer from "@/components/layout/footer"
+import InteractivePlan from "@/components/sections/interactive-plan"
 
 declare global {
   interface Window {
@@ -252,6 +253,9 @@ export default function SesehPage() {
           </div>
         </div>
       </section>
+
+      {/* Plan interactif */}
+      <InteractivePlan />
 
       {/* Projections financières */}
       <section className="bg-bg py-24 md:py-36 px-6">
