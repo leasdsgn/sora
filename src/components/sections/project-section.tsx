@@ -17,7 +17,7 @@ export default function ProjectSection() {
       <div className="text-center max-w-5xl mx-auto mb-20">
         <p className="pj-item eyebrow text-muted-foreground mb-8">Seseh, projet actuellement ouvert aux investisseurs</p>
         <h2 className="pj-item font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(36px,5vw,76px)" }}>
-          Seseh Beachfront se situe à 300 m de la mer.
+          Seseh Sunset Villas se situe à 300 m de la mer.
         </h2>
         <p className="pj-item text-foreground/60 max-w-2xl mx-auto mt-8 leading-relaxed text-base">
           Le projet réunit 25 villas en bord d&apos;océan, dans une zone portée par les usages touristiques et résidentiels. Le format permet d&apos;envisager un usage personnel, une mise en location ou une détention patrimoniale.

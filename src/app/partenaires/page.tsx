@@ -350,7 +350,7 @@ export default function PartenairesPage() {
               "Garantie structure 10 ans, toiture 5 ans",
               "Cadre juridique PT PMA sécurisé",
               "Leasehold 30+30 ans (60 ans de jouissance)",
-              "Rendement net projeté jusqu'à 13,8%",
+              "Rendement brut projeté jusqu'à 13,8%",
               "300m de la plage de Seseh",
             ].map((item) => (
               <div key={item} className="flex gap-3 items-start bg-card border border-border rounded-sm p-4">

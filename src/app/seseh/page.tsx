@@ -138,7 +138,7 @@ export default function SesehPage() {
           </h1>
           <p className="ss-fade text-ink/80 mt-6 text-lg md:text-xl leading-relaxed max-w-2xl">
             26 villas à 300m de la plage de Seseh. 4 gammes de 149k€ à 469k€.
-            Rendement net projeté jusqu&apos;à 13,8%. Construction septembre 2026.
+            Rendement brut projeté jusqu&apos;à 13,8%. Construction septembre 2026.
           </p>
           <div className="ss-fade mt-8 flex flex-col sm:flex-row gap-4">
             <a

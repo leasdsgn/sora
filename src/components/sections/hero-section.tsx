@@ -48,11 +48,11 @@ export default function HeroSection() {
           <span className="clip-word"><span className="hero-word block" style={{ fontSize: "clamp(40px,6vw,104px)" }}>clé en main.</span></span>
         </h1>
         <p className="hero-fade text-background/85 mt-8 max-w-2xl text-lg md:text-xl leading-relaxed">
-          Sora sélectionne les projets, cadre la structure juridique et pilote l&apos;exploitation sur place. Vous avancez depuis l&apos;Europe avec une lecture claire des étapes, des risques et des scénarios de sortie.
+          Gabriel sélectionne les projets, cadre la structure juridique et pilote l&apos;exploitation sur place. Vous avancez depuis l&apos;Europe avec une lecture claire des étapes, des risques et des scénarios de sortie.
         </p>
         <div className="hero-fade mt-12 flex flex-col sm:flex-row items-center gap-4">
           <Button asChild variant="inverse">
-            <Link href="#contact">Réserver un appel offert</Link>
+            <Link href="/contact">Réserver un appel offert</Link>
           </Button>
           <Button asChild variant="outline-inverse">
             <Link href="/seseh">Voir Seseh Sunset</Link>

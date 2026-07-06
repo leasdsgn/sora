@@ -55,16 +55,16 @@ export default function MasterclassPage() {
       <div className="container-page max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start">
         {/* Left: content */}
         <div>
-          <p className="mc-fade eyebrow mb-6">Masterclass / 45 minutes / Gratuit</p>
+          <p className="mc-fade eyebrow mb-6">Replay / 1h30 / Gratuit</p>
           <h1
             className="mc-fade font-serif font-medium text-ink leading-[0.95]"
             style={{ fontSize: "clamp(36px,5vw,72px)" }}
           >
-            Investir à Bali en connaissance de cause.
+            Investir à Bali : Mythes, Réalités et Vrais Chiffres.
           </h1>
           <p className="mc-fade text-ink/75 mt-8 leading-relaxed text-lg">
-            Une vidéo animée par Gabriel Lapierre, ingénieur résident à Bali.
-            Pas de pitch commercial, des chiffres réels.
+            Le replay de la conférence avec Gabriel Lapierre (SORA) et Thomas Cornu (LyBox).
+            Données de marché, cadre juridique et retours d&apos;opérations réelles.
           </p>
           <ul className="mc-fade mt-8 space-y-3 text-ink/70 text-[15px]">
             <li className="flex gap-3">
@@ -117,11 +117,11 @@ export default function MasterclassPage() {
                 </svg>
               </div>
               <h2 className="font-serif font-medium text-ink text-2xl mb-4">
-                Masterclass envoyée.
+                Replay envoyé.
               </h2>
               <p className="text-ink/65 leading-relaxed">
-                Vérifiez votre boîte mail. La vidéo arrive dans quelques minutes.
-                Si vous ne la trouvez pas, regardez vos spams.
+                Vérifiez votre boîte mail. Le lien du replay arrive dans quelques minutes.
+                Si vous ne le trouvez pas, regardez vos spams.
               </p>
             </div>
           ) : (
@@ -130,7 +130,7 @@ export default function MasterclassPage() {
               className="bg-bg-soft border border-line rounded-sm p-8 md:p-12"
             >
               <h2 className="font-serif font-medium text-ink text-xl md:text-2xl mb-2">
-                Recevoir la Masterclass
+                Recevoir le replay
               </h2>
               <p className="text-ink/50 text-sm mb-8">
                 Accès immédiat par email. Sans engagement.
@@ -203,7 +203,7 @@ export default function MasterclassPage() {
                 disabled={status === "loading"}
                 className="w-full mt-8 bg-accent text-bg font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-8 py-4 rounded-full hover:bg-bg hover:text-ink transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === "loading" ? "Envoi en cours..." : "Recevoir la vidéo gratuitement"}
+                {status === "loading" ? "Envoi en cours..." : "Recevoir le replay gratuitement"}
               </button>
 
               {status === "error" && (

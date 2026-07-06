@@ -107,8 +107,8 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
             <Image src="/sora-logo.svg" alt="SORA" width={705} height={159} priority className="no-outline block h-6 w-auto" />
           </Link>
           <div className="flex items-center gap-14 justify-start pl-14">
-            <Link href="/masterclass" className="nav-link">Masterclass</Link>
-            <Link href="/#contact" onClick={goToHomeAnchor("contact")} className="nav-link">Contact</Link>
+            <Link href="/masterclass" className="nav-link">Replay</Link>
+            <Link href="/contact" className="nav-link">Contact</Link>
           </div>
         </div>
 
@@ -120,7 +120,7 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
         {/* Desktop CTA */}
         <div className="hidden md:flex justify-end">
           <Button asChild variant="inverse" size="sm">
-            <Link href="/#contact" onClick={goToHomeAnchor("contact")}>Prendre RDV</Link>
+            <Link href="/contact">Prendre RDV</Link>
           </Button>
         </div>
       </nav>
@@ -206,11 +206,11 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
               onClick={() => setMenuOpen(false)}
               className="font-serif font-semibold text-3xl text-background hover:text-accent transition-colors duration-300"
             >
-              Masterclass
+              Replay
             </Link>
             <Link
-              href="/#contact"
-              onClick={goToHomeAnchor("contact")}
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
               className="font-serif font-semibold text-3xl text-background hover:text-accent transition-colors duration-300"
             >
               Contact
@@ -218,7 +218,7 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
           </nav>
           <div className="flex flex-col gap-6 items-center">
             <Button asChild variant="inverse">
-              <Link href="/#contact" onClick={goToHomeAnchor("contact")}>
+              <Link href="/contact" onClick={() => setMenuOpen(false)}>
                 Prendre RDV
               </Link>
             </Button>

@@ -161,7 +161,7 @@ export default function EventLyboxPage() {
               <div className="ev-fade">
                 <p className="text-ink font-medium">Le projet Seseh Sunset Villas, chiffres ouverts</p>
                 <p className="text-ink/55 text-sm mt-1">
-                  26 villas, 4 gammes de 149 000 à 469 000€. Rendement net projeté jusqu&apos;à 13,8%. Pas de promesse, des projections documentées.
+                  26 villas, 4 gammes de 149 000 à 469 000€. Rendement brut projeté jusqu&apos;à 13,8%. Pas de promesse, des projections documentées.
                 </p>
               </div>
               <div className="ev-fade">
