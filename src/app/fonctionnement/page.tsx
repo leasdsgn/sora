@@ -31,7 +31,7 @@ const STEPS = [
 
 const PARTNERS = [
   {
-    name: "Finalyx Corporation",
+    name: "Vinalyx Corporation",
     role: "Maîtrise d'œuvre",
     desc: "Architecture et ingénierie des projets, de la conception à la livraison.",
   },
