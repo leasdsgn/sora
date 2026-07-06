@@ -46,6 +46,10 @@ export default function ContactPage() {
             ·{" "}
             <a href="mailto:contact@sora-immobilier.com" className="text-ink underline underline-offset-4 hover:text-accent transition-colors">
               contact@sora-immobilier.com
+            </a>{" "}
+            ·{" "}
+            <a href="https://wa.me/message/U6SAMFGVWDQDO1" target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4 hover:text-accent transition-colors">
+              WhatsApp
             </a>
           </p>
         </div>

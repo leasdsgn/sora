@@ -107,7 +107,7 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
             <Image src="/sora-logo.svg" alt="SORA" width={705} height={159} priority className="no-outline block h-6 w-auto" />
           </Link>
           <div className="flex items-center gap-14 justify-start pl-14">
-            <Link href="/masterclass" className="nav-link">Masterclass</Link>
+            <Link href="/masterclass" className="nav-link">Replay</Link>
             <Link href="/contact" className="nav-link">Contact</Link>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
               onClick={() => setMenuOpen(false)}
               className="font-serif font-semibold text-3xl text-background hover:text-accent transition-colors duration-300"
             >
-              Masterclass
+              Replay
             </Link>
             <Link
               href="/contact"

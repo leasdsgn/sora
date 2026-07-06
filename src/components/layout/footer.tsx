@@ -11,7 +11,7 @@ const SECTIONS = [
   { href: "/events", label: "Évènements" },
   { href: "/#fondateur", label: "Le Fondateur", anchorId: "fondateur" },
   { href: "/fonctionnement", label: "Fonctionnement" },
-  { href: "/masterclass", label: "Masterclass" },
+  { href: "/masterclass", label: "Replay conférence" },
   { href: "/contact", label: "Appel offert" },
   { href: "/seseh#dossier", label: "Dossier d'investissement" },
 ]
@@ -23,6 +23,7 @@ const CONTACT = [
   { href: "https://www.instagram.com/gabriel_lapierre_/", label: "Instagram" },
   { href: "https://linkedin.com/in/gabriel-lapierre", label: "LinkedIn" },
   { href: "https://www.youtube.com/@GABRIEL_LAPIERRE", label: "YouTube" },
+  { href: "https://wa.me/message/U6SAMFGVWDQDO1", label: "WhatsApp" },
 ]
 
 export default function Footer() {

@@ -4,7 +4,7 @@ import ProjectSection from "@/components/sections/project-section"
 import CarouselSection, { type Realisation } from "@/components/sections/carousel-section"
 import TestimonialsSection, { type Testimonial } from "@/components/sections/testimonials-section"
 import EventsSection from "@/components/sections/events-section"
-import BlogSection from "@/components/sections/blog-section"
+import PodcastSection from "@/components/sections/podcast-section"
 import FounderSection from "@/components/sections/founder-section"
 import FaqSection from "@/components/sections/faq-section"
 import CtaSection from "@/components/sections/cta-section"
@@ -75,7 +75,7 @@ export default async function Home() {
       <CarouselSection realisations={realisations} />
       <TestimonialsSection testimonials={testimonials} />
       <EventsSection />
-      <BlogSection />
+      <PodcastSection />
       <FounderSection />
       <FaqSection />
       <CtaSection />
