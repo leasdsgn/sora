@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import {
   Accordion,
   AccordionContent,
@@ -15,7 +16,9 @@ declare global {
   }
 }
 
-const CALENDLY_URL = "https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=vsl"
+gsap.registerPlugin(ScrollTrigger)
+
+const CALENDLY_URL = "https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali-clone?utm_source=vsl"
 
 const FAQ = [
   { q: "Est-ce légal pour un Français d'investir à Bali ?", a: "Oui. L'investissement passe par la création d'une PT PMA (société indonésienne à capitaux étrangers), un cadre juridique reconnu et sécurisé. Nos équipes juridiques gèrent l'intégralité de la structuration." },
@@ -30,7 +33,7 @@ const FAQ = [
 function CtaButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
-      className={`inline-block bg-accent text-background font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-10 py-4 rounded-full hover:bg-foreground hover:text-background transition-colors duration-500 ${className}`}>
+      className={`cta-primary font-serif font-semibold ${className}`}>
       {children}
     </a>
   )
@@ -41,29 +44,38 @@ export default function VSLPage() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [videoPlaying, setVideoPlaying] = useState(false)
+  const [videoMuted, setVideoMuted] = useState(true)
   const [showVideoCta, setShowVideoCta] = useState(false)
   const exitShownRef = useRef(false)
 
   const handleVideoClick = useCallback(() => {
     const v = videoRef.current
     if (!v) return
-    if (v.paused) {
+    if (v.muted) {
+      // Autoplay muted : premier clic = repartir du début avec le son
       v.muted = false
+      v.currentTime = 0
       v.play()
-      setVideoPlaying(true)
+      setVideoMuted(false)
+    } else if (v.paused) {
+      v.play()
     } else {
       v.pause()
-      setVideoPlaying(false)
     }
   }, [])
 
+  // Effet 1 : GSAP scroll reveal + exit intent
   useEffect(() => {
     window.fbq?.("track", "ViewContent", { content_name: "seseh-vsl" })
     const ctx = gsap.context(() => {
-      gsap.from(".vsl-fade", { opacity: 0, y: 20, duration: 0.9, stagger: 0.08, ease: "expo.out", delay: 0.2 })
+      gsap.set(".vsl-fade", { opacity: 0, y: 20 })
+      ScrollTrigger.batch(".vsl-fade", {
+        start: "top 88%",
+        once: true,
+        onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "expo.out" }),
+      })
     }, ref)
 
-    // Exit intent (desktop only)
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY > 5 || exitShownRef.current) return
       if (sessionStorage.getItem("vsl-exit-shown")) return
@@ -73,49 +85,79 @@ export default function VSLPage() {
     }
     document.addEventListener("mouseleave", handleMouseLeave)
 
-    // Show CTA after 20% of video watched
-    const v = videoRef.current
-    const handleTimeUpdate = () => {
-      if (v && v.currentTime / v.duration >= 0.2 && !showVideoCta) {
-        setShowVideoCta(true)
-      }
-    }
-    v?.addEventListener("timeupdate", handleTimeUpdate)
-
     return () => {
       ctx.revert()
       document.removeEventListener("mouseleave", handleMouseLeave)
-      v?.removeEventListener("timeupdate", handleTimeUpdate)
     }
-  }, [showVideoCta])
+  }, [])
+
+  // Effet 2 : video listeners
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+
+    const handlePlay = () => setVideoPlaying(true)
+    const handlePause = () => setVideoPlaying(false)
+    const handleTimeUpdate = () => {
+      if (v.currentTime / v.duration >= 0.2) setShowVideoCta(true)
+    }
+    v.addEventListener("play", handlePlay)
+    v.addEventListener("pause", handlePause)
+    v.addEventListener("timeupdate", handleTimeUpdate)
+    if (!v.paused) setVideoPlaying(true)
+
+    return () => {
+      v.removeEventListener("play", handlePlay)
+      v.removeEventListener("pause", handlePause)
+      v.removeEventListener("timeupdate", handleTimeUpdate)
+    }
+  }, [])
+
+  // Effet 3 : Calendly script
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "https://assets.calendly.com/assets/external/widget.js"
+    script.async = true
+    document.body.appendChild(script)
+    return () => { document.body.removeChild(script) }
+  }, [])
 
   return (
-    <main ref={ref} className="bg-background min-h-screen">
+    <main ref={ref} className="bg-background min-h-screen pb-20 md:pb-0">
 
-      {/* ─── HERO : Headline + Video + CTA ─── */}
-      <section className="px-6 pt-12 md:pt-20 pb-16 md:pb-24">
-        <div className="max-w-4xl mx-auto">
-          <a href="/" className="vsl-fade font-serif font-medium text-foreground/40 text-sm tracking-wide">Sora Immobilier</a>
+      {/* ─── HERO : Texte gauche + Video droite ─── */}
+      <section className="px-6 pt-16 md:pt-28 pb-16 md:pb-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_360px] gap-10 md:gap-16 items-center">
+          {/* Colonne gauche : texte */}
+          <div>
+            <a href="/" className="vsl-fade font-serif font-medium text-foreground/40 text-sm tracking-wide">Sora Immobilier</a>
 
-          <h1 className="vsl-fade font-serif font-medium text-foreground leading-[0.95] mt-8 md:mt-12 max-w-4xl" style={{ fontSize: "clamp(32px,5vw,68px)" }}>
-            Investissez à Bali. 10% de rendement annuel, zéro gestion.
-          </h1>
-          <p className="vsl-fade text-foreground/60 mt-6 text-lg md:text-xl max-w-2xl leading-relaxed">
-            100+ chefs d&apos;entreprise et cadres dirigeants européens investissent déjà avec Sora. Découvrez pourquoi en 3 minutes.
-          </p>
+            <h1 className="vsl-fade font-serif font-medium text-foreground leading-[0.92] mt-8 md:mt-12" style={{ fontSize: "clamp(32px,5vw,56px)" }}>
+              Investissez à Bali. 10% de rendement annuel, zéro gestion.
+            </h1>
+            <p className="vsl-fade text-foreground/60 mt-6 text-lg md:text-xl leading-relaxed">
+              100+ chefs d&apos;entreprise et cadres dirigeants européens investissent déjà avec Sora. Découvrez pourquoi en 3 minutes.
+            </p>
 
-          {/* Video — remplacer src par l'URL Cloudinary */}
-          <div className="vsl-fade relative aspect-video bg-muted border border-border overflow-hidden rounded-sm mt-10 cursor-pointer" onClick={handleVideoClick}>
+            <div className="vsl-fade mt-8">
+              <CtaButton>Échanger avec Gabriel, fondateur</CtaButton>
+              <p className="metadata text-muted-foreground/50 mt-4">30 min, sans engagement. Il répond à toutes vos questions.</p>
+            </div>
+          </div>
+
+          {/* Colonne droite : vidéo verticale */}
+          <div className="vsl-fade relative w-full aspect-[9/16] max-h-[70vh] md:max-h-none bg-muted border border-border overflow-hidden rounded-sm cursor-pointer mx-auto max-w-[360px] md:max-w-none" onClick={handleVideoClick}>
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
-              poster="/video-thumb.webp"
+              poster="/vsl-poster.webp"
               playsInline
               muted
-              preload="metadata"
+              autoPlay
+              loop
+              preload="auto"
             >
-              {/* Remplacer par URL Cloudinary */}
-              <source src="/vsl-gabriel.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/dfpaw573r/video/upload/v1783388037/vsl-2-compressed_lcq6wr.mp4" type="video/mp4" />
             </video>
             {!videoPlaying && (
               <div className="absolute inset-0 bg-foreground/25 flex flex-col items-center justify-center gap-3">
@@ -125,27 +167,30 @@ export default function VSLPage() {
                 <p className="metadata text-background/80">Regarder la présentation (3 min)</p>
               </div>
             )}
-            {/* CTA qui apparaît à 20% de la vidéo */}
-            {showVideoCta && videoPlaying && (
-              <div className="absolute bottom-4 inset-x-4 flex justify-center" onClick={(e) => e.stopPropagation()}>
-                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
-                  className="bg-accent text-background font-serif font-semibold text-[10px] tracking-[0.2em] uppercase px-8 py-3 rounded-full shadow-lg hover:bg-foreground transition-colors animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  Réserver un appel avec Gabriel
-                </a>
+            {videoPlaying && videoMuted && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-foreground/70 backdrop-blur-sm text-background metadata px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" /></svg>
+                  Activer le son
+                </div>
               </div>
             )}
-          </div>
-
-          {/* CTA #1 */}
-          <div className="vsl-fade mt-8 text-center">
-            <CtaButton>Échanger avec Gabriel, fondateur</CtaButton>
-            <p className="metadata text-muted-foreground/50 mt-4">30 min, sans engagement. Il répond à toutes vos questions.</p>
+            {showVideoCta && videoPlaying && videoMuted && (
+              <div className="absolute bottom-4 inset-x-4 flex justify-center">
+                <button
+                  className="bg-accent text-background font-serif font-semibold text-[10px] tracking-[0.2em] uppercase px-8 py-3 rounded-full shadow-lg hover:bg-foreground transition-colors animate-in fade-in slide-in-from-bottom-4 duration-500 flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" /></svg>
+                  Activer le son
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* ─── SOCIAL PROOF BAR ─── */}
-      <section className="bg-card border-y border-border py-6 px-6">
+      <section className="bg-card border-y border-border py-8 px-6">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 md:gap-16 text-center">
           {[
             { value: "100+", label: "investisseurs européens" },
@@ -160,12 +205,26 @@ export default function VSLPage() {
         </div>
       </section>
 
+      {/* ─── PARTENAIRES (wordmarks texte — remplacer par les logos PNG quand dispo dans public/logos/) ─── */}
+      <section className="py-8 px-6">
+        <div className="max-w-4xl mx-auto">
+          <p className="metadata text-muted-foreground/40 text-center mb-6">Nos partenaires et distributeurs</p>
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 md:gap-x-14">
+            {["Luxury Properties", "Crazy Home", "Cap Sud", "Lybox", "Wunite"].map((name) => (
+              <span key={name} className="font-serif font-medium text-foreground/35 text-lg md:text-xl whitespace-nowrap hover:text-foreground/60 transition-colors duration-500">
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── LE PROBLÈME ─── */}
       <section className="px-6 py-24 md:py-36">
         <div className="max-w-3xl mx-auto">
           <p className="vsl-fade eyebrow text-muted-foreground mb-6">Le constat</p>
           <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
-            L&apos;immobilier français ne performe plus.
+            L&apos;immobilier européen ne performe plus.
           </h2>
           <div className="vsl-fade mt-10 space-y-6">
             {[
@@ -190,7 +249,7 @@ export default function VSLPage() {
         <div className="max-w-3xl mx-auto">
           <p className="vsl-fade eyebrow text-accent mb-6">L&apos;opportunité</p>
           <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
-            Bali : la zone à plus haute performance du marché locatif mondial.
+            Bali : une des zones à plus haute performance du marché locatif mondial.
           </h2>
           <div className="vsl-fade mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -247,7 +306,36 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* ─── SOCIAL PROOF ─── */}
+      {/* ─── AUTORITÉ : EVENTS & SPEAKER (activé quand les photos seront dans public/events/) ─── */}
+      {/* <section className="px-6 py-24 md:py-36 bg-card border-t border-border">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Sur le terrain</p>
+            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
+              Gabriel partage son expertise en live.
+            </h2>
+            <p className="vsl-fade text-muted-foreground mt-6 max-w-xl mx-auto">
+              Soirées investisseurs, conférences, rencontres privées. Un écosystème actif autour de l&apos;investissement à Bali.
+            </p>
+          </div>
+          <div className="vsl-fade grid grid-cols-2 md:grid-cols-3 gap-2">
+            {[
+              { src: "/events/speaker-1.webp", alt: "Gabriel en conférence" },
+              { src: "/events/soiree-1.webp", alt: "Soirée investisseurs mai 2026" },
+              { src: "/events/soiree-2.webp", alt: "Networking investisseurs" },
+              { src: "/events/speaker-2.webp", alt: "Gabriel sur scène" },
+              { src: "/events/soiree-3.webp", alt: "Événement Sora" },
+              { src: "/events/soiree-4.webp", alt: "Communauté Sora" },
+            ].map((photo) => (
+              <div key={photo.src} className="relative aspect-[4/3] rounded-sm overflow-hidden">
+                <Image src={photo.src} alt={photo.alt} fill quality={80} className="object-cover hover:scale-105 transition-transform duration-700" sizes="(max-width:768px) 50vw, 33vw" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* ─── TÉMOIGNAGES ─── */}
       <section className="px-6 py-24 md:py-36 bg-card border-t border-border">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -275,9 +363,14 @@ export default function VSLPage() {
       </section>
 
       {/* ─── CTA #2 ─── */}
-      <section className="bg-accent/10 py-12 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="vsl-fade font-serif font-medium text-foreground text-lg md:text-xl mb-6">
+      <section className="relative bg-primary py-16 px-6 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-70 bg-cover bg-center pointer-events-none"
+          style={{ backgroundImage: "url(/pattern-fabric.webp)" }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <p className="vsl-fade font-serif font-medium text-background text-lg md:text-xl mb-6">
             Échangez directement avec Gabriel pour voir si Bali correspond à votre situation.
           </p>
           <CtaButton>Réserver un appel (30 min)</CtaButton>
@@ -306,18 +399,18 @@ export default function VSLPage() {
               <div key={g.name} className="group relative rounded-sm overflow-hidden" style={{ aspectRatio: "4/3" }}>
                 <Image src={g.img} alt={`Villa ${g.name}`} fill quality={90} className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" sizes="(max-width:768px) 100vw, 50vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="flex items-end justify-between gap-4">
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                  <div className="flex items-end justify-between gap-3">
                     <div>
                       <p className="tertiary text-background/60 mb-1">{g.name}</p>
-                      <p className="font-serif text-background text-2xl font-medium">{g.price}</p>
+                      <p className="font-serif text-background text-xl md:text-2xl font-medium">{g.price}</p>
                     </div>
                     <div className="text-right">
                       <p className="metadata text-background/55">{g.surface} / {g.chambres}</p>
                       <p className="metadata text-accent mt-1">{g.revenus}</p>
                     </div>
                   </div>
-                  <div className="mt-3 flex gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     <span className="metadata text-background/50 bg-background/10 backdrop-blur-sm px-3 py-1 rounded-full">{g.piscine}</span>
                     {g.rendement !== "Sur demande" && (
                       <span className="metadata text-accent bg-accent/10 backdrop-blur-sm px-3 py-1 rounded-full">{g.rendement} net</span>
@@ -329,9 +422,9 @@ export default function VSLPage() {
           </div>
 
           {/* Urgence inline */}
-          <div className="vsl-fade mt-8 bg-accent/10 border border-accent/20 rounded-sm p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="vsl-fade mt-8 bg-accent/10 border border-accent/20 rounded-sm p-5 md:p-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-center md:text-left">
             <div>
-              <p className="font-serif font-medium text-foreground text-lg">13 villas déjà réservées sur 26.</p>
+              <p className="font-serif font-medium text-foreground text-base md:text-lg">13 villas déjà réservées sur 26.</p>
               <p className="text-muted-foreground text-sm mt-1">Construction septembre 2026, livraison mars 2028.</p>
             </div>
             <CtaButton className="shrink-0">Voir les disponibilités</CtaButton>
@@ -384,7 +477,7 @@ export default function VSLPage() {
               { label: "Immo locatif FR", rendement: "16,7%", ratio: "2,2x", highlight: false },
               { label: "Seseh Villas", rendement: "30,1%", ratio: "3,9x", highlight: true },
             ].map((p) => (
-              <div key={p.label} className={`rounded-sm p-5 text-center ${p.highlight ? "bg-accent/15 border-2 border-accent/40" : "bg-background border border-border"}`}>
+              <div key={p.label} className={`rounded-sm p-3 md:p-5 text-center ${p.highlight ? "bg-accent/15 border-2 border-accent/40" : "bg-background border border-border"}`}>
                 <p className="font-serif font-medium text-foreground text-xl md:text-2xl">{p.rendement}</p>
                 <p className="metadata text-muted-foreground mt-1">{p.ratio}</p>
                 <p className={`metadata mt-3 ${p.highlight ? "text-accent font-semibold" : "text-foreground/60"}`}>{p.label}</p>
@@ -409,7 +502,16 @@ export default function VSLPage() {
           <p className="vsl-fade text-muted-foreground mb-6">
             Gabriel calcule le rendement exact selon votre situation fiscale et le type de villa.
           </p>
-          <CtaButton>Obtenir mes projections</CtaButton>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://drive.google.com/file/d/1aJTLdt9WZRrYZvBw-TeZ4yqMB4rPOsOV/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+              className="cta-primary font-serif font-semibold">
+              Obtenir mes projections
+            </a>
+            <a href="https://drive.google.com/file/d/1lgoQa6io7SXF0E_OYqy2rwQ-12noITB6/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+              className="cta-outline font-serif font-semibold">
+              Recevoir la brochure
+            </a>
+          </div>
         </div>
       </section>
 
@@ -439,8 +541,13 @@ export default function VSLPage() {
       </section>
 
       {/* ─── LOCALISATION ─── */}
-      <section className="bg-foreground py-24 md:py-36 px-6">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative bg-primary py-24 md:py-36 px-6 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-70 bg-cover bg-center pointer-events-none"
+          style={{ backgroundImage: "url(/pattern-fabric.webp)" }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="vsl-fade eyebrow-dark mx-auto mb-6">Seseh, Bali</p>
           <h2 className="vsl-fade font-serif font-medium text-background leading-[1.0] mb-12" style={{ fontSize: "clamp(32px,5vw,64px)" }}>
             À 300m de la plage.
@@ -484,9 +591,9 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* ─── CTA FINAL ─── */}
+      {/* ─── CALENDLY EMBED ─── */}
       <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,52px)" }}>
             Prêt à diversifier votre patrimoine ?
           </h2>
@@ -494,8 +601,12 @@ export default function VSLPage() {
             Réservez 30 minutes avec Gabriel. Il analyse votre situation, répond à toutes vos questions
             et vous envoie le dossier complet après l&apos;appel.
           </p>
-          <div className="vsl-fade mt-8">
-            <CtaButton>Réserver mon appel avec Gabriel</CtaButton>
+          <div className="vsl-fade mt-10">
+            <div
+              className="calendly-inline-widget"
+              data-url={`${CALENDLY_URL}&hide_gdpr_banner=1`}
+              style={{ minWidth: 320, height: "min(700px, 80vh)" }}
+            />
           </div>
           <p className="vsl-fade metadata text-muted-foreground/40 mt-6">Sans engagement. Pas de démarchage.</p>
         </div>
@@ -512,7 +623,7 @@ export default function VSLPage() {
       {/* Sticky CTA mobile */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-background/95 backdrop-blur-md border-t border-border/30 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
         <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
-          className="block w-full text-center bg-accent text-background font-serif font-semibold text-[11px] tracking-[0.22em] uppercase py-4 rounded-full">
+          className="cta-primary font-serif font-semibold w-full">
           Réserver un appel avec Gabriel
         </a>
       </div>
@@ -521,7 +632,7 @@ export default function VSLPage() {
       {showExitPopup && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-6">
           <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={() => setShowExitPopup(false)} />
-          <div className="relative bg-background border border-border rounded-sm max-w-md w-full p-10 text-center shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+          <div className="relative bg-background border border-border rounded-sm max-w-md w-full p-6 md:p-10 text-center shadow-2xl animate-in fade-in zoom-in-95 duration-300">
             <button onClick={() => setShowExitPopup(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
