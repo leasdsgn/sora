@@ -91,7 +91,7 @@ export default function EventLyboxPage() {
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="tertiary text-white/90">Places limitées</span>
           </div>
-          <p className="ev-fade eyebrow text-white/60 mb-3">Webinaire gratuit / Lybox x Sora / 50 min</p>
+          <p className="ev-fade eyebrow text-white mb-3">Webinaire gratuit / Lybox x Sora / 50 min</p>
           <p className="ev-fade text-accent text-sm font-medium mb-6">Lundi 21 juillet 2025 · 12h30 (heure de Paris)</p>
           <h1
             className="ev-fade font-serif font-medium text-white leading-[0.95]"
