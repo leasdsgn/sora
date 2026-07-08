@@ -28,7 +28,7 @@ type GammeGroup = {
   gammes?: Array<{ slug?: string }>
 }
 
-const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sora-five-sigma.vercel.app")
+const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sora-immobilier.com")
 
 const staticRoutes: StaticRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },

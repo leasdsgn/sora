@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sora-five-sigma.vercel.app")
+const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sora-immobilier.com")
 
 export default function robots(): MetadataRoute.Robots {
   return {
