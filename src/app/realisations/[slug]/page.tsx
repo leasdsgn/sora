@@ -9,6 +9,13 @@ import { Button } from "@/components/ui/button"
 import Footer from "@/components/layout/footer"
 import DossierForm from "@/components/sections/realisation/dossier-form"
 
+const AC_TAG_BY_SLUG: Record<string, string> = {
+  "seseh": "61",
+  "canggu": "62",
+  "canggu-residence-2024": "63",
+  "uluwatu": "64",
+}
+
 type SanityImage = { asset?: { _ref: string }; alt?: string }
 
 type Realisation = {
@@ -440,7 +447,7 @@ export default async function RealisationPage({ params }: { params: Promise<{ sl
               )}
             </div>
 
-            <DossierForm slug={r.slug} />
+            <DossierForm slug={r.slug} acTagId={AC_TAG_BY_SLUG[r.slug]} />
           </div>
         </section>
       )}

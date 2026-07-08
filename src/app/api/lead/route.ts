@@ -7,7 +7,7 @@ const AC_KEY = process.env.AC_API_KEY!
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { firstName, lastName, email, phone } = body
+  const { firstName, lastName, email, phone, source, acTagId } = body
 
   if (!email || !firstName) {
     return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 })
@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
 
   const results: { freshsales?: string; activecampaign?: string } = {}
 
-  // Freshsales: upsert contact
   try {
     const fsRes = await fetch(
       `https://${FS_DOMAIN}/crm/sales/api/contacts/upsert`,
@@ -31,6 +30,9 @@ export async function POST(req: NextRequest) {
             last_name: lastName || "",
             email,
             mobile_number: phone || "",
+            custom_field: {
+              cf_source: source || "",
+            },
           },
           unique_identifier: { emails: email },
         }),
@@ -41,9 +43,7 @@ export async function POST(req: NextRequest) {
     results.freshsales = "error"
   }
 
-  // ActiveCampaign: add contact + tag LM1
   try {
-    // Create/update contact
     const acContactRes = await fetch(`${AC_URL}/api/3/contact/sync`, {
       method: "POST",
       headers: {
@@ -64,27 +64,17 @@ export async function POST(req: NextRequest) {
       const acData = await acContactRes.json()
       const contactId = acData.contact?.id
 
-      if (contactId) {
-        // Find tag LM1
-        const tagsRes = await fetch(
-          `${AC_URL}/api/3/tags?search=LM1`,
-          { headers: { "Api-Token": AC_KEY } }
-        )
-        const tagsData = await tagsRes.json()
-        const tagId = tagsData.tags?.[0]?.id
-
-        if (tagId) {
-          await fetch(`${AC_URL}/api/3/contactTags`, {
-            method: "POST",
-            headers: {
-              "Api-Token": AC_KEY,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              contactTag: { contact: contactId, tag: tagId },
-            }),
-          })
-        }
+      if (contactId && acTagId) {
+        await fetch(`${AC_URL}/api/3/contactTags`, {
+          method: "POST",
+          headers: {
+            "Api-Token": AC_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contactTag: { contact: contactId, tag: acTagId },
+          }),
+        })
       }
       results.activecampaign = "ok"
     } else {

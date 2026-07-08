@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export default function DossierForm({ slug }: { slug: string }) {
+export default function DossierForm({ slug, acTagId }: { slug: string; acTagId?: string }) {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "" })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -20,7 +20,7 @@ export default function DossierForm({ slug }: { slug: string }) {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: slug }),
+        body: JSON.stringify({ ...form, source: `dossier-${slug}`, acTagId }),
       })
 
       if (res.ok) {

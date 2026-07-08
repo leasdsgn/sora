@@ -31,12 +31,12 @@ const STEPS = [
 
 const PARTNERS = [
   {
-    name: "Vinalyx Corporation",
+    name: "Vienna Lux Cooperation",
     role: "Maîtrise d'œuvre",
     desc: "Architecture et ingénierie des projets, de la conception à la livraison.",
   },
   {
-    name: "Ayla",
+    name: "ILA Global Consulting",
     role: "Cabinet légal",
     desc: "Juridique, notaire et comptabilité : le cadre de chaque opération est vérifié et documenté.",
   },

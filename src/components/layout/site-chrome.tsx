@@ -12,7 +12,7 @@ export function SiteChrome({ realisations }: { realisations: NavRealisation[] })
   const isStudio = useIsStudio()
   const pathname = usePathname()
   // Pas de navbar sur la VSL : funnel fermé, un seul CTA
-  if (isStudio || pathname === "/vsl") return null
+  if (isStudio || pathname === "/vsl" || pathname === "/merci") return null
   return <Navbar realisations={realisations} />
 }
 
