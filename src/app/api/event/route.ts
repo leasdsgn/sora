@@ -126,19 +126,6 @@ export async function POST(req: NextRequest) {
       const acData = await acRes.json()
       const contactId = acData.contact?.id
 
-      if (contactId && crm.acTagId) {
-        await fetch(`${AC_URL}/api/3/contactTags`, {
-          method: "POST",
-          headers: {
-            "Api-Token": AC_KEY,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contactTag: { contact: contactId, tag: crm.acTagId },
-          }),
-        })
-      }
-
       if (contactId && crm.acListId) {
         await fetch(`${AC_URL}/api/3/contactLists`, {
           method: "POST",
@@ -148,6 +135,19 @@ export async function POST(req: NextRequest) {
           },
           body: JSON.stringify({
             contactList: { list: crm.acListId, contact: contactId, status: 1 },
+          }),
+        })
+      }
+
+      if (contactId && crm.acTagId) {
+        await fetch(`${AC_URL}/api/3/contactTags`, {
+          method: "POST",
+          headers: {
+            "Api-Token": AC_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contactTag: { contact: contactId, tag: crm.acTagId },
           }),
         })
       }
