@@ -13,6 +13,7 @@ type Props = {
   eventTitle: string
   ctaLabel?: string
   finePrint?: string
+  redirectUrl?: string
   crmSource?: string
   freshsalesTag?: string
   acTagId?: string
@@ -23,6 +24,7 @@ export default function EventForm({
   eventTitle,
   ctaLabel,
   finePrint,
+  redirectUrl,
   crmSource,
   freshsalesTag,
   acTagId,
@@ -48,8 +50,11 @@ export default function EventForm({
       })
 
       if (res.ok) {
-        setStatus("success")
         window.fbq?.("track", "Lead", { source: `event:${slug}` })
+        if (redirectUrl) {
+          window.open(redirectUrl, "_blank")
+        }
+        setStatus("success")
       } else {
         setStatus("error")
       }

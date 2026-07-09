@@ -123,6 +123,7 @@ export const event = defineType({
         defineField({ name: "registrationUrl", title: "Lien d'inscription", type: "url" }),
         defineField({ name: "seatsLimit", title: "Nombre de places", type: "number", validation: (r) => r.integer().positive() }),
         defineField({ name: "replayEnabled", title: "Replay prévu", type: "boolean", initialValue: true }),
+        defineField({ name: "redirectUrl", title: "URL de redirection après inscription", type: "url", description: "Si renseigné, redirige l'utilisateur vers cette URL après le formulaire (ex : Typeform)." }),
         defineField({ name: "finePrint", title: "Mention sous formulaire", type: "string" }),
       ],
     }),

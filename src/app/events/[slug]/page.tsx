@@ -25,6 +25,7 @@ type EventDetail = {
   registration?: {
     ctaLabel?: string
     registrationUrl?: string
+    redirectUrl?: string
     seatsLimit?: number
     replayEnabled?: boolean
     finePrint?: string
@@ -331,6 +332,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               eventTitle={event.title}
               ctaLabel={event.registration?.ctaLabel}
               finePrint={event.registration?.finePrint}
+              redirectUrl={event.registration?.redirectUrl}
               crmSource={event.crm?.source}
               freshsalesTag={event.crm?.freshsalesTag}
               acTagId={event.crm?.acTagId}
