@@ -10,13 +10,14 @@ type EventCrm = {
   source?: string
   freshsalesTag?: string
   acTagId?: string
+  acListId?: string
 }
 
 async function getEventCrm(eventSlug?: string): Promise<EventCrm> {
   if (!eventSlug) return {}
   try {
     const result = await client.fetch<EventCrm | null>(
-      `*[_type == "event" && slug.current == $slug][0]{ "source": crm.source, "freshsalesTag": crm.freshsalesTag, "acTagId": crm.acTagId }`,
+      `*[_type == "event" && slug.current == $slug][0]{ "source": crm.source, "freshsalesTag": crm.freshsalesTag, "acTagId": crm.acTagId, "acListId": crm.acListId }`,
       { slug: eventSlug },
     )
     return result || {}
@@ -134,6 +135,19 @@ export async function POST(req: NextRequest) {
           },
           body: JSON.stringify({
             contactTag: { contact: contactId, tag: crm.acTagId },
+          }),
+        })
+      }
+
+      if (contactId && crm.acListId) {
+        await fetch(`${AC_URL}/api/3/contactLists`, {
+          method: "POST",
+          headers: {
+            "Api-Token": AC_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contactList: { list: crm.acListId, contact: contactId, status: 1 },
           }),
         })
       }

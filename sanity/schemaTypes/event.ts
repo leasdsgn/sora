@@ -202,6 +202,12 @@ export const event = defineType({
           type: "string",
           description: "ID numérique du tag AC (visible dans l'URL du tag). Ex : 59",
         },
+        {
+          name: "acListId",
+          title: "Liste ID ActiveCampaign",
+          type: "string",
+          description: "ID numérique de la liste AC. Le contact sera ajouté à cette liste à l'inscription.",
+        },
       ],
     }),
     defineField({
