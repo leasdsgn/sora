@@ -44,12 +44,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 })
   }
 
-  const needsLookup = !crmSource && !freshsalesTagFromClient && !acTagIdFromClient
-  const crmFallback = needsLookup ? await getEventCrm(eventSlug) : {}
+  const crmFallback = eventSlug ? await getEventCrm(eventSlug) : {}
   const crm: EventCrm = {
     source: crmSource || crmFallback.source,
     freshsalesTag: freshsalesTagFromClient || crmFallback.freshsalesTag,
     acTagId: acTagIdFromClient || crmFallback.acTagId,
+    acListId: crmFallback.acListId,
   }
   const results: { freshsales?: string; activecampaign?: string } = {}
 
