@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { client } from "../../../../sanity/lib/client"
 
+const sanityNoCdn = client.withConfig({ useCdn: false })
+
 const FS_DOMAIN = "sora-team.myfreshworks.com"
 const FS_TOKEN = process.env.FRESHSALES_API_KEY!
 const AC_URL = process.env.AC_API_URL!
@@ -16,7 +18,7 @@ type EventCrm = {
 async function getEventCrm(eventSlug?: string): Promise<EventCrm> {
   if (!eventSlug) return {}
   try {
-    const result = await client.fetch<EventCrm | null>(
+    const result = await sanityNoCdn.fetch<EventCrm | null>(
       `*[_type == "event" && slug.current == $slug][0]{ "source": crm.source, "freshsalesTag": crm.freshsalesTag, "acTagId": crm.acTagId, "acListId": crm.acListId }`,
       { slug: eventSlug },
     )
