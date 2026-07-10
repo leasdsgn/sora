@@ -70,9 +70,9 @@ export async function POST(req: NextRequest) {
             last_name: lastName || "",
             email,
             mobile_number: phone || "",
+            lead_source_id: 202001095894,
             custom_field: {
               cf_invest_experience: investExperience || "",
-              cf_source: crm.source || eventSlug || "",
             },
           },
           unique_identifier: { emails: email },
