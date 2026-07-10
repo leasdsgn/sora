@@ -98,7 +98,7 @@ export default function SesehPage() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "dossier-seseh", acTagId: "61" }),
+        body: JSON.stringify({ ...form, source: "dossier-seseh", acTagId: "61", acListId: "7", freshsalesTag: "DOSSIER-SESEH" }),
       })
 
       if (res.ok) {

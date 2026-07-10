@@ -447,7 +447,7 @@ export default async function RealisationPage({ params }: { params: Promise<{ sl
               )}
             </div>
 
-            <DossierForm slug={r.slug} acTagId={AC_TAG_BY_SLUG[r.slug]} />
+            <DossierForm slug={r.slug} acTagId={AC_TAG_BY_SLUG[r.slug]} acListId="7" freshsalesTag={`DOSSIER-${r.slug.toUpperCase()}`} />
           </div>
         </section>
       )}

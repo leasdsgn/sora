@@ -7,7 +7,7 @@ const AC_KEY = process.env.AC_API_KEY!
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { firstName, lastName, email, phone, source, acTagId } = body
+  const { firstName, lastName, email, phone, source, acTagId, acListId, freshsalesTag } = body
 
   if (!email || !firstName) {
     return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 })
@@ -30,21 +30,45 @@ export async function POST(req: NextRequest) {
             last_name: lastName || "",
             email,
             mobile_number: phone || "",
+            lead_source_id: 202001095886,
             custom_field: {
-              cf_source: source || "",
+              cf_nom_du_projet_en_cours: "SESEH SUNSET VILLA",
             },
           },
           unique_identifier: { emails: email },
         }),
       }
     )
-    results.freshsales = fsRes.ok ? "ok" : "error"
+
+    if (fsRes.ok) {
+      const fsData = await fsRes.json()
+      const contactId = fsData.contact?.id
+
+      if (contactId && freshsalesTag) {
+        await fetch(
+          `https://${FS_DOMAIN}/crm/sales/api/contacts/${contactId}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Token token=${FS_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              contact: { tags: [freshsalesTag] },
+            }),
+          }
+        )
+      }
+      results.freshsales = "ok"
+    } else {
+      results.freshsales = "error"
+    }
   } catch {
     results.freshsales = "error"
   }
 
   try {
-    const acContactRes = await fetch(`${AC_URL}/api/3/contact/sync`, {
+    const acRes = await fetch(`${AC_URL}/api/3/contact/sync`, {
       method: "POST",
       headers: {
         "Api-Token": AC_KEY,
@@ -60,9 +84,22 @@ export async function POST(req: NextRequest) {
       }),
     })
 
-    if (acContactRes.ok) {
-      const acData = await acContactRes.json()
+    if (acRes.ok) {
+      const acData = await acRes.json()
       const contactId = acData.contact?.id
+
+      if (contactId && acListId) {
+        await fetch(`${AC_URL}/api/3/contactLists`, {
+          method: "POST",
+          headers: {
+            "Api-Token": AC_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contactList: { list: acListId, contact: contactId, status: 1 },
+          }),
+        })
+      }
 
       if (contactId && acTagId) {
         await fetch(`${AC_URL}/api/3/contactTags`, {
