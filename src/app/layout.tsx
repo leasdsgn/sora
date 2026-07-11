@@ -106,6 +106,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '949873927292995');
           fbq('track', 'PageView');
+          window.addEventListener('message', function(e) {
+            if (e.data && e.data.event === 'calendly.event_scheduled') {
+              fbq('track', 'Schedule', { source: 'calendly-booking' });
+            }
+          });
         `}</Script>
         <ConditionalSmoothScroll>
           <SiteChrome realisations={navRealisations} />

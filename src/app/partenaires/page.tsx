@@ -29,6 +29,7 @@ const FAQ = [
 function CtaButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
+      onClick={() => window.fbq?.("track", "Lead", { source: "calendly-cta-partenaires" })}
       className={`inline-block bg-accent text-background font-serif font-semibold text-[11px] tracking-[0.22em] uppercase px-10 py-4 rounded-full hover:bg-foreground hover:text-background transition-colors duration-500 ${className}`}>
       {children}
     </a>

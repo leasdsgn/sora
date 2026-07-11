@@ -31,7 +31,8 @@ export default function CtaSection() {
       </p>
       <div className="cta-item mt-12 flex flex-col sm:flex-row gap-4 justify-center">
         <Button asChild variant="accent">
-          <a href="https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=homepage">
+          <a href="https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=homepage"
+            onClick={() => window.fbq?.("track", "Lead", { source: "calendly-cta-homepage" })}>
             Réserver mon appel
           </a>
         </Button>
