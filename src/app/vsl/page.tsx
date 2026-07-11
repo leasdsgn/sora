@@ -206,16 +206,16 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* ─── PARTENAIRES (wordmarks texte — remplacer par les logos PNG quand dispo dans public/logos/) ─── */}
+      {/* ─── PARTENAIRES ─── */}
       <section className="py-8 px-6">
         <div className="max-w-4xl mx-auto">
           <p className="metadata text-muted-foreground/40 text-center mb-6">Nos partenaires et distributeurs</p>
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 md:gap-x-14">
-            {["Luxury Properties", "Crazy Home", "Cap Sud", "Lybox", "Wunite"].map((name) => (
-              <span key={name} className="font-serif font-medium text-foreground/35 text-lg md:text-xl whitespace-nowrap hover:text-foreground/60 transition-colors duration-500">
-                {name}
-              </span>
-            ))}
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 md:gap-x-14">
+            <span className="font-serif font-medium text-foreground/35 text-lg md:text-xl whitespace-nowrap">Luxury Properties</span>
+            <Image src="/logos/crazyhome.png" alt="Crazy Home" width={140} height={40} className="h-8 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
+            <Image src="/logos/capsud.png" alt="Cap Sud" width={40} height={40} className="h-9 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
+            <Image src="/logos/lybox.webp" alt="Lybox" width={120} height={40} className="h-8 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
+            <Image src="/logos/wunite.png" alt="Wunite" width={140} height={40} className="h-7 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
           </div>
         </div>
       </section>
