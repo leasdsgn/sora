@@ -606,7 +606,7 @@ export default function VSLPage() {
             <div
               className="calendly-inline-widget"
               data-url={`${CALENDLY_URL}&hide_gdpr_banner=1`}
-              style={{ minWidth: "100%", height: "min(700px, 80vh)" }}
+              style={{ minWidth: "100%", height: 1100 }}
             />
           </div>
           <p className="vsl-fade metadata text-muted-foreground/40 mt-6">Sans engagement. Pas de démarchage.</p>
