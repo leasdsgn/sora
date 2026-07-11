@@ -211,7 +211,7 @@ export default function VSLPage() {
         <div className="max-w-4xl mx-auto">
           <p className="metadata text-muted-foreground/40 text-center mb-6">Nos partenaires et distributeurs</p>
           <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 md:gap-x-14">
-            <span className="font-serif font-medium text-foreground/35 text-lg md:text-xl whitespace-nowrap">Luxury Properties</span>
+            <Image src="/partners/global-luxury-properties.webp" alt="Global Luxury Properties" width={160} height={40} className="h-10 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
             <Image src="/logos/crazyhome.png" alt="Crazy Home" width={140} height={40} className="h-8 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
             <Image src="/logos/capsud.png" alt="Cap Sud" width={40} height={40} className="h-9 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
             <Image src="/logos/lybox.webp" alt="Lybox" width={120} height={40} className="h-8 w-auto opacity-50 hover:opacity-80 transition-opacity duration-500" />
