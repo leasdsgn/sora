@@ -392,10 +392,10 @@ export default function VSLPage() {
           </div>
           <div className="vsl-fade grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { name: "Élégance", price: "149 000€", surface: "51 m²", chambres: "1 chambre", revenus: "20 611€/an", rendement: "13,8%", piscine: "Jacuzzi privé", img: "/villa-render-exterior.webp" },
-              { name: "Prestige", price: "239 000€", surface: "80 m²", chambres: "2 chambres", revenus: "27 972€/an", rendement: "11,7%", piscine: "Piscine privée", img: "/villa-pool.webp" },
-              { name: "Signature", price: "369 000€", surface: "153 m²", chambres: "2 chambres premium", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/villa-living.webp" },
-              { name: "Exception", price: "469 000€", surface: "197 m²", chambres: "3 chambres", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/villa-kitchen.webp" },
+              { name: "Élégance", price: "149 000€", surface: "51 m²", chambres: "1 chambre", revenus: "20 611€/an", rendement: "13,8%", piscine: "Jacuzzi privé", img: "/seseh/elegance/exterior.webp" },
+              { name: "Prestige", price: "239 000€", surface: "80 m²", chambres: "2 chambres", revenus: "27 972€/an", rendement: "11,7%", piscine: "Piscine privée", img: "/seseh/prestige/exterior.webp" },
+              { name: "Signature", price: "369 000€", surface: "153 m²", chambres: "2 chambres premium", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/seseh/signature/exterior.webp" },
+              { name: "Exception", price: "469 000€", surface: "197 m²", chambres: "3 chambres", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/seseh/exception/exterior.webp" },
             ].map((g) => (
               <div key={g.name} className="group relative rounded-sm overflow-hidden" style={{ aspectRatio: "4/3" }}>
                 <Image src={g.img} alt={`Villa ${g.name}`} fill quality={90} className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" sizes="(max-width:768px) 100vw, 50vw" />
@@ -444,14 +444,14 @@ export default function VSLPage() {
           </div>
           <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
-              { src: "/seseh/signature/living.jpg", alt: "Living Signature" },
-              { src: "/seseh/exception/kitchen.jpg", alt: "Cuisine Exception" },
-              { src: "/seseh/prestige/bedroom1.jpg", alt: "Chambre Prestige" },
-              { src: "/seseh/signature/terrace.jpg", alt: "Terrasse Signature" },
-              { src: "/seseh/exception/bath1.jpg", alt: "Salle de bain Exception" },
-              { src: "/seseh/elegance/living.jpg", alt: "Living Élégance" },
-              { src: "/seseh/prestige/terrace.jpg", alt: "Terrasse Prestige" },
-              { src: "/seseh/signature/dining.jpg", alt: "Dining Signature" },
+              { src: "/seseh/exception/living.webp", alt: "Living Exception" },
+              { src: "/seseh/exception/kitchen.webp", alt: "Cuisine Exception" },
+              { src: "/seseh/elegance/bedroom.webp", alt: "Chambre Élégance" },
+              { src: "/seseh/signature/dining.webp", alt: "Cuisine Signature" },
+              { src: "/seseh/exception/bathroom.webp", alt: "Salle de bain Exception" },
+              { src: "/seseh/prestige/living.webp", alt: "Living Prestige" },
+              { src: "/seseh/exception/bedroom.webp", alt: "Chambre Exception" },
+              { src: "/seseh/elegance/bedroom2.webp", alt: "Chambre Élégance vue rizières" },
             ].map((photo) => (
               <div key={photo.src} className="relative aspect-square rounded-sm overflow-hidden">
                 <Image src={photo.src} alt={photo.alt} fill quality={80} className="object-cover hover:scale-105 transition-transform duration-700" sizes="(max-width:768px) 50vw, 25vw" />

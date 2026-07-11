@@ -31,7 +31,7 @@ export default function ProjectSection() {
         </div>
         <div className="col-span-5 grid grid-rows-2 gap-3">
           <div className="relative rounded-sm overflow-hidden">
-            <Image src="/villa-living.webp" alt="Salon villa" fill quality={95} className="object-cover" sizes="(max-width:768px) 50vw, (max-width:1504px) 40vw, 620px" />
+            <Image src="/seseh/complexe/aerial.webp" alt="Vue aérienne Seseh Sunset Villas" fill quality={95} className="object-cover" sizes="(max-width:768px) 50vw, (max-width:1504px) 40vw, 620px" />
           </div>
           <div className="relative rounded-sm overflow-hidden">
             <Image src="/villa-bathroom.webp" alt="Salle de bain villa" fill quality={95} className="object-cover" sizes="(max-width:768px) 50vw, (max-width:1504px) 40vw, 620px" />

@@ -22,8 +22,11 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [ressourcesOpen, setRessourcesOpen] = useState(false)
   const [mobileRealisationsOpen, setMobileRealisationsOpen] = useState(false)
+  const [mobileRessourcesOpen, setMobileRessourcesOpen] = useState(false)
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const ressourcesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 80)
@@ -57,11 +60,23 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
   const openDropdown = () => {
     if (closeTimeout.current) clearTimeout(closeTimeout.current)
     setDropdownOpen(true)
+    setRessourcesOpen(false)
   }
 
   const closeDropdown = () => {
     if (closeTimeout.current) clearTimeout(closeTimeout.current)
     closeTimeout.current = setTimeout(() => setDropdownOpen(false), 150)
+  }
+
+  const openRessources = () => {
+    if (ressourcesTimeout.current) clearTimeout(ressourcesTimeout.current)
+    setRessourcesOpen(true)
+    setDropdownOpen(false)
+  }
+
+  const closeRessources = () => {
+    if (ressourcesTimeout.current) clearTimeout(ressourcesTimeout.current)
+    ressourcesTimeout.current = setTimeout(() => setRessourcesOpen(false), 150)
   }
 
   return (
@@ -107,7 +122,22 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
             <Image src="/sora-logo.svg" alt="SORA" width={705} height={159} priority className="no-outline block h-6 w-auto" />
           </Link>
           <div className="flex items-center gap-14 justify-start pl-14">
-            <Link href="/masterclass" className="nav-link">Replay</Link>
+            <div
+              className="relative"
+              onMouseEnter={openRessources}
+              onMouseLeave={closeRessources}
+            >
+              <button
+                type="button"
+                className="nav-link inline-flex items-center gap-1.5"
+                aria-haspopup="menu"
+                aria-expanded={ressourcesOpen}
+                onClick={() => setRessourcesOpen((v) => !v)}
+              >
+                Ressources
+                <ChevronDown className={`h-3 w-3 transition-transform duration-300 ${ressourcesOpen ? "rotate-180" : ""}`} />
+              </button>
+            </div>
             <Link href="/contact" className="nav-link">Contact</Link>
           </div>
         </div>
@@ -158,6 +188,38 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
         </div>
       )}
 
+      {/* Desktop Ressources dropdown panel */}
+      <div
+        className={`hidden md:block fixed left-0 right-0 top-[64px] z-40 transition-all duration-300 ${
+          ressourcesOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+        }`}
+        onMouseEnter={openRessources}
+        onMouseLeave={closeRessources}
+      >
+        <div className="bg-primary border-b border-background/10 py-8 px-10">
+          <div className="container-page grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <Link
+              href="/ebook"
+              onClick={() => setRessourcesOpen(false)}
+              className="group flex flex-col gap-3 p-5 rounded-sm border border-background/10 hover:border-background/30 hover:bg-background/5 transition-all duration-300"
+            >
+              <span className="metadata text-background/55 group-hover:text-background/80 transition-colors">Guide PDF</span>
+              <span className="font-serif text-background text-lg leading-[1.2]">Diversifier hors zone euro</span>
+              <span className="metadata text-background/45">14 pages, accès gratuit</span>
+            </Link>
+            <Link
+              href="/masterclass"
+              onClick={() => setRessourcesOpen(false)}
+              className="group flex flex-col gap-3 p-5 rounded-sm border border-background/10 hover:border-background/30 hover:bg-background/5 transition-all duration-300"
+            >
+              <span className="metadata text-background/55 group-hover:text-background/80 transition-colors">Replay vidéo</span>
+              <span className="font-serif text-background text-lg leading-[1.2]">Masterclass investir à Bali</span>
+              <span className="metadata text-background/45">Conférence complète</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Mobile menu overlay */}
       <div
         className={`md:hidden fixed inset-0 z-40 bg-primary transition-all duration-500 ease-out ${
@@ -201,13 +263,36 @@ export default function Navbar({ realisations }: { realisations: NavRealisation[
             >
               Fondateur
             </Link>
-            <Link
-              href="/masterclass"
-              onClick={() => setMenuOpen(false)}
-              className="font-serif font-semibold text-3xl text-background hover:text-accent transition-colors duration-300"
-            >
-              Replay
-            </Link>
+            <div>
+              <button
+                type="button"
+                onClick={() => setMobileRessourcesOpen((v) => !v)}
+                className="font-serif font-semibold text-3xl text-background hover:text-accent transition-colors duration-300 inline-flex items-center gap-3"
+              >
+                Ressources
+                <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${mobileRessourcesOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileRessourcesOpen && (
+                <div className="mt-6 flex flex-col gap-4 pl-4 border-l border-background/15">
+                  <Link
+                    href="/ebook"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex flex-col gap-1"
+                  >
+                    <span className="metadata text-background/55">Guide PDF</span>
+                    <span className="font-serif text-background text-xl leading-tight">Diversifier hors zone euro</span>
+                  </Link>
+                  <Link
+                    href="/masterclass"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex flex-col gap-1"
+                  >
+                    <span className="metadata text-background/55">Replay vidéo</span>
+                    <span className="font-serif text-background text-xl leading-tight">Masterclass investir à Bali</span>
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               href="/contact"
               onClick={() => setMenuOpen(false)}
