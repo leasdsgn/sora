@@ -32,7 +32,7 @@ export default function ContactPage() {
             src={CALENDLY_URL}
             title="Réserver un appel avec Gabriel"
             className="w-full rounded-sm border border-ink/10 bg-white"
-            style={{ height: "760px" }}
+            style={{ height: "min(760px, 80vh)", minHeight: "600px" }}
             loading="lazy"
           />
         </div>
