@@ -119,9 +119,9 @@ export default function Footer() {
         >
           ↑ Retour en haut
         </button>
-        <p className="hidden md:block metadata text-background/55 text-center">
-          © 2026 SORA Immobilier, SIRET 928 136 688
-        </p>
+        <Link href="/mentions-legales" className="hidden md:block metadata text-background/55 text-center hover:text-background transition-colors duration-300">
+          © 2026 SORA Immobilier — Mentions légales
+        </Link>
         <p className="metadata text-background/55 justify-self-end text-right">
           Design Omen Studio
         </p>
