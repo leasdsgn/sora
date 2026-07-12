@@ -61,7 +61,7 @@ export default function CookieBanner() {
         <div className="fixed bottom-4 left-4 z-[9999]">
           <div className="bg-primary border border-background/10 rounded-2xl px-4 py-3 shadow-2xl max-w-xs">
             <p className="text-background/80 text-xs leading-relaxed">
-              Cookies utilisés pour la mesure d&apos;audience.
+              Ce site utilise des cookies pour fonctionner.
             </p>
             <div className="mt-2.5 flex gap-2">
               <button
