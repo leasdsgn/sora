@@ -72,7 +72,7 @@ export default function TestimonialsSection() {
   }, [])
 
   return (
-    <section ref={ref} className="bg-accent py-16 md:py-24 px-6">
+    <section ref={ref} className="bg-accent py-12 md:py-16 px-6">
       <div className="container-page max-w-5xl">
         {/* Mobile : titre + carousel + quote */}
         <div className="md:hidden">
