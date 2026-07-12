@@ -104,7 +104,16 @@ export default function TestimonialsSection() {
             <CarouselContent className="-ml-3" style={{ alignItems: "flex-start" }}>
               {VIDEOS.map((v, i) => (
                 <CarouselItem key={i} className="pl-3 basis-[85%]">
-                  <VideoCard src={v.src} poster={v.poster} aspect={v.mobileAspect} />
+                  <div className={`relative rounded-sm overflow-hidden ${v.mobileAspect}`}>
+                    <video
+                      src={v.src}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      poster={v.poster}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
