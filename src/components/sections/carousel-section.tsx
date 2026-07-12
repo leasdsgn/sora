@@ -81,7 +81,7 @@ export default function CarouselSection({ realisations }: { realisations: Realis
                     className={`object-cover transition-transform duration-[1200ms] ease-out ${isClickable ? "group-hover:scale-[1.03]" : ""}`}
                     sizes="(max-width:768px) 90vw, 45vw"
                   />
-                  <Badge className={`absolute top-5 left-5 px-4 py-1.5 text-xs ${STATUS_STYLES[r.status]}`}>
+                  <Badge className={`absolute top-5 left-5 ${r.status === "Livré" ? "px-6 py-2.5 text-sm" : "px-5 py-2 text-xs"} ${STATUS_STYLES[r.status]}`}>
                     {r.status}
                   </Badge>
                 </div>
