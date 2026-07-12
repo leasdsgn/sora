@@ -75,9 +75,13 @@ export default function MentionsLegalesPage() {
             <section>
               <h2 className="font-serif font-medium text-foreground text-lg mb-4">Cookies</h2>
               <p>
-                Le site utilise des cookies et des technologies similaires (Meta Pixel) à des fins de mesure
-                d&apos;audience et d&apos;optimisation publicitaire. En poursuivant votre navigation, vous acceptez
-                l&apos;utilisation de ces cookies.
+                Le site utilise des cookies à des fins de mesure d&apos;audience (Meta Pixel).
+                Lors de votre première visite, un bandeau vous permet d&apos;accepter ou de refuser
+                ces cookies. Votre choix est conservé pendant un an.
+              </p>
+              <p className="mt-4">
+                En cas de refus, aucun cookie de mesure n&apos;est déposé et aucune donnée
+                de navigation n&apos;est transmise à des tiers.
               </p>
             </section>
 

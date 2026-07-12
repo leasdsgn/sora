@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Agentation } from "agentation"
 import { Hanken_Grotesk } from "next/font/google"
 import localFont from "next/font/local"
-import Script from "next/script"
 import { type NavRealisation } from "@/components/layout/navbar"
 import { SiteChrome, ConditionalSmoothScroll, DevAgentation } from "@/components/layout/site-chrome"
+import CookieBanner from "@/components/layout/cookie-banner"
 import { sanityFetch } from "../../sanity/lib/fetch"
 import { NAV_REALISATIONS_QUERY } from "../../sanity/lib/queries"
 import "./globals.css"
@@ -95,23 +95,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${eightly.variable} ${hanken.variable}`}>
       <body>
-        <Script id="meta-pixel" strategy="afterInteractive">{`
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '949873927292995');
-          fbq('track', 'PageView');
-          window.addEventListener('message', function(e) {
-            if (e.data && e.data.event === 'calendly.event_scheduled') {
-              fbq('track', 'Schedule', { source: 'calendly-booking' });
-            }
-          });
-        `}</Script>
         <ConditionalSmoothScroll>
           <SiteChrome realisations={navRealisations} />
           {children}
@@ -120,6 +103,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Agentation />
             </DevAgentation>
           )}
+          <CookieBanner />
         </ConditionalSmoothScroll>
       </body>
     </html>
