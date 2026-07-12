@@ -1,6 +1,7 @@
 "use client"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
+import { Play } from "lucide-react"
 import {
   Carousel,
   CarouselContent,
@@ -21,6 +22,46 @@ const VIDEOS = [
   { src: "https://res.cloudinary.com/dfpaw573r/video/upload/v1783822919/Bali_a%CC%80_la_hauteur_des_meilleurs_marche%CC%81s_jdkzln.mp4", aspect: "aspect-[9/16]" },
 ]
 
+function VideoCard({ src, aspect }: { src: string; aspect: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  const handlePlay = () => {
+    const v = videoRef.current
+    if (!v) return
+    v.play()
+    setPlaying(true)
+  }
+
+  return (
+    <div className={`relative rounded-sm overflow-hidden ${aspect}`}>
+      <video
+        ref={videoRef}
+        src={src}
+        controls={playing}
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 w-full h-full object-cover"
+        onPause={() => setPlaying(false)}
+        onPlay={() => setPlaying(true)}
+      />
+      {!playing && (
+        <button
+          onClick={handlePlay}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/30 transition-colors hover:bg-black/40 cursor-pointer"
+        >
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background/90 text-primary">
+            <Play className="h-6 w-6 ml-0.5" fill="currentColor" />
+          </span>
+          <span className="text-background text-sm font-medium tracking-wide uppercase">
+            Écouter le témoignage
+          </span>
+        </button>
+      )}
+    </div>
+  )
+}
+
 export default function TestimonialsSection() {
   const ref = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -31,13 +72,13 @@ export default function TestimonialsSection() {
   }, [])
 
   return (
-    <section ref={ref} className="bg-accent py-24 md:py-36 px-6">
-      <div className="container-page">
+    <section ref={ref} className="bg-accent py-16 md:py-24 px-6">
+      <div className="container-page max-w-5xl">
         {/* Mobile : titre + carousel + quote */}
         <div className="md:hidden">
           <div className="text-center mb-6">
-            <p className="tm-item eyebrow-dark mb-4">Témoignages</p>
-            <h2 className="tm-item font-serif font-medium text-background leading-[1.0]" style={{ fontSize: "clamp(32px,4.5vw,64px)" }}>
+            <p className="tm-item eyebrow-dark mb-3">Témoignages</p>
+            <h2 className="tm-item font-serif font-medium text-background leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,48px)" }}>
               Ce que disent ceux qui ont investi.
             </h2>
           </div>
@@ -45,63 +86,37 @@ export default function TestimonialsSection() {
             <CarouselContent className="-ml-3">
               {VIDEOS.map((v, i) => (
                 <CarouselItem key={i} className="pl-3 basis-[85%]">
-                  <div className={`relative rounded-sm overflow-hidden ${v.aspect}`}>
-                    <video
-                      src={v.src}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </div>
+                  <VideoCard src={v.src} aspect={v.aspect} />
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
-          <blockquote className="tm-item text-center font-serif italic text-background text-lg leading-snug px-4 py-6">
+          <blockquote className="tm-item text-center font-serif italic text-background text-lg leading-snug px-4 py-5">
             &laquo;&nbsp;Il y a 3 ans, j&apos;aurais jamais pensé pouvoir faire ça...&nbsp;&raquo;
           </blockquote>
         </div>
 
-        {/* Desktop : bento 3 colonnes */}
-        <div className="hidden md:grid grid-cols-[1fr_2fr_1fr] gap-4 items-stretch">
-          <div className="tm-item relative rounded-sm overflow-hidden">
-            <video
-              src={VIDEOS[0].src}
-              controls
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+        {/* Desktop : bento 3 colonnes compact */}
+        <div className="hidden md:grid grid-cols-[1fr_2fr_1fr] gap-3 items-stretch">
+          <div className="tm-item">
+            <VideoCard src={VIDEOS[0].src} aspect="h-full" />
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="text-center py-6">
-              <p className="tm-item eyebrow-dark mb-4">Témoignages</p>
-              <h2 className="tm-item font-serif font-medium text-background leading-[1.0]" style={{ fontSize: "clamp(32px,4.5vw,64px)" }}>
+          <div className="flex flex-col gap-3">
+            <div className="text-center py-4">
+              <p className="tm-item eyebrow-dark mb-3">Témoignages</p>
+              <h2 className="tm-item font-serif font-medium text-background leading-[1.0]" style={{ fontSize: "clamp(28px,3.5vw,52px)" }}>
                 Ce que disent ceux qui ont investi.
               </h2>
             </div>
-            <div className="tm-item relative rounded-sm overflow-hidden aspect-video">
-              <video
-                src={VIDEOS[1].src}
-                controls
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+            <div className="tm-item">
+              <VideoCard src={VIDEOS[1].src} aspect="aspect-video" />
             </div>
-            <blockquote className="tm-item text-center font-serif italic text-background text-lg md:text-xl leading-snug px-4 py-4">
+            <blockquote className="tm-item text-center font-serif italic text-background text-base md:text-lg leading-snug px-4 py-3">
               &laquo;&nbsp;Il y a 3 ans, j&apos;aurais jamais pensé pouvoir faire ça...&nbsp;&raquo;
             </blockquote>
           </div>
-          <div className="tm-item relative rounded-sm overflow-hidden">
-            <video
-              src={VIDEOS[2].src}
-              controls
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+          <div className="tm-item">
+            <VideoCard src={VIDEOS[2].src} aspect="h-full" />
           </div>
         </div>
       </div>
