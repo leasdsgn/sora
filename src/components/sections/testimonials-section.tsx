@@ -24,7 +24,7 @@ export default function TestimonialsSection() {
       <div className="container-page">
         <div className="tm-item grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-3 md:gap-4 items-stretch">
           {/* Vertical gauche */}
-          <div className="relative rounded-sm overflow-hidden aspect-[9/16] md:aspect-auto">
+          <div className="hidden md:block relative rounded-sm overflow-hidden aspect-[9/16] md:aspect-auto">
             <video
               src="https://res.cloudinary.com/dfpaw573r/video/upload/v1783822918/Il_investit_en_3_e%CC%81tapes_cinbuf.mp4"
               controls
@@ -55,7 +55,7 @@ export default function TestimonialsSection() {
             </blockquote>
           </div>
           {/* Vertical droite */}
-          <div className="relative rounded-sm overflow-hidden aspect-[9/16] md:aspect-auto">
+          <div className="hidden md:block relative rounded-sm overflow-hidden aspect-[9/16] md:aspect-auto">
             <video
               src="https://res.cloudinary.com/dfpaw573r/video/upload/v1783822919/Bali_a%CC%80_la_hauteur_des_meilleurs_marche%CC%81s_jdkzln.mp4"
               controls
