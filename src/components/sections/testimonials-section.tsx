@@ -89,13 +89,14 @@ export default function TestimonialsSection() {
               Ce que disent ceux qui ont investi.
             </h2>
           </div>
-          <div className="tm-item rounded-sm overflow-hidden">
+          <div className="tm-item relative rounded-sm overflow-hidden aspect-video">
             <video
               src={VIDEOS[1].src}
+              poster={VIDEOS[1].poster}
               controls
               playsInline
               preload="metadata"
-              className="w-full"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
           <blockquote className="tm-item text-center font-serif italic text-background text-lg leading-snug px-4 py-5">
