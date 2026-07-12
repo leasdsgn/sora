@@ -46,8 +46,8 @@ export default async function Home() {
     sanityFetch<TestimonialRaw[]>({ query: TESTIMONIALS_QUERY, tags: ["testimonial"] }),
   ])
 
-  const STATUS_ORDER: Record<string, number> = { "en-cours": 0, "prochainement": 1, "livre": 2 }
-  const sorted = [...realisationsRaw].sort((a, b) => (STATUS_ORDER[a.status || "en-cours"] ?? 9) - (STATUS_ORDER[b.status || "en-cours"] ?? 9))
+  const SLUG_ORDER: Record<string, number> = { "seseh": 0, "canggu": 1, "canggu-residence-2024": 2, "uluwatu": 3 }
+  const sorted = [...realisationsRaw].sort((a, b) => (SLUG_ORDER[a.slug] ?? 9) - (SLUG_ORDER[b.slug] ?? 9))
 
   const realisations: Realisation[] = sorted.map((r) => ({
     slug: r.slug,
