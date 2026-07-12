@@ -58,21 +58,21 @@ export default function CookieBanner() {
       )}
 
       {consent === null && (
-        <div className="fixed bottom-0 inset-x-0 z-[9999] p-4 md:p-6">
-          <div className="max-w-lg mx-auto bg-primary border border-background/10 rounded-sm p-5 md:p-6 shadow-2xl">
-            <p className="text-background/90 text-sm leading-relaxed">
-              Ce site utilise des cookies pour mesurer l&apos;audience et améliorer votre expérience.
+        <div className="fixed bottom-4 left-4 z-[9999]">
+          <div className="bg-primary border border-background/10 rounded-2xl px-4 py-3 shadow-2xl max-w-xs">
+            <p className="text-background/80 text-xs leading-relaxed">
+              Cookies utilisés pour la mesure d&apos;audience.
             </p>
-            <div className="mt-4 flex gap-3">
+            <div className="mt-2.5 flex gap-2">
               <button
                 onClick={accept}
-                className="flex-1 bg-background text-primary font-serif font-semibold text-[11px] uppercase tracking-[0.1em] px-5 py-3 rounded-full hover:bg-accent hover:text-background transition-colors duration-300"
+                className="bg-background text-primary font-sans font-semibold text-[10px] uppercase tracking-[0.08em] px-4 py-2 rounded-full hover:bg-accent hover:text-background transition-colors duration-300"
               >
-                Accepter
+                OK
               </button>
               <button
                 onClick={refuse}
-                className="flex-1 border border-background/30 text-background font-serif font-semibold text-[11px] uppercase tracking-[0.1em] px-5 py-3 rounded-full hover:border-background/60 transition-colors duration-300"
+                className="border border-background/30 text-background/70 font-sans font-semibold text-[10px] uppercase tracking-[0.08em] px-4 py-2 rounded-full hover:border-background/60 hover:text-background transition-colors duration-300"
               >
                 Refuser
               </button>
