@@ -22,7 +22,7 @@ const VIDEOS = [
   { src: "https://res.cloudinary.com/dfpaw573r/video/upload/v1783822919/Bali_a%CC%80_la_hauteur_des_meilleurs_marche%CC%81s_jdkzln.mp4", aspect: "aspect-[9/16]" },
 ]
 
-function VideoCard({ src, aspect }: { src: string; aspect: string }) {
+function VideoCard({ src, aspect, mobileAspect }: { src: string; aspect: string; mobileAspect?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
 
@@ -33,24 +33,26 @@ function VideoCard({ src, aspect }: { src: string; aspect: string }) {
     setPlaying(true)
   }
 
+  const resolvedAspect = mobileAspect || aspect
+
   return (
-    <div className={`relative rounded-sm overflow-hidden ${aspect}`}>
+    <div className={`relative rounded-sm overflow-hidden ${resolvedAspect}`}>
       <video
         ref={videoRef}
         src={src}
-        controls={playing}
         playsInline
         preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover"
+        className={`absolute inset-0 w-full h-full object-cover ${playing ? "" : "pointer-events-none"}`}
+        controls={playing}
         onPause={() => setPlaying(false)}
         onPlay={() => setPlaying(true)}
       />
       {!playing && (
         <button
           onClick={handlePlay}
-          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/30 transition-colors hover:bg-black/40 cursor-pointer"
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black/30 transition-colors hover:bg-black/40 cursor-pointer"
         >
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background/90 text-primary">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background/90 text-primary shadow-lg">
             <Play className="h-6 w-6 ml-0.5" fill="currentColor" />
           </span>
           <span className="text-background text-sm font-medium tracking-wide uppercase">
@@ -83,7 +85,7 @@ export default function TestimonialsSection() {
             </h2>
           </div>
           <Carousel opts={{ align: "center", loop: true }} className="tm-item w-full">
-            <CarouselContent className="-ml-3">
+            <CarouselContent className="-ml-3" style={{ alignItems: "flex-start" }}>
               {VIDEOS.map((v, i) => (
                 <CarouselItem key={i} className="pl-3 basis-[85%]">
                   <VideoCard src={v.src} aspect={v.aspect} />
