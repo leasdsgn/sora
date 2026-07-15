@@ -40,6 +40,7 @@
     "@radix-ui/react-tooltip": "^1.2.11",
     "@sanity/image-url": "^2.1.1",
     "@sanity/visual-editing": "^5.4.4",
+    "@sentry/nextjs": "^10.65.0",
     "agentation": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

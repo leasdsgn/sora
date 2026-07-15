@@ -1,3 +1,4 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -29,4 +30,14 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
+
+export default sentryAuthToken
+  ? withSentryConfig(nextConfig, {
+      org: "omenstudio",
+      project: "sora",
+      authToken: sentryAuthToken,
+      silent: true,
+      widenClientFileUpload: true,
+    })
+  : nextConfig;
