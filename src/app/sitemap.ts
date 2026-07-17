@@ -37,7 +37,7 @@ const staticRoutes: StaticRoute[] = [
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/events", changeFrequency: "weekly", priority: 0.7 },
   { path: "/masterclass", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/vsl", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/villas-ssv", changeFrequency: "monthly", priority: 0.6 },
   { path: "/event/lybox", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.5 },
 ]

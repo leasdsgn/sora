@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/seseh", destination: "/realisations/seseh", permanent: true },
+      { source: "/vsl", destination: "/villas-ssv", permanent: true },
     ];
   },
 };
