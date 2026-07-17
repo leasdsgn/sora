@@ -162,10 +162,10 @@ export default function VSLPage() {
             <a href="/" className="vsl-fade font-serif font-medium text-foreground/40 text-sm tracking-wide">Sora Immobilier</a>
 
             <h1 className="vsl-fade font-serif font-medium text-foreground leading-[0.92] mt-8 md:mt-12" style={{ fontSize: "clamp(32px,5vw,56px)" }}>
-              Investissez à Bali. 10% de rendement annuel, zéro gestion.
+              Investissez à Bali, dans un projet en clé en main.
             </h1>
             <p className="vsl-fade text-foreground/60 mt-6 text-lg md:text-xl leading-relaxed">
-              100+ chefs d&apos;entreprise et cadres dirigeants européens investissent déjà avec Sora. Découvrez pourquoi en 3 minutes.
+              Plus de 100 chefs d&apos;entreprise et cadres dirigeants européens investissent déjà avec Sora. Découvrez pourquoi en 3 minutes.
             </p>
 
             <div className="vsl-fade mt-8">
@@ -223,11 +223,11 @@ export default function VSLPage() {
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 md:gap-16 text-center">
           {[
             { value: "100+", label: "investisseurs européens" },
-            { value: "10%", label: "rendement annuel moyen" },
+            { value: "", label: "Rendement locatif attractif" },
             { value: "A à Z", label: "promotion clé en main" },
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-3">
-              <span className="font-serif font-medium text-accent text-xl">{s.value}</span>
+              {s.value && <span className="font-serif font-medium text-accent text-xl">{s.value}</span>}
               <span className="metadata text-muted-foreground">{s.label}</span>
             </div>
           ))}
@@ -283,8 +283,8 @@ export default function VSLPage() {
           <div className="vsl-fade mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { value: "60-90%", label: "Taux d'occupation", desc: "Demande locative constante, tourisme en hausse, expatriation croissante" },
-              { value: "~70€", label: "Tarif moyen/nuit", desc: "Après taxe. Sur une villa 1 chambre à 149 000€ d'investissement" },
-              { value: "10%+", label: "Rendement net annuel", desc: "Performance inaccessible sur le marché européen actuel" },
+              { value: "~70€", label: "Tarif moyen/nuit", desc: "Après taxe. Sur une villa 1 chambre à 149 000€ d'investissement, observé sur des biens comparables." },
+              { value: "10%+", label: "Rendement locatif cible estimé*", desc: "Un marché locatif porté par le tourisme et l'expatriation." },
             ].map((item) => (
               <div key={item.label} className="p-5 bg-background border border-border rounded-sm">
                 <p className="font-serif font-medium text-accent text-2xl">{item.value}</p>
@@ -314,7 +314,7 @@ export default function VSLPage() {
               {[
                 "Ingénieurs et maîtres d'oeuvre intégrés",
                 "Étude de sol, normes de construction européennes",
-                "Structure juridique PT PMA gérée en interne",
+                "Structure juridique PT PMA gérée par ILA, notre partenaire juridique et fiscal de confiance en Asie du Sud-Est",
                 "Gestion locative 7j/7 sans rien gérer",
                 "Un seul interlocuteur du début à la fin",
               ].map((item) => (
@@ -434,10 +434,10 @@ export default function VSLPage() {
           </div>
           <div className="vsl-fade grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { name: "Élégance", price: "149 000€", surface: "51 m²", chambres: "1 chambre", revenus: "20 611€/an", rendement: "13,8%", piscine: "Jacuzzi privé", img: "/seseh/elegance/exterior.webp" },
-              { name: "Prestige", price: "239 000€", surface: "80 m²", chambres: "2 chambres", revenus: "27 972€/an", rendement: "11,7%", piscine: "Piscine privée", img: "/seseh/prestige/exterior.webp" },
-              { name: "Signature", price: "369 000€", surface: "153 m²", chambres: "2 chambres premium", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/seseh/signature/exterior.webp" },
-              { name: "Exception", price: "469 000€", surface: "197 m²", chambres: "3 chambres", revenus: "Sur demande", rendement: "Sur demande", piscine: "Piscine privée", img: "/seseh/exception/exterior.webp" },
+              { name: "Élégance", price: "149 000€", surface: "51 m²", chambres: "1 chambre", revenus: "Revenus net locatifs estimés : ~20 611€/an*", piscine: "Jacuzzi privé", img: "/seseh/elegance/exterior.webp" },
+              { name: "Prestige", price: "239 000€", surface: "80 m²", chambres: "2 chambres", revenus: "Revenus net locatifs estimés : ~27 972€/an*", piscine: "Piscine privée", img: "/seseh/prestige/exterior.webp" },
+              { name: "Signature", price: "369 000€", surface: "153 m²", chambres: "2 chambres premium", revenus: "Sur demande", piscine: "Piscine privée", img: "/seseh/signature/exterior.webp" },
+              { name: "Exception", price: "469 000€", surface: "197 m²", chambres: "3 chambres", revenus: "Sur demande", piscine: "Piscine privée", img: "/seseh/exception/exterior.webp" },
             ].map((g) => (
               <div key={g.name} className="group relative rounded-sm overflow-hidden" style={{ aspectRatio: "4/3" }}>
                 <Image src={g.img} alt={`Villa ${g.name}`} fill quality={90} className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" sizes="(max-width:768px) 100vw, 50vw" />
@@ -455,9 +455,6 @@ export default function VSLPage() {
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="metadata text-background/50 bg-background/10 backdrop-blur-sm px-3 py-1 rounded-full">{g.piscine}</span>
-                    {g.rendement !== "Sur demande" && (
-                      <span className="metadata text-accent bg-accent/10 backdrop-blur-sm px-3 py-1 rounded-full">{g.rendement} net</span>
-                    )}
                   </div>
                 </div>
               </div>
@@ -503,36 +500,12 @@ export default function VSLPage() {
         </div>
       </section>
 
-      {/* ─── PROJECTIONS ROI ─── */}
-      <section className="bg-card px-6 py-24 md:py-36 border-t border-border">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="vsl-fade eyebrow text-muted-foreground mb-6">Projection / Gamme Élégance 149 000€</p>
-            <h2 className="vsl-fade font-serif font-medium text-foreground leading-[1.0]" style={{ fontSize: "clamp(28px,4vw,56px)" }}>
-              Comparaison sur 5 ans, net après flat tax.
-            </h2>
-          </div>
-
-          <div className="vsl-fade grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { label: "Livret A", rendement: "7,7%", ratio: "1x", highlight: false },
-              { label: "SCPI", rendement: "13,6%", ratio: "1,8x", highlight: false },
-              { label: "Immo locatif FR", rendement: "16,7%", ratio: "2,2x", highlight: false },
-              { label: "Seseh Villas", rendement: "30,1%", ratio: "3,9x", highlight: true },
-            ].map((p) => (
-              <div key={p.label} className={`rounded-sm p-3 md:p-5 text-center ${p.highlight ? "bg-accent/15 border-2 border-accent/40" : "bg-background border border-border"}`}>
-                <p className="font-serif font-medium text-foreground text-xl md:text-2xl">{p.rendement}</p>
-                <p className="metadata text-muted-foreground mt-1">{p.ratio}</p>
-                <p className={`metadata mt-3 ${p.highlight ? "text-accent font-semibold" : "text-foreground/60"}`}>{p.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="vsl-fade mt-6 text-center">
-            <p className="text-muted-foreground text-xs">
-              Net après flat tax française (31,4%). Incluant loyers, plus-value et restitution du capital. 214 471€ perçus sur 5 ans.
-            </p>
-          </div>
+      {/* ─── MENTIONS LÉGALES / DISCLAIMER RENDEMENTS ─── */}
+      <section id="mentions-legales" className="bg-card px-6 py-16 md:py-20 border-t border-border">
+        <div className="vsl-fade max-w-2xl mx-auto text-center">
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            *Investir dans l&apos;immobilier comporte un risque de perte en capital. Les rendements indiqués sont des objectifs estimés, non garantis, établis sur la base d&apos;hypothèses détaillées dans le dossier d&apos;investissement. Les performances passées ou projetées ne préjugent pas des performances futures.
+          </p>
         </div>
       </section>
 
