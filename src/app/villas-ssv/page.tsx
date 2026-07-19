@@ -162,7 +162,7 @@ export default function VSLPage() {
             <a href="/" className="vsl-fade font-serif font-medium text-foreground/40 text-sm tracking-wide">Sora Immobilier</a>
 
             <h1 className="vsl-fade font-serif font-medium text-foreground leading-[0.92] mt-8 md:mt-12" style={{ fontSize: "clamp(32px,5vw,56px)" }}>
-              Investissez à Bali, dans un projet en clé en main.
+              Investissez à Bali, dans un projet clé en main.
             </h1>
             <p className="vsl-fade text-foreground/60 mt-6 text-lg md:text-xl leading-relaxed">
               Plus de 100 chefs d&apos;entreprise et cadres dirigeants européens investissent déjà avec Sora. Découvrez pourquoi en 3 minutes.
