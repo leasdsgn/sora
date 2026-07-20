@@ -173,10 +173,10 @@ const html = `<!doctype html>
     .hero p { font-size: 15px; margin-top: 12px; }
   }
   @media (min-width: 768px) {
-    .hero { padding: 112px 32px 58px; }
-    .hero h1 { font-size: clamp(32px, 3.6vw, 46px); }
-    .hero p { font-size: 16.5px; margin-top: 18px; max-width: 600px; }
-    .eyebrow { margin-bottom: 18px; padding: 0.5rem 0.9rem; font-size: 11px; }
+    .hero { padding: 150px 32px 88px; min-height: 460px; }
+    .hero h1 { font-size: clamp(38px, 4.4vw, 58px); }
+    .hero p { font-size: 18px; margin-top: 22px; max-width: 640px; }
+    .eyebrow { margin-bottom: 22px; padding: 0.55rem 1rem; font-size: 12px; }
   }
 
   /* ---------- Sections ---------- */
@@ -198,24 +198,31 @@ const html = `<!doctype html>
     .step-card { padding: 36px 40px; margin-bottom: 28px; }
   }
 
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
   .step-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 24px;
     height: 24px;
+    flex-shrink: 0;
     border-radius: 9999px;
     background: var(--color-accent);
     color: var(--color-bg);
     font-size: 11px;
     font-weight: 700;
-    margin-bottom: 10px;
   }
 
   .step-card h2 {
     color: var(--color-ink);
     font-size: clamp(18px, 3.2vw, 26px);
-    margin-bottom: 8px;
+    margin-bottom: 0;
   }
 
   .step-card > p.step-text {
@@ -290,9 +297,12 @@ const html = `<!doctype html>
   }
   .calendly-frame {
     width: 100%;
-    height: 1100px;
+    height: 660px;
     border: 0;
     display: block;
+  }
+  @media (min-width: 640px) {
+    .calendly-frame { height: 720px; }
   }
 
   /* ---------- Footer ---------- */
@@ -392,8 +402,10 @@ const html = `<!doctype html>
 
     <!-- Bloc Typeform -->
     <article class="step-card">
-      <span class="step-number" aria-hidden="true">1</span>
-      <h2>Définissez votre projet d&rsquo;investissement</h2>
+      <div class="step-head">
+        <span class="step-number" aria-hidden="true">1</span>
+        <h2>Définissez votre projet d&rsquo;investissement</h2>
+      </div>
       <p class="step-text">En quelques minutes, précisez ce que vous recherchez (villa entière ou co-investissement, budget, objectifs). Nous vous préparons une projection personnalisée adaptée à votre profil.</p>
       <a class="cta-primary" href="https://form.typeform.com/to/m5hp2paw" target="_blank" rel="noopener noreferrer">
         Définir mon projet
@@ -403,8 +415,10 @@ const html = `<!doctype html>
     <!-- Bloc Calendly -->
     <article class="step-card step-card--calendly">
       <div class="step-card-inner">
-        <span class="step-number" aria-hidden="true">2</span>
-        <h2>Échangeons de vive voix</h2>
+        <div class="step-head">
+          <span class="step-number" aria-hidden="true">2</span>
+          <h2>Échangeons de vive voix</h2>
+        </div>
         <p class="step-text">Vous préférez poser vos questions directement ? Réservez un créneau avec l&rsquo;équipe SORA. On fait le point sur votre projet, le programme Seseh Sunset Villas et les modalités d&rsquo;investissement.</p>
       </div>
 
@@ -420,8 +434,10 @@ const html = `<!doctype html>
 
     <!-- Bloc WhatsApp -->
     <article class="step-card">
-      <span class="step-number" aria-hidden="true">3</span>
-      <h2>Une question rapide ?</h2>
+      <div class="step-head">
+        <span class="step-number" aria-hidden="true">3</span>
+        <h2>Une question rapide ?</h2>
+      </div>
       <p class="step-text">Écrivez-nous directement sur WhatsApp, on vous répond dans la journée.</p>
       <a class="cta-outline"
          href="https://wa.me/33633517746?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
