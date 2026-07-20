@@ -84,7 +84,7 @@ const html = `<!doctype html>
   }
 
   .container {
-    max-width: 900px;
+    max-width: 1040px;
     margin-inline: auto;
     padding-inline: 24px;
   }
@@ -273,10 +273,19 @@ const html = `<!doctype html>
   }
 
   /* ---------- Calendly ---------- */
-  .calendly-wrap {
-    border-radius: 4px;
+  .step-card--calendly {
+    padding-left: 0;
+    padding-right: 0;
     overflow: hidden;
-    border: 1px solid var(--color-line);
+  }
+  .step-card--calendly .step-card-inner {
+    padding-inline: 18px;
+  }
+  @media (min-width: 640px) {
+    .step-card--calendly .step-card-inner { padding-inline: 40px; }
+  }
+  .calendly-wrap {
+    margin-top: 16px;
     background: #fff;
   }
   .calendly-frame {
@@ -392,10 +401,12 @@ const html = `<!doctype html>
     </article>
 
     <!-- Bloc Calendly -->
-    <article class="step-card">
-      <span class="step-number" aria-hidden="true">2</span>
-      <h2>Échangeons de vive voix</h2>
-      <p class="step-text">Vous préférez poser vos questions directement ? Réservez un créneau avec l&rsquo;équipe SORA. On fait le point sur votre projet, le programme Seseh Sunset Villas et les modalités d&rsquo;investissement.</p>
+    <article class="step-card step-card--calendly">
+      <div class="step-card-inner">
+        <span class="step-number" aria-hidden="true">2</span>
+        <h2>Échangeons de vive voix</h2>
+        <p class="step-text">Vous préférez poser vos questions directement ? Réservez un créneau avec l&rsquo;équipe SORA. On fait le point sur votre projet, le programme Seseh Sunset Villas et les modalités d&rsquo;investissement.</p>
+      </div>
 
       <div class="calendly-wrap">
         <iframe
