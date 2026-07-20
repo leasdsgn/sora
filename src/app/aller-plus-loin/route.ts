@@ -242,27 +242,20 @@ const html = `<!doctype html>
     gap: 10px;
     background: var(--color-accent);
     color: var(--color-bg);
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 1.05rem 2.2rem;
+    padding: 0.85rem 1.75rem;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
-    box-shadow: 0 12px 28px rgba(163,150,141,0.4);
-    transition: background-color 400ms var(--ease-soft), color 400ms var(--ease-soft), transform 300ms var(--ease-soft), box-shadow 300ms var(--ease-soft);
+    transition: background-color 400ms var(--ease-soft), color 400ms var(--ease-soft), transform 300ms var(--ease-soft);
   }
   .cta-primary:hover {
     background: var(--color-ink);
     color: var(--color-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 16px 34px rgba(38,38,38,0.28);
-  }
-
-  .step-card--primary {
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 24px rgba(163,150,141,0.18);
+    transform: translateY(-1px);
   }
 
   .cta-whatsapp {
@@ -302,7 +295,7 @@ const html = `<!doctype html>
   .calendly-wrap {
     margin-top: 16px;
     background: #fff;
-    padding-inline: 14px;
+    padding-inline: 28px;
   }
   @media (min-width: 768px) {
     .calendly-wrap { padding-inline: 0; }
@@ -413,7 +406,7 @@ const html = `<!doctype html>
   <div class="container steps">
 
     <!-- Bloc Typeform -->
-    <article class="step-card step-card--primary">
+    <article class="step-card">
       <div class="step-head">
         <span class="step-number" aria-hidden="true">1</span>
         <h2>Définissez votre projet d&rsquo;investissement</h2>
