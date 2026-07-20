@@ -242,30 +242,37 @@ const html = `<!doctype html>
     gap: 10px;
     background: var(--color-accent);
     color: var(--color-bg);
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 0.85rem 1.75rem;
+    padding: 1.05rem 2.2rem;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
-    transition: background-color 400ms var(--ease-soft), color 400ms var(--ease-soft), transform 300ms var(--ease-soft);
+    box-shadow: 0 12px 28px rgba(163,150,141,0.4);
+    transition: background-color 400ms var(--ease-soft), color 400ms var(--ease-soft), transform 300ms var(--ease-soft), box-shadow 300ms var(--ease-soft);
   }
   .cta-primary:hover {
     background: var(--color-ink);
     color: var(--color-bg);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(38,38,38,0.28);
   }
 
-  .cta-outline {
+  .step-card--primary {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 24px rgba(163,150,141,0.18);
+  }
+
+  .cta-whatsapp {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    border: 1px solid var(--color-ink);
-    color: var(--color-ink);
-    background: transparent;
+    border: none;
+    color: #fff;
+    background: #25D366;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.2em;
@@ -275,9 +282,9 @@ const html = `<!doctype html>
     cursor: pointer;
     transition: all 400ms var(--ease-soft);
   }
-  .cta-outline:hover {
-    background: var(--color-ink);
-    color: var(--color-bg);
+  .cta-whatsapp:hover {
+    background: #1ebe5a;
+    transform: translateY(-1px);
   }
 
   /* ---------- Calendly ---------- */
@@ -295,6 +302,10 @@ const html = `<!doctype html>
   .calendly-wrap {
     margin-top: 16px;
     background: #fff;
+    padding-inline: 14px;
+  }
+  @media (min-width: 768px) {
+    .calendly-wrap { padding-inline: 0; }
   }
   .calendly-frame {
     width: 100%;
@@ -402,7 +413,7 @@ const html = `<!doctype html>
   <div class="container steps">
 
     <!-- Bloc Typeform -->
-    <article class="step-card">
+    <article class="step-card step-card--primary">
       <div class="step-head">
         <span class="step-number" aria-hidden="true">1</span>
         <h2>Définissez votre projet d&rsquo;investissement</h2>
@@ -440,7 +451,7 @@ const html = `<!doctype html>
         <h2>Une question rapide ?</h2>
       </div>
       <p class="step-text">Écrivez-nous directement sur WhatsApp, on vous répond dans la journée.</p>
-      <a class="cta-outline"
+      <a class="cta-whatsapp"
          href="https://wa.me/33633517746?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
          target="_blank" rel="noopener noreferrer">
         Discuter sur WhatsApp
