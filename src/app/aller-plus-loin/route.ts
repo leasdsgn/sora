@@ -112,10 +112,9 @@ const html = `<!doctype html>
   /* ---------- Hero ---------- */
   .hero {
     position: relative;
-    min-height: 640px;
     display: flex;
-    align-items: flex-end;
-    padding: 96px 24px 56px;
+    align-items: center;
+    padding: 78px 20px 26px;
     background: #1c1a17;
   }
   .hero::before {
@@ -130,7 +129,7 @@ const html = `<!doctype html>
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(20,18,15,0.35) 0%, rgba(20,18,15,0.55) 55%, rgba(20,18,15,0.88) 100%);
+    background: linear-gradient(180deg, rgba(20,18,15,0.4) 0%, rgba(20,18,15,0.58) 55%, rgba(20,18,15,0.88) 100%);
   }
   .hero-content {
     position: relative;
@@ -142,82 +141,83 @@ const html = `<!doctype html>
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 0.9rem;
+    padding: 0.4rem 0.75rem;
     border: 1px solid rgba(249,248,244,0.28);
     border-radius: 9999px;
     background: rgba(249,248,244,0.08);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: rgba(249,248,244,0.9);
-    margin-bottom: 22px;
+    margin-bottom: 12px;
   }
   .hero h1 {
     color: #F9F8F4;
-    font-size: clamp(28px, 6vw, 52px);
-    line-height: 1.08;
+    font-size: clamp(21px, 5.5vw, 34px);
+    line-height: 1.14;
   }
   .hero p {
     color: rgba(249,248,244,0.78);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-top: 20px;
-    max-width: 560px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-top: 10px;
+    max-width: 520px;
     margin-inline: auto;
   }
   @media (min-width: 640px) {
-    .hero { min-height: 560px; padding: 120px 24px 72px; }
-    .hero p { font-size: 18px; }
+    .hero { padding: 96px 24px 34px; }
+    .hero h1 { font-size: clamp(26px, 3.4vw, 36px); }
+    .hero p { font-size: 15px; margin-top: 12px; }
   }
 
   /* ---------- Sections ---------- */
   .steps {
-    padding: 56px 0 72px;
+    padding: 22px 0 64px;
   }
   @media (min-width: 768px) {
-    .steps { padding: 88px 0 96px; }
+    .steps { padding: 32px 0 88px; }
   }
 
   .step-card {
     background: #FFFFFF;
     border: 1px solid var(--color-line);
     border-radius: 4px;
-    padding: 32px 24px;
-    margin-bottom: 24px;
+    padding: 20px 18px;
+    margin-bottom: 18px;
   }
   @media (min-width: 640px) {
-    .step-card { padding: 48px 44px; margin-bottom: 32px; }
+    .step-card { padding: 36px 40px; margin-bottom: 28px; }
   }
 
   .step-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 9999px;
     background: var(--color-accent);
     color: var(--color-bg);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
   }
 
   .step-card h2 {
     color: var(--color-ink);
-    font-size: clamp(22px, 3.6vw, 30px);
-    margin-bottom: 14px;
+    font-size: clamp(18px, 3.2vw, 26px);
+    margin-bottom: 8px;
   }
 
   .step-card > p.step-text {
     color: var(--color-ink-muted);
-    font-size: 16px;
-    line-height: 1.65;
+    font-size: 14px;
+    line-height: 1.5;
     max-width: 560px;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
   }
 
   /* ---------- Buttons ---------- */
@@ -232,7 +232,7 @@ const html = `<!doctype html>
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 1rem 2rem;
+    padding: 0.85rem 1.75rem;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
@@ -273,20 +273,14 @@ const html = `<!doctype html>
     border: 1px solid var(--color-line);
     background: #fff;
   }
-  .calendly-inline-widget {
-    min-width: 280px;
-    height: 700px;
+  .calendly-frame {
+    width: 100%;
+    height: 760px;
+    border: 0;
+    display: block;
   }
   @media (min-width: 768px) {
-    .calendly-inline-widget { height: 780px; }
-  }
-  .calendly-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 700px;
-    color: var(--color-ink-muted);
-    font-size: 14px;
+    .calendly-frame { height: 900px; }
   }
 
   /* ---------- Footer ---------- */
@@ -401,11 +395,12 @@ const html = `<!doctype html>
       <p class="step-text">Vous préférez poser vos questions directement ? Réservez un créneau avec l&rsquo;équipe SORA. On fait le point sur votre projet, le programme Seseh Sunset Villas et les modalités d&rsquo;investissement.</p>
 
       <div class="calendly-wrap">
-        <div class="calendly-inline-widget"
-             data-url="https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=post-webinaire&hide_gdpr_banner=1"
-             style="min-width:280px;height:100%;">
-          <div class="calendly-loading">Chargement du calendrier…</div>
-        </div>
+        <iframe
+          class="calendly-frame"
+          src="https://calendly.com/contact-sora-immobilier/rdv-avec-gabriel-investir-a-bali?utm_source=post-webinaire&hide_gdpr_banner=1"
+          title="Réserver un appel avec l'équipe SORA"
+          loading="lazy">
+        </iframe>
       </div>
     </article>
 
@@ -444,10 +439,6 @@ const html = `<!doctype html>
   </svg>
   <span class="wa-label">Une question ?</span>
 </a>
-
-<!-- Widget Calendly officiel -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 </body>
 </html>
