@@ -113,15 +113,31 @@ const html = `<!doctype html>
   .hero {
     position: relative;
     padding: 78px 20px 24px;
-    background: var(--color-bg);
+    background: #1c1a17;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.sora-immobilier.com/seseh/exception/exterior.webp");
+    background-size: cover;
+    background-position: center;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20,18,15,0.45) 0%, rgba(20,18,15,0.6) 55%, rgba(20,18,15,0.88) 100%);
   }
   .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 720px;
     margin-inline: auto;
     text-align: center;
   }
   .hero h1 {
-    color: var(--color-ink);
+    color: #F9F8F4;
     font-size: clamp(21px, 5.6vw, 30px);
     line-height: 1.16;
   }
@@ -129,7 +145,7 @@ const html = `<!doctype html>
     margin-top: 12px;
   }
   .hero-text p {
-    color: var(--color-ink-muted);
+    color: rgba(249,248,244,0.78);
     font-size: 13px;
     line-height: 1.45;
     max-width: 560px;
@@ -385,7 +401,7 @@ const html = `<!doctype html>
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Seseh Sunset Villas &mdash; investissez à Bali, à 300&nbsp;m de la plage.</h1>
+    <h1>Seseh Sunset Villas</h1>
     <div class="hero-text">
       <p>26 villas d&rsquo;exception dans l&rsquo;une des dernières zones encore préservées de l&rsquo;île, avec des rendements locatifs parmi les plus attractifs du marché.</p>
       <p>Un projet clé en main, entièrement géré à distance de l&rsquo;acquisition jusqu&rsquo;à la revente.</p>
