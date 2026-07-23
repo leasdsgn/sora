@@ -461,7 +461,7 @@ const html = `<!doctype html>
       </div>
       <p class="step-text">Écrivez-nous directement sur WhatsApp, on vous répond dans la journée.</p>
       <a class="cta-whatsapp"
-         href="https://wa.me/33633517746?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
+         href="https://wa.me/33623676723?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
          target="_blank" rel="noopener noreferrer">
         Discuter sur WhatsApp
       </a>
@@ -481,7 +481,7 @@ const html = `<!doctype html>
 
 <!-- Bouton WhatsApp flottant -->
 <a class="wa-float"
-   href="https://wa.me/33633517746?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
+   href="https://wa.me/33623676723?text=J%27ai%20participé%20au%20Webinaire%20avec%20Lybox%2C%20je%20suis%20intéressé%20par%20le%20projet%20j%27aimerais%20en%20savoir%20plus."
    target="_blank" rel="noopener noreferrer"
    aria-label="Discuter sur WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
